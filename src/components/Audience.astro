@@ -1,0 +1,406 @@
+---
+// §5.8 — статистика. Если audience.* заполнены — белые карточки «как в Instagram/TikTok» с полосками.
+// Пока данных нет (status: missing) — только реальные цифры каналов и Shorts + плашка «по запросу».
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { kit, channel, hasAudience, type AudienceBlock, type Locale } from '../lib/data';
+import { fmtCompact, fmtInt } from '../lib/format';
+import { photo } from '../lib/photos';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const yt = channel('youtube');
+const ys = yt?.stats ?? {};
+const img = photo('stats');
+const filled = hasAudience();
+
+const pct = (v: number) => {
+  const n = v > 1 ? v : v * 100; // принимаем и 0.45, и 45
+  return new Intl.NumberFormat(l === 'ru' ? 'ru-RU' : 'en-US', { maximumFractionDigits: 1 }).format(n) + '%';
+};
+const width = (v: number) => `${Math.max(2, Math.min(100, v > 1 ? v : v * 100))}%`;
+
+const blocks: { key: string; title: string; data: AudienceBlock }[] = [];
+if (kit.audience.instagram) blocks.push({ key: 'instagram', title: 'Instagram', data: kit.audience.instagram });
+if (kit.audience.tiktok) blocks.push({ key: 'tiktok', title: 'TikTok', data: kit.audience.tiktok });
+if (kit.audience.youtube) blocks.push({ key: 'youtube', title: 'YouTube', data: kit.audience.youtube });
+
+// подписчики по площадкам — реальные цифры каналов (для полосок берём долю от максимума)
+const chans = kit.channels
+  .filter((c) => !c.minor)
+  .map((c) => ({ c, v: (c.stats.followers ?? c.stats.subscribers ?? 0) as number }))
+  .filter((x) => x.v > 0);
+const maxF = Math.max(...chans.map((x) => x.v), 1);
+const likes = kit.channels.filter((c) => c.platform === 'tiktok' && c.stats.likes).map((c) => ({ c, v: c.stats.likes as number }));
+const maxL = Math.max(...likes.map((x) => x.v), 1);
+
+const shorts = [
+  ys.shortsCounted != null && { v: fmtInt(ys.shortsCounted, l), k: t.stats.shortsCount },
+  ys.shortsTotalViews != null && { v: fmtCompact(ys.shortsTotalViews, l), k: t.stats.shortsViews },
+  ys.shortsMedianViews != null && { v: fmtCompact(ys.shortsMedianViews, l), k: t.stats.shortsMedian },
+  ys.shortsOver1M != null && { v: fmtInt(ys.shortsOver1M, l), k: t.stats.shortsOver1M },
+  ys.shortsOver500K != null && { v: fmtInt(ys.shortsOver500K, l), k: t.stats.shortsOver500K },
+].filter(Boolean) as { v: string; k: string }[];
+---
+
+<section class="aud section section--steel" id="stats" aria-labelledby="stats-title">
+  <div class="container">
+    <h2 class="h2 aud__title reveal" id="stats-title">{t.stats.title}</h2>
+
+    {
+      filled ? (
+        <div class="aud__blocks">
+          {blocks.map((b) => (
+            <div class="aud__block">
+              <p class="wide aud__pf">
+                <Icon name={b.key} /> {b.title}
+              </p>
+              <div class="aud__cards">
+                {b.data.gender && (
+                  <div class="icard reveal">
+                    <p class="icard__h">{t.stats.gender}</p>
+                    {Object.entries(b.data.gender).map(([k, v]) => (
+                      <div class="icard__row">
+                        <span>{k === 'female' ? t.stats.female : k === 'male' ? t.stats.male : k}</span>
+                        <span class="icard__bar"><i style={`width:${width(v)}`} /></span>
+                        <b>{pct(v)}</b>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {b.data.age && (
+                  <div class="icard reveal">
+                    <p class="icard__h">{t.stats.age}</p>
+                    {Object.entries(b.data.age).map(([k, v]) => (
+                      <div class="icard__row">
+                        <span>{k}</span>
+                        <span class="icard__bar"><i style={`width:${width(v)}`} /></span>
+                        <b>{pct(v)}</b>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {[['countries', t.stats.countries] as const, ['cities', t.stats.cities] as const].map(
+                  ([key, title]) =>
+                    b.data[key] &&
+                    b.data[key]!.length > 0 && (
+                      <div class="icard reveal">
+                        <p class="icard__h">{title}</p>
+                        {b.data[key]!.map((r) => (
+                          <div class="icard__row">
+                            <span>{r.name}</span>
+                            <span class="icard__bar"><i style={`width:${width(r.share)}`} /></span>
+                            <b>{pct(r.share)}</b>
+                          </div>
+                        ))}
+                      </div>
+                    ),
+                )}
+                {(b.data.reach30d || b.data.avgReelViews || b.data.storyViews) && (
+                  <div class="icard reveal">
+                    {b.data.reach30d && (
+                      <p class="icard__kv">
+                        <span>{t.stats.reach30d}</span>
+                        <b>{fmtCompact(b.data.reach30d, l)}</b>
+                      </p>
+                    )}
+                    {b.data.avgReelViews && (
+                      <p class="icard__kv">
+                        <span>{t.stats.avgReelViews}</span>
+                        <b>{fmtCompact(b.data.avgReelViews, l)}</b>
+                      </p>
+                    )}
+                    {b.data.storyViews && (
+                      <p class="icard__kv">
+                        <span>{t.stats.storyViews}</span>
+                        <b>{fmtCompact(b.data.storyViews, l)}</b>
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="aud__scene">
+          {img && (
+            <div class="aud__photo reveal">
+              <Picture src={img} alt="" formats={['avif', 'webp']} widths={[400, 640, 900]} sizes="(min-width: 1024px) 460px, 90vw" loading="lazy" />
+            </div>
+          )}
+
+          <div class="icard icard--f reveal" style="--i:1">
+            <p class="icard__h">{t.stats.followersBy}</p>
+            {chans.map(({ c, v }) => (
+              <div class="icard__row">
+                <span class="icard__name">
+                  <Icon name={c.platform} /> @{c.handle}
+                </span>
+                <span class="icard__bar">
+                  <i style={`width:${Math.max(3, (v / maxF) * 100)}%`} />
+                </span>
+                <b>{fmtCompact(v, l)}</b>
+              </div>
+            ))}
+          </div>
+
+          <div class="icard icard--l reveal" style="--i:2">
+            <p class="icard__h">{t.stats.likesBy}</p>
+            {likes.map(({ c, v }) => (
+              <div class="icard__row">
+                <span class="icard__name">
+                  <Icon name="tiktok" /> @{c.handle}
+                </span>
+                <span class="icard__bar">
+                  <i style={`width:${Math.max(3, (v / maxL) * 100)}%`} />
+                </span>
+                <b>{fmtCompact(v, l)}</b>
+              </div>
+            ))}
+          </div>
+
+          <div class="icard icard--s reveal" style="--i:3">
+            <p class="icard__h">
+              <Icon name="youtube" /> {t.stats.shortsTitle} · @{yt?.handle}
+            </p>
+            <dl class="icard__grid">
+              {shorts.map((s) => (
+                <div>
+                  <dd class="num">{s.v}</dd>
+                  <dt>{s.k}</dt>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </div>
+      )
+    }
+
+    {
+      !filled && (
+        <div class="aud__req glass reveal">
+          <div class="glass__inner aud__req-in">
+            <div>
+              <p class="wide aud__req-title">{t.stats.requestTitle}</p>
+              <p class="aud__req-text">{t.stats.requestText}</p>
+            </div>
+            <a class="btn btn--lg" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener">
+              <Icon name="telegram" />
+              {t.stats.requestBtn}
+            </a>
+          </div>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .aud {
+    overflow: clip;
+  }
+  .aud__title {
+    font-size: clamp(52px, 14.5vw, 190px);
+    margin-bottom: clamp(28px, 4vw, 56px);
+  }
+
+  /* сцена: фото + плавающие белые карточки, как в ref-04 */
+  .aud__scene {
+    position: relative;
+    display: grid;
+    gap: 14px;
+  }
+  .aud__photo {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 40px 80px -30px rgba(0, 0, 0, 0.9);
+    max-width: 460px;
+  }
+  .aud__photo :global(img) {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .icard {
+    background: #fff;
+    color: #111318;
+    border-radius: 22px;
+    padding: 18px 20px;
+    box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7);
+    font-size: 14px;
+  }
+  .icard__h {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+  .icard__h :global(.ico) {
+    width: 18px;
+    height: 18px;
+  }
+  .icard__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 0;
+  }
+  .icard__name {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #3b4150;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .icard__name :global(.ico) {
+    width: 14px;
+    height: 14px;
+    flex: none;
+  }
+  .icard__bar {
+    height: 6px;
+    border-radius: 99px;
+    background: #eceef2;
+    overflow: hidden;
+  }
+  .icard__bar i {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, #e79bb0, var(--accent));
+    transform-origin: left;
+  }
+  .js .icard.reveal .icard__bar i {
+    transform: scaleX(0);
+    transition: transform 1.1s var(--ease) 0.25s;
+  }
+  .js .icard.reveal.is-in .icard__bar i {
+    transform: none;
+  }
+  .icard__row b {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    min-width: 5ch;
+    text-align: right;
+  }
+  .icard__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 18px;
+  }
+  .icard__grid div {
+    display: flex;
+    flex-direction: column;
+  }
+  .icard__grid dd {
+    margin: 0;
+    font-size: 34px;
+    color: #111318;
+  }
+  .icard__grid dt {
+    color: #5a6070;
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .icard__kv {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 0;
+  }
+
+  .aud__blocks {
+    display: grid;
+    gap: 48px;
+  }
+  .aud__pf {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 18px;
+    margin-bottom: 18px;
+  }
+  .aud__cards {
+    display: grid;
+    gap: 14px;
+  }
+
+  .aud__req {
+    margin-top: 36px;
+  }
+  .aud__req-in {
+    display: grid;
+    gap: 20px;
+    padding: 26px 22px;
+  }
+  .aud__req-title {
+    font-size: clamp(18px, 2vw, 24px);
+    margin-bottom: 10px;
+  }
+  .aud__req-text {
+    color: var(--ink-2);
+    max-width: 56ch;
+  }
+  .aud__req .btn {
+    justify-self: start;
+    white-space: normal;
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .aud__cards {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .aud__scene {
+      display: block;
+      min-height: 640px;
+    }
+    .aud__photo {
+      position: relative;
+      margin-inline: auto;
+      width: 440px;
+      rotate: -3deg;
+    }
+    .icard {
+      position: absolute;
+      width: 400px;
+    }
+    .icard--f {
+      left: 0;
+      top: 40px;
+    }
+    .icard--l {
+      right: 0;
+      top: 10px;
+    }
+    .icard--s {
+      right: 20px;
+      bottom: 0;
+    }
+    .aud__req-in {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      padding: 32px 40px;
+    }
+    .aud__cards {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

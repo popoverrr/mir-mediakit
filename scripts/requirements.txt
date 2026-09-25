@@ -1,0 +1,7 @@
+# Обязательно:   python -m pip install -U -r scripts/requirements.txt
+yt-dlp[default,curl-cffi]>=2026.1.1
+
+# Опционально (ставить отдельно, только если нужно):
+#   python -m pip install -U gallery-dl      — фото-посты из Instagram (нужны cookies)
+#   python -m pip install -U "rembg[cpu]"    — вырезать портрет из фона для блока «Обо мне»
+# Плюс ffmpeg в PATH:  winget install Gyan.FFmpeg   (macOS: brew install ffmpeg)

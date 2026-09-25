@@ -1,0 +1,389 @@
+---
+// HTML-макет профиля в 3D-телефоне (скриншотов профилей от заказчика нет — см. §5.1).
+// Если в src/assets/screens/ появятся instagram.png / tiktok-rinkiwi.png — вставляются они.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import Icon from './Icon.astro';
+
+interface Stat {
+  value: string;
+  label: string;
+}
+interface Props {
+  variant: 'instagram' | 'tiktok';
+  handle: string;
+  name: string;
+  bio?: string[];
+  stats: Stat[];
+  avatar?: ImageMetadata;
+  tiles: (ImageMetadata | string | null)[];
+  screenshot?: ImageMetadata;
+  label: string;
+  follow: string;
+  message: string;
+  class?: string;
+  eager?: boolean;
+}
+const { variant, handle, name, bio = [], stats, avatar, tiles, screenshot, label, follow, message, class: cls = '', eager = false } = Astro.props;
+const dark = variant === 'instagram';
+---
+
+<figure class:list={['phone', `phone--${variant}`, cls]} aria-label={label}>
+  <div class="phone__body">
+    <div class="phone__screen" data-theme={dark ? 'dark' : 'light'}>
+      {
+        screenshot ? (
+          <Image src={screenshot} alt="" class="phone__shot" widths={[360, 540]} sizes="300px" loading={eager ? 'eager' : 'lazy'} />
+        ) : (
+          <div class="pm">
+            <div class="pm__status" aria-hidden="true">
+              <span>9:41</span>
+              <span class="pm__island" />
+              <span class="pm__sig">
+                <i />
+                <i />
+                <i />
+                <b />
+              </span>
+            </div>
+
+            <div class="pm__head">
+              <Icon name={variant} class="pm__pf" />
+              <span class="pm__handle">{handle}</span>
+            </div>
+
+            {dark ? (
+              <div class="pm__ig">
+                <div class="pm__ava pm__ava--ring">
+                  {avatar && <Image src={avatar} alt="" widths={[120]} sizes="60px" loading={eager ? 'eager' : 'lazy'} />}
+                </div>
+                <dl class="pm__stats">
+                  {stats.map((s) => (
+                    <div>
+                      <dt>{s.label}</dt>
+                      <dd>{s.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            ) : (
+              <div class="pm__tt">
+                <div class="pm__ava">
+                  {avatar && <Image src={avatar} alt="" widths={[120]} sizes="60px" loading={eager ? 'eager' : 'lazy'} />}
+                </div>
+                <dl class="pm__stats">
+                  {stats.map((s) => (
+                    <div>
+                      <dt>{s.label}</dt>
+                      <dd>{s.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
+            )}
+
+            <div class="pm__bio">
+              <strong>{name}</strong>
+              {bio.map((b) => (
+                <span>{b}</span>
+              ))}
+            </div>
+
+            <div class="pm__btns" aria-hidden="true">
+              <span class="pm__btn pm__btn--main">{follow}</span>
+              <span class="pm__btn">{message}</span>
+            </div>
+
+            <div class="pm__tabs" aria-hidden="true">
+              <i class="is-on" />
+              <i />
+              <i />
+            </div>
+
+            <ul class="pm__grid" aria-hidden="true">
+              {tiles.slice(0, 6).map((tile) => (
+                <li>
+                  {tile == null ? (
+                    <span class="pm__ph" />
+                  ) : typeof tile === 'string' ? (
+                    <img src={tile} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" width="120" height="213" />
+                  ) : (
+                    <Image src={tile} alt="" widths={[160]} sizes="90px" loading={eager ? 'eager' : 'lazy'} />
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )
+      }
+    </div>
+    <span class="phone__glare" aria-hidden="true"></span>
+  </div>
+</figure>
+
+<style>
+  .phone {
+    --pw: 300px;
+    margin: 0;
+    width: var(--pw);
+    aspect-ratio: 9 / 19.2;
+    position: relative;
+    transform-style: preserve-3d;
+  }
+  .phone__body {
+    position: absolute;
+    inset: 0;
+    border-radius: calc(var(--pw) * 0.16);
+    padding: calc(var(--pw) * 0.034);
+    background:
+      linear-gradient(145deg, #f4f6f9 0%, #9aa3b2 18%, #2d333d 42%, #0d0f13 60%, #5b6474 82%, #d9dee6 100%);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 40px 80px -30px rgba(0, 0, 0, 0.85),
+      0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  }
+  .phone__body::before {
+    /* внутренний чёрный безель */
+    content: '';
+    position: absolute;
+    inset: calc(var(--pw) * 0.018);
+    border-radius: calc(var(--pw) * 0.145);
+    background: #050608;
+  }
+  .phone__screen {
+    position: relative;
+    height: 100%;
+    border-radius: calc(var(--pw) * 0.125);
+    overflow: hidden;
+    background: #000;
+    container-type: inline-size;
+  }
+  .phone__shot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+  .phone__glare {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: linear-gradient(115deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 32%, rgba(255, 255, 255, 0) 70%, rgba(255, 255, 255, 0.06) 100%);
+    mix-blend-mode: screen;
+  }
+
+  /* ---- макет профиля: размеры в cqi, чтобы масштабировался вместе с телефоном ---- */
+  .pm {
+    --fg: #f5f5f5;
+    --fg2: #a8a8a8;
+    --bgc: #000;
+    --btn: #262626;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--bgc);
+    color: var(--fg);
+    font-family: var(--f-text);
+    font-size: 4.2cqi;
+    line-height: 1.3;
+  }
+  [data-theme='light'] .pm {
+    --fg: #121212;
+    --fg2: #6b6b6b;
+    --bgc: #fff;
+    --btn: #eff0f2;
+  }
+  .pm__status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 4.5cqi 7cqi 0;
+    font-weight: 600;
+    font-size: 4.4cqi;
+  }
+  .pm__island {
+    width: 30cqi;
+    height: 8.5cqi;
+    border-radius: 99px;
+    background: #000;
+    box-shadow: 0 0 0 0.4cqi rgba(255, 255, 255, 0.06);
+  }
+  .pm__sig {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.8cqi;
+  }
+  .pm__sig i {
+    width: 1cqi;
+    background: var(--fg);
+    border-radius: 1px;
+  }
+  .pm__sig i:nth-child(1) {
+    height: 1.6cqi;
+  }
+  .pm__sig i:nth-child(2) {
+    height: 2.4cqi;
+  }
+  .pm__sig i:nth-child(3) {
+    height: 3.2cqi;
+  }
+  .pm__sig b {
+    margin-left: 1.4cqi;
+    width: 6cqi;
+    height: 3cqi;
+    border-radius: 1cqi;
+    border: 0.35cqi solid var(--fg);
+    background: linear-gradient(90deg, var(--fg) 70%, transparent 70%);
+  }
+  .pm__head {
+    display: flex;
+    align-items: center;
+    gap: 2.4cqi;
+    padding: 4cqi 6cqi 2cqi;
+    font-weight: 600;
+    font-size: 5.4cqi;
+  }
+  [data-theme='light'] .pm__head {
+    justify-content: center;
+  }
+  .pm__pf {
+    width: 5.6cqi;
+    height: 5.6cqi;
+  }
+  .pm__ig {
+    display: flex;
+    align-items: center;
+    gap: 5cqi;
+    padding: 2cqi 6cqi;
+  }
+  .pm__tt {
+    display: grid;
+    justify-items: center;
+    gap: 3cqi;
+    padding: 1cqi 6cqi 2cqi;
+  }
+  .pm__ava {
+    width: 22cqi;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    flex: none;
+    background: #333;
+  }
+  .pm__ava :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pm__ava--ring {
+    padding: 0.9cqi;
+    background: conic-gradient(from 200deg, #f1b5c4, #ffffff, #aab3c2, #f1b5c4);
+  }
+  .pm__ava--ring :global(img) {
+    border-radius: 50%;
+    border: 0.9cqi solid #000;
+  }
+  .pm__stats {
+    flex: 1;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+  }
+  .pm__stats div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .pm__stats dd {
+    margin: 0;
+    font-weight: 600;
+    font-size: 5.2cqi;
+  }
+  .pm__stats dt {
+    color: var(--fg2);
+    font-size: 3.6cqi;
+  }
+  .pm__tt .pm__stats {
+    width: 100%;
+  }
+  .pm__bio {
+    display: grid;
+    gap: 0.4cqi;
+    padding: 1cqi 6cqi 3cqi;
+    font-size: 3.8cqi;
+  }
+  [data-theme='light'] .pm__bio {
+    text-align: center;
+  }
+  .pm__bio strong {
+    font-size: 4.2cqi;
+  }
+  .pm__bio span {
+    color: var(--fg2);
+  }
+  .pm__btns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2cqi;
+    padding: 0 6cqi 3cqi;
+  }
+  .pm__btn {
+    display: grid;
+    place-items: center;
+    height: 9cqi;
+    border-radius: 2.2cqi;
+    background: var(--btn);
+    font-weight: 600;
+    font-size: 3.8cqi;
+  }
+  .pm__btn--main {
+    background: #0095f6;
+    color: #fff;
+  }
+  [data-theme='light'] .pm__btn--main {
+    background: #fe2c55;
+  }
+  .pm__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 0.3cqi solid rgba(128, 128, 128, 0.25);
+  }
+  .pm__tabs i {
+    height: 7cqi;
+    position: relative;
+  }
+  .pm__tabs i.is-on::after {
+    content: '';
+    position: absolute;
+    left: 30%;
+    right: 30%;
+    bottom: -0.3cqi;
+    height: 0.5cqi;
+    background: var(--fg);
+  }
+  .pm__grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 0.5cqi;
+    min-height: 0;
+  }
+  .pm__grid li {
+    overflow: hidden;
+    background: #1a1a1a;
+    min-height: 0;
+  }
+  .pm__grid :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .pm__ph {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: var(--chrome);
+    opacity: 0.4;
+  }
+</style>

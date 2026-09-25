@@ -1,0 +1,70 @@
+---
+import '../styles/fonts.css';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import oswaldLatin from '../../node_modules/@fontsource/oswald/files/oswald-latin-700-normal.woff2?url';
+import oswaldCyr from '../../node_modules/@fontsource/oswald/files/oswald-cyrillic-700-normal.woff2?url';
+import { kit, tr, withBase, localePrefix, type Locale } from '../lib/data';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale, t } = Astro.props;
+
+const site = Astro.site ?? new URL('https://example.com');
+const abs = (p: string) => new URL(withBase(p), site).href;
+const ruUrl = abs('/');
+const enUrl = abs('/en/');
+const canonical = locale === 'ru' ? ruUrl : enUrl;
+const description = tr(kit.profile.bioShort, locale);
+const ogImage = abs(`/og-${locale}.png`);
+---
+
+<!doctype html>
+<html lang={t.htmlLang} class="no-js" data-locale={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{t.seoTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="ru" href={ruUrl} />
+    <link rel="alternate" hreflang="en" href={enUrl} />
+    <link rel="alternate" hreflang="x-default" href={ruUrl} />
+    <meta name="theme-color" content="#07080b" />
+    <meta name="color-scheme" content="dark" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="MIR · Media Kit" />
+    <meta property="og:title" content={t.seoTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={t.ogAlt} />
+    <meta property="og:locale" content={locale === 'ru' ? 'ru_RU' : 'en_US'} />
+    <meta property="og:locale:alternate" content={locale === 'ru' ? 'en_US' : 'ru_RU'} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={t.seoTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon-32.png')} sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
+
+    <link rel="preload" as="font" type="font/woff2" href={oswaldLatin} crossorigin />
+    {locale === 'ru' && <link rel="preload" as="font" type="font/woff2" href={oswaldCyr} crossorigin />}
+
+    <script is:inline>
+      document.documentElement.classList.replace('no-js', 'js');
+    </script>
+  </head>
+  <body data-prefix={localePrefix(locale)}>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,105 @@
+---
+// Иконки: платформы — из simple-icons (CC0), интерфейсные — свои линейные.
+import { siInstagram, siTiktok, siYoutube, siTelegram, siWhatsapp } from 'simple-icons';
+
+type Name =
+  | 'instagram'
+  | 'tiktok'
+  | 'youtube'
+  | 'telegram'
+  | 'whatsapp'
+  | 'play'
+  | 'arrow-ur'
+  | 'arrow-down'
+  | 'arrow-left'
+  | 'arrow-right'
+  | 'close'
+  | 'mail'
+  | 'phone'
+  | 'star'
+  | 'menu'
+  | 'heart'
+  | 'eye'
+  | 'bubble'
+  | 'share'
+  | 'bookmark';
+
+interface Props {
+  name: Name | string;
+  class?: string;
+  size?: number;
+  label?: string;
+}
+const { name, class: cls = '', size, label } = Astro.props;
+
+const brand: Record<string, string> = {
+  instagram: siInstagram.path,
+  tiktok: siTiktok.path,
+  youtube: siYoutube.path,
+  telegram: siTelegram.path,
+  whatsapp: siWhatsapp.path,
+};
+
+const line: Record<string, string> = {
+  play: '<path d="M8 5.5v13l11-6.5z" fill="currentColor" stroke="none"/>',
+  'arrow-ur': '<path d="M7 17 17 7M9 7h8v8"/>',
+  'arrow-down': '<path d="M12 5v14M6 13l6 6 6-6"/>',
+  'arrow-left': '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  'arrow-right': '<path d="M5 12h14M13 6l6 6-6 6"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>',
+  phone: '<path d="M6.5 3.5h3l1.5 4-2 1.5a11 11 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 4.5 5.5a2 2 0 0 1 2-2z"/>',
+  star: '<path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10z" fill="currentColor" stroke="none"/>',
+  menu: '<path d="M4 8h16M4 16h16"/>',
+  heart: '<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  eye: '<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+  bubble: '<path d="M20 12a8 8 0 0 1-11.6 7.1L4 20l1-4.2A8 8 0 1 1 20 12z"/>',
+  share: '<path d="M14 5l7 7-7 7v-4c-5 0-8 1.5-11 5 1-5.5 4-10 11-11z"/>',
+  bookmark: '<path d="M6 3.5h12v17l-6-4-6 4z"/>',
+};
+
+const isBrand = name in brand;
+const style = size ? `width:${size}px;height:${size}px` : undefined;
+---
+
+{
+  isBrand ? (
+    <svg
+      class={`ico ico--${name} ${cls}`}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      focusable="false"
+      style={style}
+      role={label ? 'img' : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : 'true'}
+    >
+      {label && <title>{label}</title>}
+      <path d={brand[name]} />
+    </svg>
+  ) : (
+    <svg
+      class={`ico ico--${name} ${cls}`}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      focusable="false"
+      style={style}
+      role={label ? 'img' : undefined}
+      aria-label={label}
+      aria-hidden={label ? undefined : 'true'}
+      set:html={(label ? `<title>${label}</title>` : '') + (line[name] ?? '')}
+    />
+  )
+}
+
+<style>
+  .ico {
+    width: 20px;
+    height: 20px;
+    flex: none;
+  }
+</style>

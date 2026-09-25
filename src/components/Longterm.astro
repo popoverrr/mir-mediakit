@@ -1,0 +1,238 @@
+---
+// §5.10 — долгосрочное сотрудничество (ref-10): карточка амбассадорства + доказательство + фото.
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { kit, tr, trList, fmtPrice, type Locale } from '../lib/data';
+import { plural } from '../lib/format';
+import { photo } from '../lib/photos';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const a = kit.ambassadorship;
+const price = fmtPrice(a.price, l);
+const priceOld = fmtPrice(a.priceOld, l);
+const img = photo('longterm');
+
+// доказательство цифрами: бренды, которые возвращались чаще всего (по числу роликов в cases)
+// берём бренды, названные в proof, чтобы цифры и текст совпадали
+const proofText = a.proof?.ru ?? '';
+const named = kit.cases.filter((c) => (c.totals?.videos ?? 0) > 1 && proofText.includes(c.brand));
+const loyal = (named.length ? named : kit.cases.filter((c) => (c.totals?.videos ?? 0) >= 5))
+  .sort((x, y) => (y.totals?.videos ?? 0) - (x.totals?.videos ?? 0))
+  .slice(0, 4);
+---
+
+<section class="long section" aria-labelledby="long-title">
+  <div class="container">
+    <h2 class="h2 long__title reveal" id="long-title">{t.longterm.title}</h2>
+    <p class="wide long__lead reveal" style="--i:1">{t.longterm.lead}</p>
+
+    <div class="long__grid">
+      <div class="glass long__card reveal">
+        <div class="glass__inner long__in">
+          <h3 class="wide long__h">{tr(a.title, l)}</h3>
+          <ul class="long__list">
+            {
+              trList(a.items, l).map((it) => (
+                <li>
+                  <Icon name="star" class="star" />
+                  {it}
+                </li>
+              ))
+            }
+          </ul>
+
+          {
+            loyal.length > 0 && (
+              <ul class="long__proof" aria-label={tr(a.proof, l)}>
+                {loyal.map((c) => (
+                  <li>
+                    <span class="num long__n">{c.totals?.videos}</span>
+                    <span class="long__b">{c.brand}</span>
+                    <span class="long__u">{plural(c.totals?.videos ?? 0, l, t.units.videos)}</span>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+          {a.proof && <p class="long__proof-text">{tr(a.proof, l)}</p>}
+        </div>
+      </div>
+
+      {
+        img && (
+          <div class="long__photo reveal" style="--i:1">
+            <Picture src={img} alt={t.formats.photoAlt} formats={['avif', 'webp']} widths={[400, 640, 900]} sizes="(min-width: 1024px) 480px, 90vw" loading="lazy" />
+          </div>
+        )
+      }
+    </div>
+
+    <div class="long__price reveal">
+      {
+        price && priceOld ? (
+          <>
+            <s class="num long__old">{priceOld}</s>
+            <span class="num long__new">{price}</span>
+          </>
+        ) : price ? (
+          <span class="num long__new">{price}</span>
+        ) : (
+          <>
+            <span class="num long__new long__new--req">{t.formats.onRequest}</span>
+            <a class="btn btn--lg" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener">
+              <Icon name="telegram" />
+              {t.longterm.ask}
+            </a>
+          </>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .long {
+    background:
+      radial-gradient(60% 50% at 20% 0%, rgba(154, 163, 178, 0.22), transparent 70%),
+      linear-gradient(180deg, #0b0d12 0%, var(--bg) 100%);
+  }
+  .long__title {
+    font-size: clamp(48px, 13.5vw, 190px);
+  }
+  .long__lead {
+    font-size: clamp(16px, 2vw, 26px);
+    color: var(--ink-2);
+    margin: clamp(16px, 2vw, 28px) 0 clamp(28px, 4vw, 56px);
+  }
+  .long__grid {
+    display: grid;
+    gap: 16px;
+  }
+  .long__in {
+    display: grid;
+    align-content: start;
+    gap: 22px;
+    padding: 26px 24px;
+  }
+  .long__h {
+    font-size: 20px;
+  }
+  .long__list {
+    display: grid;
+    gap: 12px;
+    font-size: 17px;
+  }
+  .long__list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .long__list :global(.star) {
+    width: 14px;
+    height: 14px;
+    margin-top: 5px;
+    color: var(--accent);
+  }
+  .long__proof {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--line-soft);
+    border: 1px solid var(--line-soft);
+  }
+  .long__proof li {
+    display: grid;
+    gap: 2px;
+    padding: 16px;
+    background: rgba(12, 14, 19, 0.7);
+  }
+  .long__n {
+    font-size: 48px;
+    color: var(--accent);
+  }
+  .long__b {
+    font-family: var(--f-wide);
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .long__u {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .long__proof-text {
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  .long__photo {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  }
+  .long__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 4 / 5;
+  }
+  .long__price {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px 36px;
+    margin-top: clamp(28px, 4vw, 56px);
+  }
+  .long__old {
+    font-size: clamp(44px, 7vw, 110px);
+    color: rgba(243, 244, 247, 0.28);
+    text-decoration-color: #c2324b;
+    text-decoration-thickness: 0.08em;
+  }
+  .long__new {
+    font-size: clamp(52px, 8vw, 130px);
+  }
+  .long__new--req {
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 1024px) {
+    .long__grid {
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 20px;
+      align-items: stretch;
+    }
+    .long__in {
+      padding: 36px 40px;
+      height: 100%;
+    }
+    .long__proof {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    /* фото подстраивается под высоту карточки, а не растягивает её */
+    .long__photo {
+      position: relative;
+      min-height: 420px;
+    }
+    .long__photo :global(picture),
+    .long__photo :global(img) {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+    }
+    .long__photo :global(img) {
+      object-position: 50% 30%;
+    }
+  }
+</style>

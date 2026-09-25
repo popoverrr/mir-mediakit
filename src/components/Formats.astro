@@ -1,0 +1,193 @@
+---
+// §5.9 — форматы / прайс: стеклянные карточки + фото Мира вперемешку (как ref-06…09).
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { kit, tr, trList, visibleFormats, hasAnyPrice, fmtPrice, type Locale } from '../lib/data';
+import { photo } from '../lib/photos';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const formats = visibleFormats();
+const priced = hasAnyPrice();
+const photos = ['format-1', 'format-2', 'format-3'].map((n) => photo(n)).filter(Boolean);
+const nameSide = (tr(kit.profile.fullName, 'en').split(/\s+/)[0] ?? kit.profile.displayName).toUpperCase();
+
+// порядок ячеек: карточка, карточка, фото, карточка / фото, карточка, карточка, фото
+type Cell = { kind: 'format'; i: number } | { kind: 'photo'; i: number };
+const cells: Cell[] = [];
+let pi = 0;
+formats.forEach((_, i) => {
+  cells.push({ kind: 'format', i });
+  if ((i === 1 || i === 3) && pi < photos.length) cells.push({ kind: 'photo', i: pi++ });
+});
+if (pi < photos.length) cells.push({ kind: 'photo', i: pi++ });
+---
+
+<section class="formats section section--steel" id="formats" aria-labelledby="formats-title">
+  <div class="container">
+    <div class="formats__head">
+      <h2 class="h2 formats__title reveal" id="formats-title">{priced ? t.formats.titlePrice : t.formats.title}</h2>
+      <p class="h2 formats__name reveal" aria-hidden="true" style="--i:1">{nameSide}</p>
+    </div>
+
+    <ul class="formats__grid">
+      {
+        cells.map((cell, k) => {
+          if (cell.kind === 'photo') {
+            const img = photos[cell.i]!;
+            return (
+              <li class="fphoto reveal" style={`--i:${k % 4}`}>
+                <Picture src={img} alt={t.formats.photoAlt} formats={['avif', 'webp']} widths={[360, 540, 720]} sizes="(min-width: 1024px) 320px, 90vw" loading="lazy" />
+              </li>
+            );
+          }
+          const f = formats[cell.i]!;
+          const price = fmtPrice(f.price, l);
+          return (
+            <li class="fcard glass reveal" style={`--i:${k % 4}`}>
+              <div class="glass__inner fcard__in">
+                <h3 class="wide fcard__title">{tr(f.title, l)}</h3>
+                <ul class="fcard__list">
+                  {trList(f.items, l).map((it) => (
+                    <li>{it}</li>
+                  ))}
+                </ul>
+                <div class="fcard__foot">
+                  <p class:list={['num', 'fcard__price', !price && 'is-request']}>{price ?? t.formats.onRequest}</p>
+                  {!price && (
+                    <a class="fcard__ask" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener">
+                      {t.formats.ask}
+                      <Icon name="arrow-ur" />
+                    </a>
+                  )}
+                </div>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .formats__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 8px 32px;
+    margin-bottom: clamp(32px, 5vw, 64px);
+  }
+  .formats__title {
+    font-size: clamp(64px, 18vw, 180px);
+  }
+  .formats__name {
+    font-size: clamp(36px, 6vw, 96px);
+    color: transparent;
+    -webkit-text-stroke: 1.5px rgba(243, 244, 247, 0.55);
+  }
+  .formats__grid {
+    display: grid;
+    gap: 16px;
+  }
+  .fcard__in {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 26px 24px;
+    min-height: 320px;
+  }
+  .fcard__title {
+    font-size: 18px;
+  }
+  .fcard__list {
+    display: grid;
+    gap: 8px;
+    color: var(--ink-2);
+    font-size: 16px;
+  }
+  .fcard__list li {
+    position: relative;
+    padding-left: 16px;
+  }
+  .fcard__list li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 0.68em;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--ink-2);
+  }
+  .fcard__foot {
+    margin-top: auto;
+    display: grid;
+    gap: 10px;
+  }
+  .fcard__price {
+    font-size: clamp(44px, 4.4vw, 64px);
+    text-transform: uppercase;
+  }
+  .fcard__price.is-request {
+    font-size: clamp(34px, 2.8vw, 42px);
+    white-space: nowrap;
+  }
+  .fcard__ask {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+    font-weight: 600;
+    font-size: 15px;
+    color: var(--accent);
+    border-bottom: 1px solid rgba(241, 181, 196, 0.4);
+    padding-bottom: 2px;
+  }
+  .fcard__ask :global(.ico) {
+    width: 16px;
+    height: 16px;
+  }
+  .fphoto {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 30px 60px -30px rgba(0, 0, 0, 0.9);
+    min-height: 320px;
+  }
+  .fphoto :global(picture),
+  .fphoto :global(img) {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .fphoto :global(img) {
+    object-fit: cover;
+    aspect-ratio: 4 / 5;
+  }
+
+  @media (min-width: 640px) {
+    .formats__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .fphoto :global(img) {
+      aspect-ratio: auto;
+    }
+  }
+  @media (min-width: 1024px) {
+    .formats__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .fcard__in {
+      min-height: 380px;
+      padding: 30px 28px;
+    }
+  }
+</style>

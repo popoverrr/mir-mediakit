@@ -1,0 +1,383 @@
+---
+import PhoneMock from './PhoneMock.astro';
+import Ribbon from './Ribbon.astro';
+import Icon from './Icon.astro';
+import { kit, tr, trList, channel, pickPoster, posterSmall, visibleCases, fmtCompact, type Locale } from '../lib/data';
+import { fmtInt } from '../lib/format';
+import { photo, screen, art } from '../lib/photos';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const p = kit.profile;
+const firstName = tr(p.fullName, l).split(/\s+/)[0] ?? '';
+const roles = trList(p.roles, l);
+const cities = trList(p.cities, l);
+const ig = channel('instagram');
+const tt = channel('tiktok-rinkiwi');
+const avatar = photo('avatar');
+
+// сетка Instagram-макета — постеры лучших кейсов и вирусных роликов
+const igTiles = [
+  ...visibleCases()
+    .slice(0, 4)
+    .map((c) => posterSmall(pickPoster(c.slug, c.sources))),
+  ...kit.topContent
+    .filter((x) => x.kind !== 'intro')
+    .slice(0, 2)
+    .map((x) => posterSmall(pickPoster(x.slug, x.sources))),
+];
+// сетка арт-TikTok — обложки рисунков @rinkiwi
+const ttTiles = art('rinkiwi-');
+
+// флаги городов (эмодзи-флаги не рисуются в Windows, поэтому SVG)
+const flagSvg: Record<string, string> = {
+  '🇰🇿':
+    '<svg viewBox="0 0 20 14" aria-hidden="true"><rect width="20" height="14" rx="2" fill="#00AFCA"/><circle cx="10" cy="6.4" r="2.4" fill="#FEC50C"/><path d="M10 2.4v1M10 9.4v1M6 6.4h1M13 6.4h1M7.2 3.6l.7.7M12.1 8.5l.7.7M12.8 3.6l-.7.7M7.9 8.5l-.7.7" stroke="#FEC50C" stroke-width=".7"/><path d="M6.5 11.2c1.2-.8 5.8-.8 7 0" stroke="#FEC50C" stroke-width=".8" fill="none"/><path d="M1.4 1.5v11" stroke="#FEC50C" stroke-width=".9" stroke-dasharray="1 .7"/></svg>',
+  '🇺🇿':
+    '<svg viewBox="0 0 20 14" aria-hidden="true"><clipPath id="uzc"><rect width="20" height="14" rx="2"/></clipPath><g clip-path="url(#uzc)"><rect width="20" height="14" fill="#fff"/><rect width="20" height="4.6" fill="#0099B5"/><rect y="9.4" width="20" height="4.6" fill="#1EB53A"/><rect y="4.6" width="20" height=".45" fill="#CE1126"/><rect y="8.95" width="20" height=".45" fill="#CE1126"/><circle cx="3.6" cy="2.3" r="1.5" fill="#fff"/><circle cx="4.2" cy="2.3" r="1.35" fill="#0099B5"/><g fill="#fff"><circle cx="6.6" cy="1.4" r=".32"/><circle cx="7.7" cy="1.4" r=".32"/><circle cx="8.8" cy="1.4" r=".32"/><circle cx="6.6" cy="2.4" r=".32"/><circle cx="7.7" cy="2.4" r=".32"/><circle cx="8.8" cy="2.4" r=".32"/><circle cx="7.7" cy="3.4" r=".32"/><circle cx="8.8" cy="3.4" r=".32"/></g></g></svg>',
+};
+
+const igStats = ig
+  ? [
+      ig.stats.posts != null && { value: fmtInt(ig.stats.posts, l), label: t.hero.posts },
+      ig.stats.followers != null && { value: fmtCompact(ig.stats.followers, l), label: t.hero.followers },
+    ].filter(Boolean)
+  : [];
+const ttStats = tt
+  ? [
+      tt.stats.videos != null && { value: fmtInt(tt.stats.videos, l), label: t.hero.videos },
+      tt.stats.followers != null && { value: fmtCompact(tt.stats.followers, l), label: t.hero.followers },
+      tt.stats.likes != null && { value: fmtCompact(tt.stats.likes, l), label: t.hero.likes },
+    ].filter(Boolean)
+  : [];
+---
+
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="hero__bg" aria-hidden="true"></div>
+
+  <div class="hero__grid container">
+    <div class="hero__text">
+      <p class="label hero__kicker">{p.tagline}</p>
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__row">
+          <span class="display hero__mir">{p.displayName}</span>
+          <span class="hero__kit">{t.hero.mediaKit}</span>
+        </span>
+        <span class="display hero__name">{firstName}</span>
+        <span class="sr-only">— {tr(p.fullName, l)}</span>
+      </h1>
+
+      <p class="hero__roles">
+        {roles.map((r) => <span class="hero__role">{r}</span>)}
+      </p>
+      <p class="hero__cities">
+        {
+          cities.map((c, i) => (
+            <span class="hero__city">
+              {p.flags[i] && flagSvg[p.flags[i]] && <span class="hero__flag" set:html={flagSvg[p.flags[i]]} />}
+              {c}
+            </span>
+          ))
+        }
+      </p>
+
+      <div class="hero__ctas">
+        <a class="btn btn--lg" href="#cases">
+          {t.hero.seeCases}
+          <Icon name="arrow-down" />
+        </a>
+        <a class="btn btn--ghost btn--lg" href={kit.contacts.primaryCta.url} target="_blank" rel="noopener">
+          <Icon name="telegram" />
+          {tr(kit.contacts.primaryCta.label, l)}
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__visual" data-tilt>
+      <Ribbon id="rb-back" class="hero__ribbon hero__ribbon--back" d="M -60 40 C 150 -40, 420 20, 600 190 S 880 470, 1040 300" />
+      <div class="hero__phones" data-tilt-target>
+        {
+          tt && (
+            <PhoneMock
+              variant="tiktok"
+              class="hero__phone hero__phone--back"
+              handle={`@${tt.handle}`}
+              name="Rinkiwi"
+              bio={[tr(tt.role, l)]}
+              stats={ttStats as { value: string; label: string }[]}
+              avatar={avatar}
+              tiles={ttTiles}
+              screenshot={screen('tiktok-rinkiwi')}
+              label={`${t.hero.phoneTt} @${tt.handle}`}
+              follow={t.hero.follow}
+              message={t.hero.message}
+              eager
+            />
+          )
+        }
+        {
+          ig && (
+            <PhoneMock
+              variant="instagram"
+              class="hero__phone hero__phone--front"
+              handle={ig.handle}
+              name={tr(p.fullName, l)}
+              bio={[p.tagline, ...roles.slice(0, 1)]}
+              stats={igStats as { value: string; label: string }[]}
+              avatar={avatar}
+              tiles={igTiles}
+              screenshot={screen('instagram')}
+              label={`${t.hero.phoneIg} @${ig.handle}`}
+              follow={t.hero.follow}
+              message={t.hero.message}
+              eager
+            />
+          )
+        }
+      </div>
+      <Ribbon id="rb-front" class="hero__ribbon hero__ribbon--front" d="M 150 1060 C 330 860, 560 760, 760 800 S 980 930, 1060 760" />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: clip;
+    padding-top: 88px;
+    padding-bottom: 56px;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(90% 55% at 60% 78%, rgba(223, 227, 234, 0.55) 0%, rgba(154, 163, 178, 0.28) 30%, rgba(58, 68, 83, 0.18) 55%, transparent 75%),
+      linear-gradient(180deg, #0b0d12 0%, #07080b 40%, #151922 70%, #07080b 100%);
+  }
+  .hero__bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .hero__grid {
+    display: grid;
+    gap: 28px;
+  }
+  .hero__text {
+    position: relative;
+    z-index: 2;
+  }
+  .hero__kicker {
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .hero__title {
+    display: grid;
+    gap: 0.06em;
+    margin: 0 0 22px;
+    font-weight: 700;
+  }
+  .hero__row {
+    display: flex;
+    align-items: flex-end;
+    gap: 18px;
+  }
+  .hero__mir,
+  .hero__name {
+    display: block;
+  }
+  .hero__mir {
+    font-size: clamp(76px, 22vw, 210px);
+  }
+  .hero__name {
+    font-size: clamp(56px, 18.5vw, 190px);
+    background: linear-gradient(180deg, #ffffff 0%, #eef1f5 45%, #aab3c2 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .hero__kit {
+    font-family: var(--f-wide);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: clamp(15px, 2.4vw, 34px);
+    line-height: 1;
+    padding-bottom: 0.35em;
+    white-space: nowrap;
+  }
+  .hero__roles {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 12px;
+    font-size: clamp(16px, 1.5vw, 19px);
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .hero__role {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+  }
+  /* точка-разделитель живёт вместе со следующей ролью — не повисает в конце строки */
+  .hero__role + .hero__role::before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .hero__cities {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 20px;
+    margin-top: 10px;
+    color: var(--ink-2);
+    font-size: 15px;
+  }
+  .hero__city {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .hero__flag :global(svg) {
+    width: 20px;
+    height: 14px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+  .hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  /* ---- телефоны ---- */
+  .hero__visual {
+    position: relative;
+    height: 520px;
+    margin-inline: calc(var(--gutter) * -1);
+    --rx: 0deg;
+    --ry: 0deg;
+  }
+  .hero__phones {
+    position: absolute;
+    inset: 0;
+    perspective: 1400px;
+  }
+  .hero__phones :global(.hero__phone) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    --pw: 214px;
+    transition: transform 0.6s var(--ease);
+  }
+  .hero__phones :global(.hero__phone--back) {
+    transform: translate(-90%, -52%) rotateX(calc(8deg + var(--rx))) rotateY(calc(18deg + var(--ry))) rotateZ(-9deg);
+    z-index: 1;
+  }
+  .hero__phones :global(.hero__phone--front) {
+    transform: translate(-16%, -44%) rotateX(calc(6deg + var(--rx))) rotateY(calc(-16deg + var(--ry))) rotateZ(7deg);
+    z-index: 2;
+  }
+  .hero__visual :global(.hero__ribbon) {
+    --rw: 14px;
+  }
+  .hero__visual :global(.hero__ribbon--back) {
+    left: -30%;
+    top: 2%;
+    width: 150%;
+    height: 78%;
+    z-index: 0;
+  }
+  .hero__visual :global(.hero__ribbon--front) {
+    left: -20%;
+    bottom: -2%;
+    width: 130%;
+    height: 60%;
+    z-index: 3;
+  }
+
+  @media (min-width: 480px) {
+    .hero__visual {
+      height: 600px;
+    }
+    .hero__phones :global(.hero__phone) {
+      --pw: 244px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: 100svh;
+      padding-top: 72px;
+      padding-bottom: 0;
+      display: flex;
+    }
+    .hero__bg {
+      background:
+        radial-gradient(60% 75% at 78% 30%, rgba(238, 241, 245, 0.72) 0%, rgba(170, 179, 194, 0.42) 22%, rgba(58, 68, 83, 0.28) 48%, transparent 72%),
+        radial-gradient(40% 40% at 10% 100%, rgba(58, 68, 83, 0.35) 0%, transparent 70%),
+        linear-gradient(160deg, #1c212a 0%, #0b0d12 45%, #07080b 100%);
+    }
+    .hero__grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      align-items: stretch;
+      width: 100%;
+      min-height: calc(100svh - 72px);
+    }
+    .hero__text {
+      align-self: end;
+      padding-bottom: clamp(40px, 7vh, 88px);
+    }
+    .hero__title {
+      margin-right: -30%;
+    }
+    .hero__visual {
+      height: auto;
+      margin: 0;
+      min-height: 620px;
+    }
+    .hero__phones :global(.hero__phone) {
+      --pw: clamp(250px, 21vw, 310px);
+    }
+    .hero__phones :global(.hero__phone--back) {
+      transform: translate(-84%, -54%) rotateX(calc(8deg + var(--rx))) rotateY(calc(18deg + var(--ry))) rotateZ(-10deg);
+    }
+    .hero__phones :global(.hero__phone--front) {
+      transform: translate(-22%, -44%) rotateX(calc(6deg + var(--rx))) rotateY(calc(-16deg + var(--ry))) rotateZ(8deg);
+    }
+    .hero__visual :global(.hero__ribbon) {
+      --rw: 22px;
+    }
+    .hero__visual :global(.hero__ribbon--back) {
+      left: -95%;
+      top: 0;
+      width: 207%;
+      height: 66%;
+    }
+    .hero__visual :global(.hero__ribbon--front) {
+      left: -30%;
+      bottom: 0;
+      width: 144%;
+      height: 52%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero__phones :global(.hero__phone) {
+      transition: none;
+    }
+  }
+</style>

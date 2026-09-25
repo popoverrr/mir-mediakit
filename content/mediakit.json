@@ -1,0 +1,2547 @@
+{
+  "meta": {
+    "collectedAt": "2026-09-25",
+    "note": "Все цифры собраны вручную с открытых страниц Instagram, TikTok, YouTube и Telegram 25.09.2026. null = данных нет, НЕ выдумывать. Просмотры Instagram Reels без входа в аккаунт недоступны — для IG есть только лайки/комментарии (и то не везде).",
+    "locales": [
+      "ru",
+      "en"
+    ],
+    "defaultLocale": "ru"
+  },
+  "profile": {
+    "displayName": "MIR",
+    "fullName": {
+      "ru": "Мирахмад Миркобилжонов",
+      "en": "Mirakhmad Mirkobiljanov"
+    },
+    "aliases": [
+      "Mir",
+      "Мир",
+      "Rinkiwi",
+      "rinkiwii"
+    ],
+    "age": 22,
+    "ageNote": "22 года — по его собственному посту от 28.06.2026",
+    "origin": {
+      "ru": "Узбекистан",
+      "en": "Uzbekistan"
+    },
+    "cities": {
+      "ru": [
+        "Алматы",
+        "Ташкент"
+      ],
+      "en": [
+        "Almaty",
+        "Tashkent"
+      ]
+    },
+    "flags": [
+      "🇰🇿",
+      "🇺🇿"
+    ],
+    "roles": {
+      "ru": [
+        "художник",
+        "бьюти-блогер",
+        "тату и перманент мастер"
+      ],
+      "en": [
+        "artist",
+        "beauty blogger",
+        "tattoo & PMU artist"
+      ]
+    },
+    "tagline": "art | lifestyle | fashion | beauty",
+    "bioShort": {
+      "ru": "Художник и бьюти-блогер из Узбекистана. Рисунки, уход, мода и сюрпризы, которые разлетаются по всему СНГ.",
+      "en": "Artist and beauty blogger from Uzbekistan. Art, skincare, fashion and surprises that go viral across the CIS."
+    },
+    "bioLong": {
+      "ru": "Меня зовут Мирахмад — возможно, вы знаете меня как Rinkiwii, художника, чьи рисунки набрали миллионы просмотров. Или как того парня с Dyson, цветами и сюрпризами, которые завирусились по всему СНГ. Мне 22, я из Узбекистана. Я художник и бьюти-блогер: показываю свои работы, уход и бьюти-контент, закулисье и обычную жизнь.",
+      "en": "My name is Mirakhmad — you might know me as Rinkiwii, the artist whose drawings gained millions of views online. Or as the guy with the Dyson, flowers and surprise gifts that went viral across the CIS. I'm 22 and from Uzbekistan. I'm an artist and a beauty blogger: I share my artwork, beauty content, behind-the-scenes moments and everyday life."
+    },
+    "bioSource": "https://www.instagram.com/reel/DaI4Oq9tgbr/ (перевод/адаптация его собственного текста)"
+  },
+  "channels": [
+    {
+      "id": "instagram",
+      "platform": "instagram",
+      "handle": "miirakhmad",
+      "url": "https://www.instagram.com/miirakhmad/",
+      "role": {
+        "ru": "Основной блог: арт, бьюти, мода, лайфстайл",
+        "en": "Main blog: art, beauty, fashion, lifestyle"
+      },
+      "stats": {
+        "followers": 770000,
+        "posts": 124
+      },
+      "note": "Ранее аккаунт назывался @rinkiwii",
+      "primary": true
+    },
+    {
+      "id": "tiktok-rinkiwi",
+      "platform": "tiktok",
+      "handle": "rinkiwi",
+      "url": "https://www.tiktok.com/@rinkiwi",
+      "role": {
+        "ru": "Арт-аккаунт: рисунки с миллионными просмотрами",
+        "en": "Art account: drawings with millions of views"
+      },
+      "stats": {
+        "followers": 1200000,
+        "likes": 47900000,
+        "videos": 83
+      }
+    },
+    {
+      "id": "tiktok-miirakhh",
+      "platform": "tiktok",
+      "handle": "miirakhh",
+      "url": "https://www.tiktok.com/@miirakhh",
+      "role": {
+        "ru": "Лайфстайл, бьюти и рекламные интеграции",
+        "en": "Lifestyle, beauty and brand integrations"
+      },
+      "stats": {
+        "followers": 82000,
+        "likes": 5900000,
+        "videos": 323
+      }
+    },
+    {
+      "id": "youtube",
+      "platform": "youtube",
+      "handle": "miirakh",
+      "url": "https://www.youtube.com/@miirakh",
+      "role": {
+        "ru": "YouTube Shorts: 68 млн+ просмотров",
+        "en": "YouTube Shorts: 68M+ views"
+      },
+      "stats": {
+        "subscribers": 41100,
+        "videos": 323,
+        "shortsCounted": 322,
+        "shortsTotalViews": 68176000,
+        "shortsOver1M": 13,
+        "shortsOver500K": 31,
+        "shortsMedianViews": 77000
+      }
+    },
+    {
+      "id": "telegram-channel",
+      "platform": "telegram",
+      "handle": "miirakhmadd",
+      "url": "https://t.me/miirakhmadd",
+      "role": {
+        "ru": "Telegram-канал",
+        "en": "Telegram channel"
+      },
+      "stats": {
+        "subscribers": 2546
+      },
+      "minor": true
+    }
+  ],
+  "totals": {
+    "followersAllPlatforms": 2093100,
+    "followersAllPlatformsLabel": {
+      "ru": "2 млн+",
+      "en": "2M+"
+    },
+    "tiktokLikes": 53800000,
+    "youtubeShortsViews": 68176000,
+    "brandsCount": 24,
+    "integrationVideosKnown": 62,
+    "integrationViewsKnown": 25535100,
+    "note": "integrationViewsKnown — сумма известных просмотров по роликам в cases (TikTok + YouTube Shorts; Instagram без просмотров). Реальная цифра выше."
+  },
+  "contentPillars": [
+    {
+      "id": "art",
+      "title": {
+        "ru": "Арт",
+        "en": "Art"
+      },
+      "text": {
+        "ru": "Рисунки и портреты, которые набирают миллионы просмотров; коммишены и тату.",
+        "en": "Drawings and portraits with millions of views; commissions and tattoo."
+      }
+    },
+    {
+      "id": "beauty",
+      "title": {
+        "ru": "Бьюти и уход",
+        "en": "Beauty & skincare"
+      },
+      "text": {
+        "ru": "Мужской уход, корейская косметика, процедуры и преображения.",
+        "en": "Men's skincare, K-beauty, treatments and transformations."
+      }
+    },
+    {
+      "id": "fashion",
+      "title": {
+        "ru": "Мода",
+        "en": "Fashion"
+      },
+      "text": {
+        "ru": "Образы, примерки, OOTD, унисекс-стиль.",
+        "en": "Outfits, try-ons, OOTD, unisex style."
+      }
+    },
+    {
+      "id": "surprises",
+      "title": {
+        "ru": "Сюрпризы и лайфстайл",
+        "en": "Surprises & lifestyle"
+      },
+      "text": {
+        "ru": "Цветы, подарки и поездки — вирусный формат, который смотрят и пересылают.",
+        "en": "Flowers, gifts and trips — a viral format people watch and share."
+      }
+    }
+  ],
+  "whyMe": [
+    {
+      "ru": "Аудитория в Узбекистане, Казахстане и по всему СНГ",
+      "en": "Audience in Uzbekistan, Kazakhstan and across the CIS"
+    },
+    {
+      "ru": "Контент на русском, узбекском и английском",
+      "en": "Content in Russian, Uzbek and English"
+    },
+    {
+      "ru": "Ролики, которые пересылают: до 52 тыс. репостов на одну интеграцию",
+      "en": "Videos people share: up to 52K shares per integration"
+    },
+    {
+      "ru": "Одна съёмка — три площадки: Instagram, TikTok, YouTube Shorts",
+      "en": "One shoot — three platforms: Instagram, TikTok, YouTube Shorts"
+    }
+  ],
+  "whyMeNote": "Пункт про языки основан на подписях к роликам (RU/UZ/EN), пункт про географию — на его собственном тексте «viral across the CIS» и брендах из UZ/KZ. Точную географию подтвердит статистика аудитории.",
+  "categories": [
+    {
+      "id": "skincare",
+      "label": {
+        "ru": "Уход и косметика",
+        "en": "Skincare & cosmetics"
+      }
+    },
+    {
+      "id": "services",
+      "label": {
+        "ru": "Салоны, клиники, мастера",
+        "en": "Salons & clinics"
+      }
+    },
+    {
+      "id": "fashion",
+      "label": {
+        "ru": "Мода и дом",
+        "en": "Fashion & home"
+      }
+    },
+    {
+      "id": "tech",
+      "label": {
+        "ru": "Техника и сервисы",
+        "en": "Tech & services"
+      }
+    },
+    {
+      "id": "travel",
+      "label": {
+        "ru": "Путешествия",
+        "en": "Travel"
+      }
+    },
+    {
+      "id": "gifts",
+      "label": {
+        "ru": "Цветы и подарки",
+        "en": "Flowers & gifts"
+      }
+    },
+    {
+      "id": "art",
+      "label": {
+        "ru": "Арт-коллаборации",
+        "en": "Art collabs"
+      }
+    }
+  ],
+  "cases": [
+    {
+      "slug": "fata",
+      "brand": "Fata",
+      "handle": "fata.uz",
+      "brandUrl": "https://www.instagram.com/fata.uz/",
+      "category": "fashion",
+      "featured": true,
+      "summary": {
+        "ru": "«Какое платье выберем?» — выбор свадебного платья в салоне Fata. 2,5 млн просмотров и 51 тыс. репостов.",
+        "en": "“Which dress should we pick?” — choosing a wedding dress at Fata bridal salon. 2.5M views and 51K shares."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7602168396486151446",
+          "url": "https://www.tiktok.com/@miirakhh/video/7602168396486151446",
+          "account": "miirakhh",
+          "date": "2026-02-02",
+          "stats": {
+            "views": 2500000,
+            "likes": 143700,
+            "comments": 2402,
+            "shares": 51300,
+            "saves": 8526
+          },
+          "durationSec": 61,
+          "embed": "https://www.tiktok.com/player/v1/7602168396486151446",
+          "shortUrl": "https://vm.tiktok.com/ZN8Mns4TD/"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/fata.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": 2500000,
+        "bestViews": 2500000
+      }
+    },
+    {
+      "slug": "axisy",
+      "brand": "AXIS-Y",
+      "handle": "axisy_cis",
+      "brandUrl": "https://www.instagram.com/axisy_cis/",
+      "category": "skincare",
+      "featured": true,
+      "coBrands": [
+        "bloombeauty_uz"
+      ],
+      "summary": {
+        "ru": "Корейский уход AXIS-Y вместе с магазином Bloom Beauty. Лучший ролик — 2,6 млн просмотров на YouTube Shorts.",
+        "en": "K-beauty brand AXIS-Y together with Bloom Beauty store. Top video — 2.6M views on YouTube Shorts."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DbVlhYONczA",
+          "url": "https://www.instagram.com/reel/DbVlhYONczA/",
+          "account": "miirakhmad",
+          "date": "2026-07-28",
+          "stats": {
+            "views": null,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DbVlhYONczA/embed",
+          "caption": "@axisy_cis | @bloombeauty_uz"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "ioWZrqzQk6Y",
+          "url": "https://www.youtube.com/shorts/ioWZrqzQk6Y",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 2600000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/ioWZrqzQk6Y",
+          "thumb": "https://i.ytimg.com/vi/ioWZrqzQk6Y/oar2.jpg",
+          "title": "@AXIS-Y"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "-rU1I5aLTKo",
+          "url": "https://www.youtube.com/shorts/-rU1I5aLTKo",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 528000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/-rU1I5aLTKo",
+          "thumb": "https://i.ytimg.com/vi/-rU1I5aLTKo/oar2.jpg",
+          "title": "@AXIS-Y СНГ @bloombeauty_uz"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "nv6EkHHYyoI",
+          "url": "https://www.youtube.com/shorts/nv6EkHHYyoI",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 47000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/nv6EkHHYyoI",
+          "thumb": "https://i.ytimg.com/vi/nv6EkHHYyoI/oar2.jpg",
+          "title": "@axisy_cis"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "rnxkaCmtL5c",
+          "url": "https://www.youtube.com/shorts/rnxkaCmtL5c",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 31000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/rnxkaCmtL5c",
+          "thumb": "https://i.ytimg.com/vi/rnxkaCmtL5c/oar2.jpg",
+          "title": "@axisy_official"
+        }
+      ],
+      "showInCases": true,
+      "logo": "assets/logos/axisy.svg",
+      "totals": {
+        "videos": 5,
+        "knownViews": 3206000,
+        "bestViews": 2600000
+      }
+    },
+    {
+      "slug": "home-ecodeluxe",
+      "brand": "Home Eco Deluxe",
+      "handle": "home_ecodeluxe_uz",
+      "brandUrl": "https://www.instagram.com/home_ecodeluxe_uz/",
+      "category": "fashion",
+      "featured": true,
+      "summary": {
+        "ru": "Постельное бельё Home Eco Deluxe — «всегда беру у них». 2 млн просмотров на YouTube Shorts и 727 тыс. в TikTok.",
+        "en": "Home Eco Deluxe bedding — “I always buy from them”. 2M views on YouTube Shorts and 727K on TikTok."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7606382028904238359",
+          "url": "https://www.tiktok.com/@miirakhh/video/7606382028904238359",
+          "account": "miirakhh",
+          "date": "2026-02-13",
+          "stats": {
+            "views": 727400,
+            "likes": 26600,
+            "comments": 335,
+            "shares": 10800,
+            "saves": 1416
+          },
+          "durationSec": 45,
+          "embed": "https://www.tiktok.com/player/v1/7606382028904238359",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnwKRf/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "3uEme6Fz4Us",
+          "url": "https://www.youtube.com/shorts/3uEme6Fz4Us",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 2000000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/3uEme6Fz4Us",
+          "thumb": "https://i.ytimg.com/vi/3uEme6Fz4Us/oar2.jpg",
+          "title": "#uzbek инст бренда (home_ecodeluxe_uz)"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/home-ecodeluxe.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 2727400,
+        "bestViews": 2000000
+      }
+    },
+    {
+      "slug": "skinever",
+      "brand": "Skinever",
+      "handle": "skinever.uz",
+      "brandUrl": "https://www.instagram.com/skinever.uz/",
+      "category": "skincare",
+      "featured": true,
+      "summary": {
+        "ru": "Уход Skinever с покупкой через Uzum Market. 1,8 млн просмотров на YouTube Shorts.",
+        "en": "Skinever skincare, available on Uzum Market. 1.8M views on YouTube Shorts."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7649320640465358113",
+          "url": "https://www.tiktok.com/@miirakhh/video/7649320640465358113",
+          "account": "miirakhh",
+          "date": "2026-06-09",
+          "stats": {
+            "views": 224800,
+            "likes": 3690,
+            "comments": 236,
+            "shares": 576,
+            "saves": 671
+          },
+          "durationSec": 57,
+          "embed": "https://www.tiktok.com/player/v1/7649320640465358113",
+          "shortUrl": "https://vm.tiktok.com/ZN8MngRbN/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "RgAgxG-F9Qk",
+          "url": "https://www.youtube.com/shorts/RgAgxG-F9Qk",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 1800000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/RgAgxG-F9Qk",
+          "thumb": "https://i.ytimg.com/vi/RgAgxG-F9Qk/oar2.jpg",
+          "title": "Uzumda SKINEVER dib yozsez chiqadi"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/skinever.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 2024800,
+        "bestViews": 1800000
+      }
+    },
+    {
+      "slug": "bloomflowers",
+      "brand": "Bloom Flowers",
+      "handle": "bloomflowers.sam",
+      "brandUrl": "https://www.instagram.com/bloomflowers.sam/",
+      "category": "gifts",
+      "featured": true,
+      "summary": {
+        "ru": "Самый большой букет роз — фирменный вирусный формат сюрприза. 1,2 млн просмотров и 52,7 тыс. репостов.",
+        "en": "The biggest bouquet of roses — Mir's signature viral surprise format. 1.2M views and 52.7K shares."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7602898663878266134",
+          "url": "https://www.tiktok.com/@miirakhh/video/7602898663878266134",
+          "account": "miirakhh",
+          "date": "2026-02-04",
+          "stats": {
+            "views": 1200000,
+            "likes": 56500,
+            "comments": 457,
+            "shares": 52700,
+            "saves": 1736
+          },
+          "durationSec": 28,
+          "embed": "https://www.tiktok.com/player/v1/7602898663878266134",
+          "shortUrl": "https://vm.tiktok.com/ZN8MntsgE/"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/bloomflowers.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": 1200000,
+        "bestViews": 1200000
+      }
+    },
+    {
+      "slug": "shakh-tours",
+      "brand": "Shakh Tours",
+      "handle": "shakh_tours",
+      "brandUrl": "https://www.instagram.com/shakh_tours/",
+      "category": "travel",
+      "featured": true,
+      "summary": {
+        "ru": "Серия роликов с туроператором Shakh Tours — зрители ждали продолжения. 2,1 млн+ просмотров суммарно.",
+        "en": "A video series with tour operator Shakh Tours — viewers were waiting for the next part. 2.1M+ views in total."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7592953985796001046",
+          "url": "https://www.tiktok.com/@miirakhh/video/7592953985796001046",
+          "account": "miirakhh",
+          "date": "2026-01-08",
+          "stats": {
+            "views": 543300,
+            "likes": 24100,
+            "comments": 198,
+            "shares": 3696,
+            "saves": 1167
+          },
+          "durationSec": 55,
+          "embed": "https://www.tiktok.com/player/v1/7592953985796001046",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnG9RR/",
+          "note": "«будем делать 3 часть?»"
+        },
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7591928080252407062",
+          "url": "https://www.tiktok.com/@miirakhh/video/7591928080252407062",
+          "account": "miirakhh",
+          "date": "2026-01-05",
+          "stats": {
+            "views": 468800,
+            "likes": 10600,
+            "comments": 417,
+            "shares": 4607,
+            "saves": 559
+          },
+          "durationSec": 48,
+          "embed": "https://www.tiktok.com/player/v1/7591928080252407062",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnEvVy/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "1p02KXQQp84",
+          "url": "https://www.youtube.com/shorts/1p02KXQQp84",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 1100000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/1p02KXQQp84",
+          "thumb": "https://i.ytimg.com/vi/1p02KXQQp84/oar2.jpg",
+          "title": "@shakh_tours (instagram)"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/shakh-tours.svg",
+      "totals": {
+        "videos": 3,
+        "knownViews": 2112100,
+        "bestViews": 1100000
+      }
+    },
+    {
+      "slug": "arencia",
+      "brand": "Arencia",
+      "handle": "arencia_cis",
+      "brandUrl": "https://www.instagram.com/arencia_cis/",
+      "category": "skincare",
+      "featured": true,
+      "summary": {
+        "ru": "Витамин C и очищение Arencia — самая объёмная кампания: 8 роликов на трёх платформах, 3 млн+ просмотров.",
+        "en": "Arencia vitamin C and cleansing — the largest campaign: 8 videos across three platforms, 3M+ views."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "Db2QSZkNV1l",
+          "url": "https://www.instagram.com/reel/Db2QSZkNV1l/",
+          "account": "miirakhmad",
+          "date": "2026-08-09",
+          "stats": {
+            "views": null,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/Db2QSZkNV1l/embed",
+          "caption": "У вас тоже есть такая проблема? @arencia_cis #витаминс #пигментация #постакне"
+        },
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7672270633442561313",
+          "url": "https://www.tiktok.com/@miirakhh/video/7672270633442561313",
+          "account": "miirakhh",
+          "date": "2026-08-10",
+          "stats": {
+            "views": 303400,
+            "likes": 2116,
+            "comments": 292,
+            "shares": 862,
+            "saves": 545
+          },
+          "durationSec": 22,
+          "embed": "https://www.tiktok.com/player/v1/7672270633442561313",
+          "shortUrl": "https://vt.tiktok.com/ZSbdTREyc/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "F7oeNFGzra8",
+          "url": "https://www.youtube.com/shorts/F7oeNFGzra8",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 989000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/F7oeNFGzra8",
+          "thumb": "https://i.ytimg.com/vi/F7oeNFGzra8/oar2.jpg",
+          "title": "@arencia_official #VitaminC"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "EzYyWfsZIWY",
+          "url": "https://www.youtube.com/shorts/EzYyWfsZIWY",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 644000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/EzYyWfsZIWY",
+          "thumb": "https://i.ytimg.com/vi/EzYyWfsZIWY/oar2.jpg",
+          "title": "@arencia_cis #витаминс"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "wW-vm40GrEE",
+          "url": "https://www.youtube.com/shorts/wW-vm40GrEE",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 586000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/wW-vm40GrEE",
+          "thumb": "https://i.ytimg.com/vi/wW-vm40GrEE/oar2.jpg",
+          "title": "#Arencia #VitaminC"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "zUpZq8iY-d4",
+          "url": "https://www.youtube.com/shorts/zUpZq8iY-d4",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 366000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/zUpZq8iY-d4",
+          "thumb": "https://i.ytimg.com/vi/zUpZq8iY-d4/oar2.jpg",
+          "title": "Arencia rice mochi cleanser"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "ArravoMZGl4",
+          "url": "https://www.youtube.com/shorts/ArravoMZGl4",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 187000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/ArravoMZGl4",
+          "thumb": "https://i.ytimg.com/vi/ArravoMZGl4/oar2.jpg",
+          "title": "Витамин С от @arencia_cis"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "bLGV3BDPLYM",
+          "url": "https://www.youtube.com/shorts/bLGV3BDPLYM",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 79000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/bLGV3BDPLYM",
+          "thumb": "https://i.ytimg.com/vi/bLGV3BDPLYM/oar2.jpg",
+          "title": "@arencia_cis"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/arencia.svg",
+      "totals": {
+        "videos": 8,
+        "knownViews": 3154400,
+        "bestViews": 989000
+      }
+    },
+    {
+      "slug": "laseme",
+      "brand": "Laseme",
+      "handle": "laseme_tashkent",
+      "brandUrl": "https://www.instagram.com/laseme_tashkent/",
+      "category": "services",
+      "featured": true,
+      "summary": {
+        "ru": "Клиника лазерной косметологии Laseme (Ташкент) — серия процедур. 1,6 млн+ просмотров на YouTube Shorts.",
+        "en": "Laseme laser cosmetology clinic (Tashkent) — a series of treatments. 1.6M+ views on YouTube Shorts."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DbNUsu8tegx",
+          "url": "https://www.instagram.com/reel/DbNUsu8tegx/",
+          "account": "miirakhmad",
+          "date": "2026-07-25",
+          "stats": {
+            "views": null,
+            "likes": 1337,
+            "comments": 717,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DbNUsu8tegx/embed",
+          "caption": "@laseme_tashkent"
+        },
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7603018677872561430",
+          "url": "https://www.tiktok.com/@miirakhh/video/7603018677872561430",
+          "account": "miirakhh",
+          "date": null,
+          "stats": {
+            "views": null,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "durationSec": null,
+          "embed": "https://www.tiktok.com/player/v1/7603018677872561430",
+          "shortUrl": "https://vm.tiktok.com/ZN8MntnJ6/",
+          "note": "Из Казахстана видео недоступно (региональное ограничение) — статистика не получена",
+          "availability": "region_blocked_from_KZ"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "tEVYIwan_wM",
+          "url": "https://www.youtube.com/shorts/tEVYIwan_wM",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 765000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/tEVYIwan_wM",
+          "thumb": "https://i.ytimg.com/vi/tEVYIwan_wM/oar2.jpg",
+          "title": "Клиника @laseme_tashkent"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "rF5AvNRNJHg",
+          "url": "https://www.youtube.com/shorts/rF5AvNRNJHg",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 601000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/rF5AvNRNJHg",
+          "thumb": "https://i.ytimg.com/vi/rF5AvNRNJHg/oar2.jpg",
+          "title": "Inst: laseme_tashkent"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "Dl4za-7gCMA",
+          "url": "https://www.youtube.com/shorts/Dl4za-7gCMA",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 128000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/Dl4za-7gCMA",
+          "thumb": "https://i.ytimg.com/vi/Dl4za-7gCMA/oar2.jpg",
+          "title": "Инст (laseme_tashkent)"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "XrnvE-bd0ck",
+          "url": "https://www.youtube.com/shorts/XrnvE-bd0ck",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 71000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/XrnvE-bd0ck",
+          "thumb": "https://i.ytimg.com/vi/XrnvE-bd0ck/oar2.jpg",
+          "title": "Inst: laseme_tashkent"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "4ji7c99Q9oE",
+          "url": "https://www.youtube.com/shorts/4ji7c99Q9oE",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 68000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/4ji7c99Q9oE",
+          "thumb": "https://i.ytimg.com/vi/4ji7c99Q9oE/oar2.jpg",
+          "title": "@laseme_tashkent"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/laseme.svg",
+      "totals": {
+        "videos": 7,
+        "knownViews": 1633000,
+        "bestViews": 765000
+      }
+    },
+    {
+      "slug": "abib",
+      "brand": "Abib",
+      "handle": "abib.cis",
+      "brandUrl": "https://www.instagram.com/abib.cis/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Корейский уход Abib, включая солнцезащитный стик. 5 роликов, лучший — 785 тыс. просмотров.",
+        "en": "Korean skincare by Abib, including the sun stick. 5 videos, the best one — 785K views."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DaUpVFQi-AE",
+          "url": "https://www.instagram.com/reel/DaUpVFQi-AE/",
+          "account": "miirakhmad",
+          "date": "2026-07-03",
+          "stats": {
+            "views": null,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DaUpVFQi-AE/embed",
+          "caption": "@abib.cis"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "uwZUrwsKxTE",
+          "url": "https://www.youtube.com/shorts/uwZUrwsKxTE",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 785000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/uwZUrwsKxTE",
+          "thumb": "https://i.ytimg.com/vi/uwZUrwsKxTE/oar2.jpg",
+          "title": "@abib.cis"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "Vo4mSInFEBQ",
+          "url": "https://www.youtube.com/shorts/Vo4mSInFEBQ",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 271000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/Vo4mSInFEBQ",
+          "thumb": "https://i.ytimg.com/vi/Vo4mSInFEBQ/oar2.jpg",
+          "title": "#abib"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "cpqcUSV0dp8",
+          "url": "https://www.youtube.com/shorts/cpqcUSV0dp8",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 146000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/cpqcUSV0dp8",
+          "thumb": "https://i.ytimg.com/vi/cpqcUSV0dp8/oar2.jpg",
+          "title": "Must have от @abib.cis"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "eSSUgQdus2I",
+          "url": "https://www.youtube.com/shorts/eSSUgQdus2I",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 106000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/eSSUgQdus2I",
+          "thumb": "https://i.ytimg.com/vi/eSSUgQdus2I/oar2.jpg",
+          "title": "@abib.cis"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/abib.svg",
+      "totals": {
+        "videos": 5,
+        "knownViews": 1308000,
+        "bestViews": 785000
+      }
+    },
+    {
+      "slug": "sonya-pmu",
+      "brand": "Sonya PMU",
+      "handle": "sonya_pmu",
+      "brandUrl": "https://www.instagram.com/sonya_pmu/",
+      "category": "services",
+      "featured": false,
+      "summary": {
+        "ru": "Перманентный макияж губ у мастера Sonya PMU. 620 тыс. просмотров и почти 20 тыс. репостов.",
+        "en": "Lip blush (permanent makeup) by Sonya PMU. 620K views and almost 20K shares."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7600739545541299459",
+          "url": "https://www.tiktok.com/@miirakhh/video/7600739545541299459",
+          "account": "miirakhh",
+          "date": "2026-01-29",
+          "stats": {
+            "views": 619900,
+            "likes": 43400,
+            "comments": 448,
+            "shares": 19900,
+            "saves": 2386
+          },
+          "durationSec": 35,
+          "embed": "https://www.tiktok.com/player/v1/7600739545541299459",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnCwpX/"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/sonya-pmu.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": 619900,
+        "bestViews": 619900
+      }
+    },
+    {
+      "slug": "sanag",
+      "brand": "Sanag",
+      "handle": "sanag.uz",
+      "brandUrl": "https://www.instagram.com/sanag.uz/",
+      "category": "tech",
+      "featured": false,
+      "summary": {
+        "ru": "Наушники Sanag. 541 тыс. просмотров и 22 тыс. лайков.",
+        "en": "Sanag headphones. 541K views and 22K likes."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7587384364598709526",
+          "url": "https://www.tiktok.com/@miirakhh/video/7587384364598709526",
+          "account": "miirakhh",
+          "date": "2025-12-24",
+          "stats": {
+            "views": 541100,
+            "likes": 22000,
+            "comments": 217,
+            "shares": 2409,
+            "saves": 1537
+          },
+          "durationSec": 21,
+          "embed": "https://www.tiktok.com/player/v1/7587384364598709526",
+          "shortUrl": "https://vm.tiktok.com/ZN8Mnkhvj/"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/sanag.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": 541100,
+        "bestViews": 541100
+      }
+    },
+    {
+      "slug": "innspiration",
+      "brand": "Innspiration",
+      "handle": "innspiration_daily_outfit",
+      "brandUrl": "https://www.instagram.com/innspiration_daily_outfit/",
+      "category": "fashion",
+      "featured": false,
+      "summary": {
+        "ru": "Обзор унисекс-одежды магазина Innspiration. 970 тыс.+ просмотров на двух площадках.",
+        "en": "A review of unisex clothing from Innspiration store. 970K+ views across two platforms."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7639453328933424417",
+          "url": "https://www.tiktok.com/@miirakhh/video/7639453328933424417",
+          "account": "miirakhh",
+          "date": "2026-05-13",
+          "stats": {
+            "views": 332500,
+            "likes": 6492,
+            "comments": 225,
+            "shares": 3394,
+            "saves": 486
+          },
+          "durationSec": 40,
+          "embed": "https://www.tiktok.com/player/v1/7639453328933424417",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnnEKj/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "wngnpJpMlYo",
+          "url": "https://www.youtube.com/shorts/wngnpJpMlYo",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 640000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/wngnpJpMlYo",
+          "thumb": "https://i.ytimg.com/vi/wngnpJpMlYo/oar2.jpg",
+          "title": "Инст магазина @innspiration_daily_outfit"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/innspiration.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 972500,
+        "bestViews": 640000
+      }
+    },
+    {
+      "slug": "elemis",
+      "brand": "ELEMIS",
+      "handle": "elemis_uz",
+      "brandUrl": "https://www.instagram.com/elemis_uz/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Уход за телом ELEMIS. 719 тыс. просмотров на двух площадках.",
+        "en": "ELEMIS body care. 719K views across two platforms."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7634537711935851799",
+          "url": "https://www.tiktok.com/@miirakhh/video/7634537711935851799",
+          "account": "miirakhh",
+          "date": "2026-04-30",
+          "stats": {
+            "views": 136100,
+            "likes": 3600,
+            "comments": 37,
+            "shares": 296,
+            "saves": 185
+          },
+          "durationSec": 55,
+          "embed": "https://www.tiktok.com/player/v1/7634537711935851799",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnvuAL/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "IJxvnn5spWE",
+          "url": "https://www.youtube.com/shorts/IJxvnn5spWE",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 583000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/IJxvnn5spWE",
+          "thumb": "https://i.ytimg.com/vi/IJxvnn5spWE/oar2.jpg",
+          "title": "…уход за телом от ELEMIS_uz"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/elemis.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 719100,
+        "bestViews": 583000
+      }
+    },
+    {
+      "slug": "premore",
+      "brand": "PRE MORE",
+      "handle": "premore_official_kz",
+      "brandUrl": "https://www.instagram.com/premore_official_kz/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Солнцезащитная база PRE MORE Aqua Glow SPF 50+ под тональное средство.",
+        "en": "PRE MORE Aqua Glow Sun Base SPF 50+ as a makeup base."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7627941434003295510",
+          "url": "https://www.tiktok.com/@miirakhh/video/7627941434003295510",
+          "account": "miirakhh",
+          "date": "2026-04-12",
+          "stats": {
+            "views": 124300,
+            "likes": 1469,
+            "comments": 76,
+            "shares": 469,
+            "saves": 215
+          },
+          "durationSec": 28,
+          "embed": "https://www.tiktok.com/player/v1/7627941434003295510",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnCgcT/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "mvkxwZsVXLY",
+          "url": "https://www.youtube.com/shorts/mvkxwZsVXLY",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 413000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/mvkxwZsVXLY",
+          "thumb": "https://i.ytimg.com/vi/mvkxwZsVXLY/oar2.jpg",
+          "title": "PRE MORE AQUA GLOW SUN BASE SPF 50+"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/premore.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 537300,
+        "bestViews": 413000
+      }
+    },
+    {
+      "slug": "bloombeauty",
+      "brand": "Bloom Beauty",
+      "handle": "bloombeauty_uz",
+      "brandUrl": "https://www.instagram.com/bloombeauty_uz/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Формат доброго сюрприза: подарочные сертификаты Bloom. 395 тыс. просмотров и 25 тыс. лайков.",
+        "en": "A feel-good surprise format: Bloom gift certificates. 395K views and 25K likes."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7614517092422814998",
+          "url": "https://www.tiktok.com/@miirakhh/video/7614517092422814998",
+          "account": "miirakhh",
+          "date": "2026-03-07",
+          "stats": {
+            "views": 395000,
+            "likes": 25400,
+            "comments": 332,
+            "shares": 6009,
+            "saves": 1264
+          },
+          "durationSec": 62,
+          "embed": "https://www.tiktok.com/player/v1/7614517092422814998",
+          "shortUrl": "https://vm.tiktok.com/ZN8Mnb95B/"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/bloombeauty.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": 395000,
+        "bestViews": 395000
+      }
+    },
+    {
+      "slug": "dr-althea",
+      "brand": "Dr. Althea",
+      "handle": "dr.althea_cis",
+      "brandUrl": "https://www.instagram.com/dr.althea_cis/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Долгая серия с корейским брендом Dr. Althea: 6 роликов, 850 тыс.+ просмотров суммарно.",
+        "en": "An ongoing series with Korean brand Dr. Althea: 6 videos, 850K+ views in total."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7605971764266454294",
+          "url": "https://www.tiktok.com/@miirakhh/video/7605971764266454294",
+          "account": "miirakhh",
+          "date": "2026-02-12",
+          "stats": {
+            "views": 333500,
+            "likes": 4675,
+            "comments": 196,
+            "shares": 1337,
+            "saves": 230
+          },
+          "durationSec": 16,
+          "embed": "https://www.tiktok.com/player/v1/7605971764266454294",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnbtqK/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "p4A6Dc9nXe8",
+          "url": "https://www.youtube.com/shorts/p4A6Dc9nXe8",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 141000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/p4A6Dc9nXe8",
+          "thumb": "https://i.ytimg.com/vi/p4A6Dc9nXe8/oar2.jpg",
+          "title": "@dr.althea_official"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "wDg2Ayt0WaA",
+          "url": "https://www.youtube.com/shorts/wDg2Ayt0WaA",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 118000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/wDg2Ayt0WaA",
+          "thumb": "https://i.ytimg.com/vi/wDg2Ayt0WaA/oar2.jpg",
+          "title": "@dr.althea_official"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "40K23t36yNs",
+          "url": "https://www.youtube.com/shorts/40K23t36yNs",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 102000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/40K23t36yNs",
+          "thumb": "https://i.ytimg.com/vi/40K23t36yNs/oar2.jpg",
+          "title": "Dr. Althea uzbek"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "dNAHXKOP2no",
+          "url": "https://www.youtube.com/shorts/dNAHXKOP2no",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 98000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/dNAHXKOP2no",
+          "thumb": "https://i.ytimg.com/vi/dNAHXKOP2no/oar2.jpg",
+          "title": "@dr.althea_official"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "OMLs-EuQifI",
+          "url": "https://www.youtube.com/shorts/OMLs-EuQifI",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 62000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/OMLs-EuQifI",
+          "thumb": "https://i.ytimg.com/vi/OMLs-EuQifI/oar2.jpg",
+          "title": "Dr. Althea"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/dr-althea.svg",
+      "totals": {
+        "videos": 6,
+        "knownViews": 854500,
+        "bestViews": 333500
+      }
+    },
+    {
+      "slug": "anua",
+      "brand": "Anua",
+      "handle": "anua_cis_official",
+      "brandUrl": "https://www.instagram.com/anua_cis_official/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Крем-гуаша и рисовый тонер Anua — мужской уход, со ссылками на маркетплейсы (Золотое Яблоко, Ozon).",
+        "en": "Anua gua sha cream and rice toner — men's skincare, with marketplace links (Zolotoe Yabloko, Ozon)."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DcvukjkNvyV",
+          "url": "https://www.instagram.com/reel/DcvukjkNvyV/",
+          "account": "miirakhmad",
+          "date": "2026-09-01",
+          "stats": {
+            "views": null,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DcvukjkNvyV/embed",
+          "caption": "Крем-гуаша от Anua — ретинол, коллаген и массажёр"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "3Af1Ze--25s",
+          "url": "https://www.youtube.com/shorts/3Af1Ze--25s",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 291000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/3Af1Ze--25s",
+          "thumb": "https://i.ytimg.com/vi/3Af1Ze--25s/oar2.jpg",
+          "title": "Можно купить на Ozon @Anua_Global"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "MtX-HXr8IlA",
+          "url": "https://www.youtube.com/shorts/MtX-HXr8IlA",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 268000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/MtX-HXr8IlA",
+          "thumb": "https://i.ytimg.com/vi/MtX-HXr8IlA/oar2.jpg",
+          "title": "Крем-гуаш от Anua"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "GxpNDDlGGDw",
+          "url": "https://www.youtube.com/shorts/GxpNDDlGGDw",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 58000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/GxpNDDlGGDw",
+          "thumb": "https://i.ytimg.com/vi/GxpNDDlGGDw/oar2.jpg",
+          "title": "Моя кожа после рисового тонера Ануа"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/anua.svg",
+      "totals": {
+        "videos": 4,
+        "knownViews": 617000,
+        "bestViews": 291000
+      }
+    },
+    {
+      "slug": "miru-tour",
+      "brand": "Miru Tour",
+      "handle": "miru_tour",
+      "brandUrl": "https://www.instagram.com/miru_tour/",
+      "category": "travel",
+      "featured": false,
+      "summary": {
+        "ru": "Сюрприз от турагентства Miru Tour «и тайного поклонника». 259 тыс. просмотров на двух площадках.",
+        "en": "A surprise from Miru Tour travel agency “and a secret admirer”. 259K views across two platforms."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7618656558515309846",
+          "url": "https://www.tiktok.com/@miirakhh/video/7618656558515309846",
+          "account": "miirakhh",
+          "date": "2026-03-18",
+          "stats": {
+            "views": 173100,
+            "likes": 10000,
+            "comments": 167,
+            "shares": 3067,
+            "saves": 423
+          },
+          "durationSec": 28,
+          "embed": "https://www.tiktok.com/player/v1/7618656558515309846",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnpM7B/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "SZtOxRgIY1w",
+          "url": "https://www.youtube.com/shorts/SZtOxRgIY1w",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 86000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/SZtOxRgIY1w",
+          "thumb": "https://i.ytimg.com/vi/SZtOxRgIY1w/oar2.jpg",
+          "title": "Спасибо @miru_tour"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/miru-tour.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 259100,
+        "bestViews": 173100
+      }
+    },
+    {
+      "slug": "kima-beauty",
+      "brand": "Kima Beauty Studio",
+      "handle": "kimaa.beauty.studio",
+      "brandUrl": "https://www.instagram.com/kimaa.beauty.studio/",
+      "category": "services",
+      "featured": false,
+      "summary": {
+        "ru": "Волосы в салоне Kima Beauty Studio — «на волосы только к ним». 689 комментариев под роликом.",
+        "en": "Hair at Kima Beauty Studio — “only them for my hair”. 689 comments on the reel."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DcJfkRoN3wf",
+          "url": "https://www.instagram.com/reel/DcJfkRoN3wf/",
+          "account": "miirakhmad",
+          "date": "2026-08-17",
+          "stats": {
+            "views": null,
+            "likes": 2171,
+            "comments": 689,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DcJfkRoN3wf/embed",
+          "caption": "профессионалы получаются @kimaa.beauty.studio — на волосы только к ним"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/kima-beauty.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": null,
+        "bestViews": null
+      }
+    },
+    {
+      "slug": "samsung",
+      "brand": "Samsung",
+      "handle": "samsunguzbekistan",
+      "brandUrl": "https://www.instagram.com/samsunguzbekistan/",
+      "category": "tech",
+      "featured": true,
+      "summary": {
+        "ru": "Galaxy Tab S10+ как инструмент художника: «Моя вселенная помещается в Galaxy Tab».",
+        "en": "Galaxy Tab S10+ as an artist's tool: “My universe fits into a Galaxy Tab”."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DMxjC0Ct2xo",
+          "url": "https://www.instagram.com/reel/DMxjC0Ct2xo/",
+          "account": "miirakhmad",
+          "date": "2025-07-31",
+          "stats": {
+            "views": null,
+            "likes": 2857,
+            "comments": 270,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DMxjC0Ct2xo/embed",
+          "caption": "Когда планшет не отвлекает — ты просто рисуешь… Galaxy Tab S10+ @samsunguzbekistan"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "rOFwB-SuMxo",
+          "url": "https://www.youtube.com/shorts/rOFwB-SuMxo",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 14000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/rOFwB-SuMxo",
+          "thumb": "https://i.ytimg.com/vi/rOFwB-SuMxo/oar2.jpg",
+          "title": "@Samsung Uzbekistan"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/samsung.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 14000,
+        "bestViews": 14000
+      }
+    },
+    {
+      "slug": "gsjj",
+      "brand": "GSJJ",
+      "handle": "gsjj_official",
+      "brandUrl": "https://www.instagram.com/gsjj_official/",
+      "category": "art",
+      "featured": false,
+      "summary": {
+        "ru": "Кастомные акриловые брелоки по рисункам Мира — англоязычная интеграция для международного бренда.",
+        "en": "Custom acrylic keychains featuring Mir's own artwork — an English-language integration for an international brand."
+      },
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DND3in9t3lV",
+          "url": "https://www.instagram.com/reel/DND3in9t3lV/",
+          "account": "miirakhmad",
+          "date": "2025-08-07",
+          "stats": {
+            "views": null,
+            "likes": 1493,
+            "comments": 76,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DND3in9t3lV/embed",
+          "caption": "I recently received a package of custom gifts from @gsjj_official — custom acrylic keychains…"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/gsjj.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": null,
+        "bestViews": null
+      }
+    },
+    {
+      "slug": "loccitane",
+      "brand": "L'Occitane",
+      "handle": "loccitane",
+      "brandUrl": "https://www.instagram.com/loccitane/",
+      "category": "skincare",
+      "featured": false,
+      "summary": {
+        "ru": "Новогодние подарки: косметика и парфюмерия L'Occitane.",
+        "en": "New Year gift ideas: L'Occitane cosmetics and fragrance."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7586662745622187286",
+          "url": "https://www.tiktok.com/@miirakhh/video/7586662745622187286",
+          "account": "miirakhh",
+          "date": "2025-12-22",
+          "stats": {
+            "views": 103900,
+            "likes": 1794,
+            "comments": 81,
+            "shares": 418,
+            "saves": 71
+          },
+          "durationSec": 60,
+          "embed": "https://www.tiktok.com/player/v1/7586662745622187286",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnvkY9/"
+        },
+        {
+          "platform": "youtube",
+          "role": "mirror",
+          "id": "Oe3sBx7zQAg",
+          "url": "https://www.youtube.com/shorts/Oe3sBx7zQAg",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 36000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/Oe3sBx7zQAg",
+          "thumb": "https://i.ytimg.com/vi/Oe3sBx7zQAg/oar2.jpg",
+          "title": "Телеграм канал @loccitane_uzb"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/loccitane.svg",
+      "totals": {
+        "videos": 2,
+        "knownViews": 139900,
+        "bestViews": 103900
+      }
+    },
+    {
+      "slug": "birbir",
+      "brand": "Birbir",
+      "handle": "birbir.uz",
+      "brandUrl": "https://www.instagram.com/birbir.uz/",
+      "category": "tech",
+      "featured": false,
+      "summary": {
+        "ru": "Интеграция сервиса объявлений birbir.uz.",
+        "en": "Integration for the birbir.uz classifieds marketplace."
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7594786482502602006",
+          "url": "https://www.tiktok.com/@miirakhh/video/7594786482502602006",
+          "account": "miirakhh",
+          "date": null,
+          "stats": {
+            "views": null,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "durationSec": null,
+          "embed": "https://www.tiktok.com/player/v1/7594786482502602006",
+          "shortUrl": "https://vm.tiktok.com/ZN8MnVXMt/",
+          "note": "Из Казахстана видео недоступно (региональное ограничение) — статистика не получена",
+          "availability": "region_blocked_from_KZ"
+        }
+      ],
+      "showInCases": true,
+      "coBrands": [],
+      "logo": "assets/logos/birbir.svg",
+      "totals": {
+        "videos": 1,
+        "knownViews": null,
+        "bestViews": null
+      }
+    },
+    {
+      "slug": "sodamoda",
+      "brand": "Sodamoda",
+      "handle": "sodamoda.store",
+      "brandUrl": "https://www.instagram.com/sodamoda.store/",
+      "category": "fashion",
+      "featured": false,
+      "showInCases": false,
+      "summary": {
+        "ru": "Магазин одежды Sodamoda.",
+        "en": "Sodamoda clothing store."
+      },
+      "sources": [],
+      "todo": "Нет ссылки на ролик — только логотип в блоке партнёров. Если ролик есть, добавить в sources.",
+      "coBrands": [],
+      "logo": "assets/logos/sodamoda.svg",
+      "totals": {
+        "videos": 0,
+        "knownViews": null,
+        "bestViews": null
+      }
+    }
+  ],
+  "topContent": [
+    {
+      "slug": "intro",
+      "kind": "intro",
+      "title": {
+        "ru": "Знакомство: кто такой Мир",
+        "en": "Meet Mir"
+      },
+      "use": "about-section video",
+      "sources": [
+        {
+          "platform": "instagram",
+          "role": "primary",
+          "id": "DaI4Oq9tgbr",
+          "url": "https://www.instagram.com/reel/DaI4Oq9tgbr/",
+          "account": "miirakhmad",
+          "date": "2026-06-28",
+          "stats": {
+            "views": null,
+            "likes": 2748,
+            "comments": 581,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.instagram.com/reel/DaI4Oq9tgbr/embed",
+          "caption": "My name is Mirakhmad, you might know me as Rinkiwii — the artist whose drawings gained millions of views online…"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-tt-1",
+      "title": {
+        "ru": "Лайфстайл-ролик",
+        "en": "Lifestyle video"
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7643367541594770721",
+          "url": "https://www.tiktok.com/@miirakhh/video/7643367541594770721",
+          "account": "miirakhh",
+          "date": "2026-05-24",
+          "stats": {
+            "views": 1400000,
+            "likes": 21800,
+            "comments": 1530,
+            "shares": 8456,
+            "saves": 1454
+          },
+          "durationSec": 56,
+          "embed": "https://www.tiktok.com/player/v1/7643367541594770721",
+          "shortUrl": "https://vt.tiktok.com/ZSbdTfdbh/"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-tt-2",
+      "title": {
+        "ru": "Мужской стиль",
+        "en": "Men's style"
+      },
+      "sources": [
+        {
+          "platform": "tiktok",
+          "role": "primary",
+          "id": "7597475497626373398",
+          "url": "https://www.tiktok.com/@miirakhh/video/7597475497626373398",
+          "account": "miirakhh",
+          "date": "2026-01-20",
+          "stats": {
+            "views": 1000000,
+            "likes": 25200,
+            "comments": 365,
+            "shares": 9173,
+            "saves": 748
+          },
+          "durationSec": 8,
+          "embed": "https://www.tiktok.com/player/v1/7597475497626373398",
+          "shortUrl": "https://vt.tiktok.com/ZSbdTBhwt/"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-yt-1",
+      "title": {
+        "ru": "Топ-1 на YouTube",
+        "en": "YouTube #1"
+      },
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "HVikDy4NTA0",
+          "url": "https://www.youtube.com/shorts/HVikDy4NTA0",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 2800000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/HVikDy4NTA0",
+          "thumb": "https://i.ytimg.com/vi/HVikDy4NTA0/oar2.jpg",
+          "title": "На русском уже есть в профиле"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-yt-2",
+      "title": {
+        "ru": "Бьюти-преображение",
+        "en": "Beauty transformation"
+      },
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "amEp4yPWuMA",
+          "url": "https://www.youtube.com/shorts/amEp4yPWuMA",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 2400000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/amEp4yPWuMA",
+          "thumb": "https://i.ytimg.com/vi/amEp4yPWuMA/oar2.jpg",
+          "title": "На счет записи писать в инст miirakh.beauty"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-yt-3",
+      "title": {
+        "ru": "Вирусный ролик",
+        "en": "Viral video"
+      },
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "PGUKuKYpADs",
+          "url": "https://www.youtube.com/shorts/PGUKuKYpADs",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 2000000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/PGUKuKYpADs",
+          "thumb": "https://i.ytimg.com/vi/PGUKuKYpADs/oar2.jpg",
+          "title": "Меня больше в инсте"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-yt-4",
+      "title": {
+        "ru": "Вирусный ролик",
+        "en": "Viral video"
+      },
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "nNZK_5KJ4Mc",
+          "url": "https://www.youtube.com/shorts/nNZK_5KJ4Mc",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 1400000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/nNZK_5KJ4Mc",
+          "thumb": "https://i.ytimg.com/vi/nNZK_5KJ4Mc/oar2.jpg",
+          "title": "Inst: miirakh"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-yt-5",
+      "title": {
+        "ru": "Вирусный ролик",
+        "en": "Viral video"
+      },
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "s_R-5EbUx74",
+          "url": "https://www.youtube.com/shorts/s_R-5EbUx74",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 1300000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/s_R-5EbUx74",
+          "thumb": "https://i.ytimg.com/vi/s_R-5EbUx74/oar2.jpg",
+          "title": "Inst: miirakh"
+        }
+      ],
+      "stills": true
+    },
+    {
+      "slug": "viral-yt-6",
+      "title": {
+        "ru": "Вирусный ролик",
+        "en": "Viral video"
+      },
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "YgT0pZUWYKQ",
+          "url": "https://www.youtube.com/shorts/YgT0pZUWYKQ",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 1300000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/YgT0pZUWYKQ",
+          "thumb": "https://i.ytimg.com/vi/YgT0pZUWYKQ/oar2.jpg",
+          "title": "Inst: miirakh"
+        }
+      ],
+      "stills": true
+    }
+  ],
+  "extraIntegrations": [
+    {
+      "slug": "skin1004",
+      "brand": "SKIN1004",
+      "handle": "skin1004_cis",
+      "category": "skincare",
+      "include": false,
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "f13wDoOh5Cw",
+          "url": "https://www.youtube.com/shorts/f13wDoOh5Cw",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 167000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/f13wDoOh5Cw",
+          "thumb": "https://i.ytimg.com/vi/f13wDoOh5Cw/oar2.jpg",
+          "title": "@SKIN1004 Korea"
+        }
+      ]
+    },
+    {
+      "slug": "geske",
+      "brand": "GESKE",
+      "handle": "geske_uzb",
+      "category": "tech",
+      "include": false,
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "Vb4N6fioILo",
+          "url": "https://www.youtube.com/shorts/Vb4N6fioILo",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 305000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/Vb4N6fioILo",
+          "thumb": "https://i.ytimg.com/vi/Vb4N6fioILo/oar2.jpg",
+          "title": "Инст @geske_uzb"
+        }
+      ]
+    },
+    {
+      "slug": "shaxzoda-makeup",
+      "brand": "Shaxzoda Makeup",
+      "handle": "shaxzoda_makeup",
+      "category": "services",
+      "include": false,
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "ePhHfXAlRGg",
+          "url": "https://www.youtube.com/shorts/ePhHfXAlRGg",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 241000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/ePhHfXAlRGg",
+          "thumb": "https://i.ytimg.com/vi/ePhHfXAlRGg/oar2.jpg",
+          "title": "Инст (shaxzoda_makeup)"
+        }
+      ]
+    },
+    {
+      "slug": "lattliv",
+      "brand": "Lattliv",
+      "handle": "lattliv.uz",
+      "category": "skincare",
+      "include": false,
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "cC6nESlVu6I",
+          "url": "https://www.youtube.com/shorts/cC6nESlVu6I",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 107000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/cC6nESlVu6I",
+          "thumb": "https://i.ytimg.com/vi/cC6nESlVu6I/oar2.jpg",
+          "title": "Промокод miirakh — 10% @lattliv.uz"
+        }
+      ]
+    },
+    {
+      "slug": "comfers",
+      "brand": "Comfers",
+      "handle": "comfers",
+      "category": "fashion",
+      "include": false,
+      "sources": [
+        {
+          "platform": "youtube",
+          "role": "primary",
+          "id": "Q2ui9LscREA",
+          "url": "https://www.youtube.com/shorts/Q2ui9LscREA",
+          "account": "miirakh",
+          "date": null,
+          "stats": {
+            "views": 25000,
+            "likes": null,
+            "comments": null,
+            "shares": null,
+            "saves": null
+          },
+          "embed": "https://www.youtube-nocookie.com/embed/Q2ui9LscREA",
+          "thumb": "https://i.ytimg.com/vi/Q2ui9LscREA/oar2.jpg",
+          "title": "@Comfers"
+        }
+      ]
+    }
+  ],
+  "extraIntegrationsNote": "Найдены на YouTube-канале, но НЕ были в списке заказчика. include=false — не показывать, пока заказчик не подтвердит.",
+  "audience": {
+    "status": "missing",
+    "instagram": null,
+    "tiktok": null,
+    "youtube": null,
+    "schemaExample": {
+      "gender": {
+        "female": 0.0,
+        "male": 0.0
+      },
+      "age": {
+        "13-17": 0.0,
+        "18-24": 0.0,
+        "25-34": 0.0,
+        "35-44": 0.0,
+        "45+": 0.0
+      },
+      "countries": [
+        {
+          "name": "Узбекистан",
+          "share": 0.0
+        }
+      ],
+      "cities": [
+        {
+          "name": "Ташкент",
+          "share": 0.0
+        }
+      ],
+      "reach30d": null,
+      "avgReelViews": null,
+      "storyViews": null
+    },
+    "note": "Нужны скриншоты статистики из Instagram/TikTok. Пока null — секция показывает заглушку «Статистика по запросу» с кнопкой в Telegram."
+  },
+  "formats": [
+    {
+      "id": "reels",
+      "title": {
+        "ru": "Reels в Instagram",
+        "en": "Instagram Reels"
+      },
+      "items": {
+        "ru": [
+          "1 ролик с интеграцией",
+          "Серия сторис",
+          "Бонус: публикация в TikTok и YouTube Shorts"
+        ],
+        "en": [
+          "1 integration video",
+          "Stories series",
+          "Bonus: TikTok and YouTube Shorts post"
+        ]
+      },
+      "price": null
+    },
+    {
+      "id": "stories",
+      "title": {
+        "ru": "Сторис в Instagram",
+        "en": "Instagram Stories"
+      },
+      "items": {
+        "ru": [
+          "Серия сторис с участием (4–6)",
+          "Ссылка / отметка бренда"
+        ],
+        "en": [
+          "Stories series featuring Mir (4–6)",
+          "Link / brand tag"
+        ]
+      },
+      "price": null
+    },
+    {
+      "id": "tiktok",
+      "title": {
+        "ru": "TikTok + YouTube Shorts",
+        "en": "TikTok + YouTube Shorts"
+      },
+      "items": {
+        "ru": [
+          "1 ролик в TikTok @miirakhh",
+          "Кросспост в YouTube Shorts"
+        ],
+        "en": [
+          "1 video on TikTok @miirakhh",
+          "Cross-post to YouTube Shorts"
+        ]
+      },
+      "price": null
+    },
+    {
+      "id": "art",
+      "title": {
+        "ru": "Арт-интеграция",
+        "en": "Art integration"
+      },
+      "items": {
+        "ru": [
+          "Рисунок/портрет с продуктом бренда",
+          "Публикация в арт-аккаунте TikTok @rinkiwi (1,2 млн)"
+        ],
+        "en": [
+          "Drawing/portrait featuring the product",
+          "Post on art TikTok @rinkiwi (1.2M)"
+        ]
+      },
+      "price": null
+    },
+    {
+      "id": "surprise",
+      "title": {
+        "ru": "Формат «сюрприз»",
+        "en": "“Surprise” format"
+      },
+      "items": {
+        "ru": [
+          "Сценарий с подарком / сюрпризом",
+          "Reels + TikTok + Shorts"
+        ],
+        "en": [
+          "Gift / surprise storyline",
+          "Reels + TikTok + Shorts"
+        ]
+      },
+      "price": null
+    },
+    {
+      "id": "event",
+      "title": {
+        "ru": "Посещение мероприятия",
+        "en": "Event appearance"
+      },
+      "items": {
+        "ru": [
+          "Присутствие до 3 часов",
+          "Серия сторис"
+        ],
+        "en": [
+          "Up to 3 hours on site",
+          "Stories series"
+        ]
+      },
+      "price": null,
+      "needsConfirmation": true
+    }
+  ],
+  "ambassadorship": {
+    "title": {
+      "ru": "Долгосрочное сотрудничество",
+      "en": "Long-term partnership"
+    },
+    "items": {
+      "ru": [
+        "Reels каждый месяц",
+        "Серии сторис каждый месяц",
+        "TikTok + YouTube Shorts каждый месяц"
+      ],
+      "en": [
+        "Monthly Reels",
+        "Monthly Stories series",
+        "Monthly TikTok + YouTube Shorts"
+      ]
+    },
+    "priceOld": null,
+    "price": null,
+    "proof": {
+      "ru": "Бренды возвращаются: Arencia — 8 роликов, Dr. Althea — 6, Laseme — 7, Abib — 5.",
+      "en": "Brands come back: Arencia — 8 videos, Dr. Althea — 6, Laseme — 7, Abib — 5."
+    },
+    "note": "Количество роликов в месяц и цена — уточнить у заказчика."
+  },
+  "restrictions": {
+    "status": "missing",
+    "items": [],
+    "note": "В референсе есть блок «не рекламирую алкоголь/табак/кредиты». Для Мира неизвестно — блок скрыт, пока нет данных."
+  },
+  "pricing": {
+    "currency": null,
+    "note": "Цены не предоставлены. Пока price=null → на сайте «по запросу» + кнопка в Telegram."
+  },
+  "contacts": {
+    "primaryCta": {
+      "label": {
+        "ru": "Обсудить рекламу",
+        "en": "Discuss a campaign"
+      },
+      "url": "https://t.me/miirakhads"
+    },
+    "telegramAds": {
+      "handle": "miirakhads",
+      "url": "https://t.me/miirakhads",
+      "label": {
+        "ru": "Реклама на профилях Мирахмада",
+        "en": "Advertising on Mirakhmad's profiles"
+      }
+    },
+    "email": "miirakhh@gmail.com",
+    "phone": null,
+    "whatsapp": null,
+    "socials": [
+      "https://www.instagram.com/miirakhmad/",
+      "https://www.tiktok.com/@rinkiwi",
+      "https://www.tiktok.com/@miirakhh",
+      "https://www.youtube.com/@miirakh",
+      "https://t.me/miirakhmadd"
+    ]
+  },
+  "gallery": {
+    "instagramPhotoPosts": [
+      "DdgZIr7jVJR",
+      "DddUiseDaM6",
+      "DdMI_rqjTsO",
+      "DdJj-IxDcxX",
+      "DdD6aOGDaPk",
+      "Dc4WA1UDXjr",
+      "DcjUSazDRyg",
+      "CbPSXHSAWA-"
+    ],
+    "instagramRecentReels": [
+      "DdjMYc5NYlh",
+      "DdEHK6ktfLg",
+      "DdJK6wstDBx"
+    ],
+    "highlightNames": [
+      "Commissions",
+      "me",
+      "tattoo",
+      "commissions"
+    ],
+    "note": "Публикации сентября 2026 (фото-посты) — источник портретов, если gallery-dl скачает с cookies. Иначе — стоп-кадры из видео или фото от заказчика в assets/photos/."
+  }
+}

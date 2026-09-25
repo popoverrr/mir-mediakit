@@ -1,0 +1,177 @@
+---
+// §5.6 — главный блок: фильтр-чипсы, крупные featured-карточки, компактная сетка.
+import CaseCard from './CaseCard.astro';
+import Icon from './Icon.astro';
+import { kit, tr, visibleCases, categoriesWithCases, type Locale } from '../lib/data';
+import { countInt, fmtPlus, fmtInt } from '../lib/format';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const cases = visibleCases();
+const featured = cases.filter((c) => c.featured);
+const rest = cases.filter((c) => !c.featured);
+const cats = categoriesWithCases(cases);
+const T = kit.totals;
+const subtitle = t.cases.subtitle(
+  countInt(T.brandsCount, l, t.units.brands),
+  countInt(T.integrationVideosKnown, l, t.units.videos),
+  fmtPlus(T.integrationViewsKnown, l),
+);
+---
+
+<section class="cases section" id="cases" aria-labelledby="cases-title" data-cases>
+  <div class="container">
+    <div class="section-head">
+      <h2 class="h2 cases__title reveal" id="cases-title">{t.cases.title}</h2>
+      <p class="section-head__sub reveal" style="--i:1">{subtitle}</p>
+    </div>
+
+    <div class="cases__filters reveal" role="group" aria-label={t.cases.filterLabel}>
+      <button type="button" class="chip" aria-pressed="true" data-filter="all">
+        {t.cases.all}
+        <span class="chip__count">{fmtInt(cases.length, l)}</span>
+      </button>
+      {
+        cats.map((c) => (
+          <button type="button" class="chip" aria-pressed="false" data-filter={c.id}>
+            {tr(c.label, l)}
+            <span class="chip__count">{fmtInt(cases.filter((x) => x.category === c.id).length, l)}</span>
+          </button>
+        ))
+      }
+    </div>
+
+    <p class="sr-only" aria-live="polite" data-cases-status></p>
+
+    <div class="cases__featured" data-group="featured">
+      <div class="cases__featured-head">
+        <p class="label muted">{t.cases.featured}</p>
+        <div class="cases__arrows">
+          <button type="button" class="cases__arrow" data-rail-prev aria-label={t.cases.prev}><Icon name="arrow-left" /></button>
+          <button type="button" class="cases__arrow" data-rail-next aria-label={t.cases.next}><Icon name="arrow-right" /></button>
+        </div>
+      </div>
+      <ul class="rail cases__rail" data-rail>
+        {featured.map((c) => <CaseCard c={c} locale={l} t={t} size="lg" />)}
+      </ul>
+    </div>
+
+    <div class="cases__more" data-group="more">
+      <p class="label muted cases__more-label">{t.cases.more}</p>
+      <ul class="cases__grid">
+        {rest.map((c) => <CaseCard c={c} locale={l} t={t} size="sm" />)}
+      </ul>
+    </div>
+
+    <p class="cases__empty" data-cases-empty hidden>{t.cases.empty}</p>
+    <p class="cases__note">{t.cases.igNote}</p>
+  </div>
+</section>
+
+<style>
+  .cases {
+    background:
+      radial-gradient(60% 40% at 80% 0%, rgba(58, 68, 83, 0.35), transparent 70%),
+      var(--bg);
+  }
+  .cases__title {
+    font-size: clamp(72px, 24vw, 200px);
+  }
+  .cases__filters {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 2px var(--gutter) 6px;
+    margin-bottom: 28px;
+  }
+  .cases__filters::-webkit-scrollbar {
+    display: none;
+  }
+  .cases__featured-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+  }
+  .cases__arrows {
+    display: none;
+    gap: 8px;
+  }
+  .cases__arrow {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
+  }
+  .cases__arrow:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  .cases__arrow:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  .cases__rail {
+    grid-auto-columns: min(72vw, 300px);
+    gap: 14px;
+  }
+  .cases__more {
+    margin-top: 48px;
+  }
+  .cases__more-label {
+    margin-bottom: 16px;
+  }
+  .cases__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 12px;
+  }
+  .cases__featured[hidden],
+  .cases__more[hidden] {
+    display: none;
+  }
+  .cases__empty {
+    color: var(--muted);
+    padding: 40px 0;
+  }
+  .cases__note {
+    margin-top: 32px;
+    color: var(--muted);
+    font-size: 14px;
+    max-width: 70ch;
+  }
+
+  @media (min-width: 1024px) {
+    .cases__filters {
+      flex-wrap: wrap;
+      overflow: visible;
+      margin-inline: 0;
+      padding-inline: 0;
+    }
+    .cases__arrows {
+      display: flex;
+    }
+    .cases__rail {
+      grid-auto-columns: calc((100% - 3 * 16px) / 4);
+      gap: 16px;
+      margin-inline: 0;
+      padding-inline: 0;
+      scroll-padding-inline: 0;
+    }
+    .cases__grid {
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 14px;
+    }
+  }
+</style>

@@ -1,0 +1,55 @@
+:root {
+  /* цвет */
+  --bg: #07080b;
+  --bg-2: #0e1117;
+  --bg-3: #151922;
+  --ink: #f3f4f7;
+  --ink-2: #d5d9e1;
+  --muted: #9aa3b2;
+  --line: rgba(255, 255, 255, 0.14);
+  --line-soft: rgba(255, 255, 255, 0.08);
+  --glass: rgba(255, 255, 255, 0.06);
+  --glass-2: rgba(255, 255, 255, 0.1);
+  --accent: #f1b5c4; /* жемчужно-розовый — только цифры, активный фильтр, бары графиков */
+  --accent-ink: #1a0f13;
+  --steel-hi: #dfe3ea;
+  --steel: #aab3c2;
+  --steel-lo: #3a4453;
+  --chrome: linear-gradient(180deg, #eef1f5 0%, #aab3c2 30%, #3a4453 62%, #07080b 100%);
+
+  /* «сталь → чернила»: светлый верх секции уходит в почти чёрный низ.
+     Стопы в пикселях, чтобы свет оставался над заголовком, а текст ниже стоял на тёмном. */
+  --steel-top:
+    linear-gradient(180deg, rgba(7, 8, 11, 0.85) 0px, rgba(7, 8, 11, 0) 120px),
+    radial-gradient(140% 620px at 50% 0%, #b9c0cb 0%, #858e9d 24%, #4a5361 48%, #1c212a 72%, rgba(11, 13, 18, 0) 100%),
+    linear-gradient(180deg, #0b0d12 0%, var(--bg) 100%);
+
+  /* типографика */
+  --f-display: 'Oswald', 'Arial Narrow', 'Roboto Condensed', sans-serif;
+  --f-wide: 'Unbounded', 'Arial Black', sans-serif;
+  --f-text: 'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fs-display: clamp(64px, 13vw, 210px);
+  --fs-h2: clamp(40px, 7.4vw, 120px);
+  --fs-label: 12px;
+  --fs-body: 17px;
+
+  /* сетка */
+  --container: 1320px;
+  --gutter: 16px;
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --section-y: clamp(72px, 10vw, 140px);
+
+  /* моушн */
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --dur: 600ms;
+
+  color-scheme: dark;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --gutter: 24px;
+  }
+}

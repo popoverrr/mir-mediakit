@@ -1,0 +1,269 @@
+---
+// §5.5 — «Партнёры»: сцена с экраном логотипов (CSS, без стоковых фото).
+// Логотипы из assets/logos/<slug>.svg|png; если их меньше 70% — все бренды единым вордмарком.
+import { kit, partnerBrands, type Locale } from '../lib/data';
+import { countInt, fmtPlus, unitFor } from '../lib/format';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const brands = partnerBrands();
+
+const logoFiles = import.meta.glob<string>('../../assets/logos/*.{svg,png}', { eager: true, import: 'default' });
+const logoBySlug = Object.fromEntries(
+  Object.entries(logoFiles).map(([k, v]) => [k.split('/').pop()!.replace(/\.(svg|png)$/, ''), v]),
+);
+const withLogo = brands.filter((b) => logoBySlug[b.slug]).length;
+const useLogos = brands.length > 0 && withLogo / brands.length >= 0.7;
+
+const T = kit.totals;
+const caption = [
+  countInt(T.brandsCount, l, t.units.brands),
+  countInt(T.integrationVideosKnown, l, t.units.videos),
+  `${fmtPlus(T.integrationViewsKnown, l)} ${unitFor(T.integrationViewsKnown, l, t.units.views, true)}`,
+].join(' · ');
+
+const half = Math.ceil(brands.length / 2);
+const rows = [brands.slice(0, half), brands.slice(half)];
+---
+
+<section class="partners section" aria-labelledby="partners-title">
+  <div class="container partners__head">
+    <h2 class="h2 partners__title reveal" id="partners-title">{t.partners.title}</h2>
+  </div>
+
+  <div class="stage reveal" role="group" aria-label={t.partners.screenLabel}>
+    <div class="stage__truss" aria-hidden="true">
+      {Array.from({ length: 7 }, (_, i) => <span class="stage__spot" style={`--x:${8 + i * 14}%`} />)}
+    </div>
+    <div class="stage__beams" aria-hidden="true"></div>
+
+    <div class="stage__screen container">
+      <div class="stage__panel">
+        <ul class="stage__grid">
+          {
+            brands.map((b) => (
+              <li class="wm">
+                {useLogos && logoBySlug[b.slug] ? <img src={logoBySlug[b.slug]} alt={b.brand} loading="lazy" /> : <span>{b.brand}</span>}
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="stage__marquee" aria-hidden="true">
+          {
+            rows.map((row, r) => (
+              <div class:list={['mq', r === 1 && 'mq--rev']}>
+                <div class="mq__track">
+                  {[...row, ...row].map((b) => (
+                    <span class="wm">
+                      {useLogos && logoBySlug[b.slug] ? <img src={logoBySlug[b.slug]} alt="" loading="lazy" /> : b.brand}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="stage__floor" aria-hidden="true"></div>
+  </div>
+
+  <div class="container">
+    <p class="partners__caption reveal">
+      <span class="num">{caption}</span>
+    </p>
+  </div>
+</section>
+
+<style>
+  .partners {
+    padding-bottom: calc(var(--section-y) * 0.7);
+    background:
+      radial-gradient(70% 45% at 50% 42%, rgba(154, 163, 178, 0.18), transparent 70%),
+      linear-gradient(180deg, var(--bg) 0%, #0a0c10 40%, #06070a 100%);
+    overflow: clip;
+  }
+  .partners__head {
+    position: relative;
+    z-index: 2;
+  }
+  .partners__title {
+    font-size: clamp(56px, 17vw, 200px);
+  }
+
+  .stage {
+    position: relative;
+    margin-top: clamp(8px, 2vw, 24px);
+    padding-top: clamp(64px, 7vw, 110px);
+  }
+  .stage__truss {
+    position: absolute;
+    inset: clamp(20px, 3vw, 44px) 0 auto;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14) 15%, rgba(255, 255, 255, 0.14) 85%, transparent);
+  }
+  .stage__spot {
+    position: absolute;
+    left: var(--x);
+    top: -5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 0 12px 4px rgba(255, 255, 255, 0.55),
+      0 0 40px 10px rgba(223, 227, 234, 0.25);
+  }
+  .stage__beams {
+    position: absolute;
+    inset: clamp(20px, 3vw, 44px) 0 30%;
+    pointer-events: none;
+    background:
+      conic-gradient(from 172deg at 22% 0%, transparent 0deg, rgba(223, 227, 234, 0.07) 8deg, transparent 16deg),
+      conic-gradient(from 172deg at 50% 0%, transparent 0deg, rgba(223, 227, 234, 0.08) 8deg, transparent 16deg),
+      conic-gradient(from 172deg at 78% 0%, transparent 0deg, rgba(223, 227, 234, 0.07) 8deg, transparent 16deg);
+    -webkit-mask-image: linear-gradient(180deg, #000, transparent);
+    mask-image: linear-gradient(180deg, #000, transparent);
+  }
+  .stage__screen {
+    position: relative;
+    z-index: 1;
+  }
+  .stage__panel {
+    position: relative;
+    border-radius: 6px;
+    padding: clamp(28px, 4vw, 64px) clamp(16px, 3vw, 56px);
+    background:
+      radial-gradient(120% 90% at 50% 0%, rgba(223, 227, 234, 0.34) 0%, rgba(122, 131, 145, 0.22) 30%, rgba(24, 29, 38, 0.95) 75%),
+      linear-gradient(180deg, #5b6472 0%, #232933 45%, #10141b 100%);
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 0 60px 0 rgba(170, 179, 194, 0.18),
+      0 40px 120px -20px rgba(170, 179, 194, 0.25);
+    overflow: hidden;
+  }
+  .stage__panel::after {
+    /* тонкие линии LED-экрана */
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0 1px, transparent 1px 4px);
+  }
+  .stage__floor {
+    height: clamp(80px, 12vw, 180px);
+    margin-top: 0;
+    background:
+      radial-gradient(60% 100% at 50% 0%, rgba(170, 179, 194, 0.22), transparent 70%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 60%);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    transform: perspective(600px) rotateX(55deg);
+    transform-origin: top;
+  }
+
+  .wm {
+    display: grid;
+    place-items: center;
+    text-align: center;
+    font-family: var(--f-wide);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #fff;
+    line-height: 1.15;
+    text-shadow: 0 0 18px rgba(255, 255, 255, 0.35);
+  }
+  .wm img {
+    max-height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  /* на мобиле видна бегущая строка; сетка остаётся для скринридеров */
+  .stage__grid {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .stage__marquee {
+    display: grid;
+    gap: 18px;
+  }
+  .mq {
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .mq__track {
+    display: flex;
+    gap: 36px;
+    width: max-content;
+    animation: mq 38s linear infinite;
+  }
+  .mq--rev .mq__track {
+    animation-direction: reverse;
+  }
+  .mq .wm {
+    font-size: 15px;
+    white-space: nowrap;
+  }
+  @keyframes mq {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  .partners__caption {
+    margin-top: 8px;
+    text-align: center;
+  }
+  .partners__caption .num {
+    font-size: clamp(28px, 4vw, 48px);
+    color: var(--ink);
+    letter-spacing: 0.01em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mq__track {
+      animation: none;
+    }
+    .mq {
+      overflow-x: auto;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .stage__marquee {
+      display: none;
+    }
+    .stage__grid {
+      position: static;
+      width: auto;
+      height: auto;
+      overflow: visible;
+      clip: auto;
+      white-space: normal;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: clamp(22px, 3vw, 40px) clamp(16px, 2vw, 32px);
+    }
+    .stage__grid .wm {
+      font-size: clamp(13px, 1.25vw, 18px);
+      min-height: 44px;
+    }
+  }
+  @media (min-width: 1024px) {
+    .stage__grid {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+</style>

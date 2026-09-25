@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+media-src/
+secrets/
+*.log
+.DS_Store
+Thumbs.db
+# референс — чужой медиакит (фото, контакты): только для локальной работы, в репозиторий не кладём
+reference/
+# временное
+.tmp/
+.lighthouse/
+.claude/
+# полные отчёты Lighthouse (цифры — в REPORT.md)
+docs/lighthouse/

@@ -1,0 +1,49 @@
+---
+import { kit, tr, withBase, type Locale } from '../lib/data';
+import { fmtDay } from '../lib/format';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const updated = fmtDay(kit.meta.collectedAt, l);
+const year = kit.meta.collectedAt.slice(0, 4);
+const otherHref = l === 'ru' ? withBase('/en/') : withBase('/');
+---
+<footer class="footer">
+  <div class="container footer__in">
+    <p>© {year} {kit.profile.displayName} · {tr(kit.profile.fullName, l)}</p>
+    {updated && <p>{t.footer.updated}: {updated}</p>}
+    <a href={otherHref} hreflang={l === 'ru' ? 'en' : 'ru'} lang={l === 'ru' ? 'en' : 'ru'} data-lang-link class="footer__lang">{t.nav.toOther}</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--line-soft);
+    padding: 28px 0 calc(96px + env(safe-area-inset-bottom));
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .footer__in {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 28px;
+    align-items: center;
+  }
+  .footer__lang {
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 2px;
+  }
+  @media (min-width: 1024px) {
+    .footer {
+      padding-bottom: 28px;
+    }
+    .footer__lang {
+      margin-left: auto;
+    }
+  }
+</style>

@@ -1,0 +1,147 @@
+---
+// §5.2 — полоса из пяти счётчиков. Источник — totals (+ channels для подписей).
+import { kit, tr, channel, type Locale } from '../lib/data';
+import { fmtCompact, fmtInt, fmtPlus, plural } from '../lib/format';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const T = kit.totals;
+const yt = channel('youtube');
+const shortsCount = yt?.stats.shortsCounted;
+
+type Mode = 'plus' | 'compact' | 'int';
+const items: { value: number; mode: Mode; text: string; label: string; src: string }[] = [
+  {
+    value: T.followersAllPlatforms,
+    mode: 'plus',
+    text: tr(T.followersAllPlatformsLabel, l) || fmtPlus(T.followersAllPlatforms, l),
+    label: t.numbers.followers,
+    src: t.numbers.followersSrc,
+  },
+  {
+    value: T.tiktokLikes,
+    mode: 'compact',
+    text: fmtCompact(T.tiktokLikes, l),
+    label: t.numbers.tiktokLikes,
+    src: kit.channels
+      .filter((c) => c.platform === 'tiktok')
+      .map((c) => `@${c.handle}`)
+      .join(' + '),
+  },
+  {
+    value: T.youtubeShortsViews,
+    mode: 'plus',
+    text: fmtPlus(T.youtubeShortsViews, l),
+    label: t.numbers.shorts,
+    src: shortsCount ? t.numbers.shortsSrc(fmtInt(shortsCount, l)) : `@${yt?.handle ?? ''}`,
+  },
+  {
+    value: T.integrationViewsKnown,
+    mode: 'plus',
+    text: fmtPlus(T.integrationViewsKnown, l),
+    label: t.numbers.adViews,
+    src: t.numbers.adViewsSrc,
+  },
+  {
+    value: T.brandsCount,
+    mode: 'int',
+    text: fmtInt(T.brandsCount, l),
+    label: plural(T.brandsCount, l, t.numbers.brands),
+    src: t.numbers.brandsSrc(fmtInt(T.integrationVideosKnown, l)),
+  },
+];
+---
+
+<section class="numbers" aria-label={t.numbers.title}>
+  <div class="container">
+    <ul class="numbers__list">
+      {
+        items.map((it, i) => (
+          <li class="numbers__item reveal" style={`--i:${i}`}>
+            <span class="num numbers__value" data-count={it.value} data-mode={it.mode}>
+              {it.text}
+            </span>
+            <span class="numbers__label">{it.label}</span>
+            <span class="numbers__src">{it.src}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
+
+<style>
+  .numbers {
+    position: relative;
+    padding-block: 28px 8px;
+    background: linear-gradient(180deg, #07080b 0%, #0b0d12 100%);
+  }
+  .numbers__list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--line);
+  }
+  .numbers__item {
+    display: grid;
+    align-content: start;
+    gap: 6px;
+    padding: 22px 12px 22px 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .numbers__item:nth-child(2n) {
+    padding-left: 16px;
+    border-left: 1px solid var(--line-soft);
+  }
+  .numbers__item:last-child {
+    grid-column: 1 / -1;
+    padding-left: 0;
+    border-left: 0;
+  }
+  .numbers__value {
+    font-size: clamp(36px, 10.5vw, 48px);
+    color: var(--accent);
+    white-space: nowrap;
+  }
+  .numbers__label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.25;
+  }
+  .numbers__src {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  @media (min-width: 1024px) {
+    .numbers {
+      padding-block: 40px 16px;
+    }
+    .numbers__list {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border-bottom: 1px solid var(--line);
+    }
+    .numbers__item,
+    .numbers__item:nth-child(2n),
+    .numbers__item:last-child {
+      grid-column: auto;
+      padding: 32px 20px;
+      border-bottom: 0;
+      border-left: 1px solid var(--line-soft);
+    }
+    .numbers__item:first-child {
+      border-left: 0;
+      padding-left: 0;
+    }
+    .numbers__label {
+      font-size: 17px;
+    }
+    .numbers__value {
+      font-size: clamp(44px, 3.9vw, 62px);
+    }
+  }
+</style>

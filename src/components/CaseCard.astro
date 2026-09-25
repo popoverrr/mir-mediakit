@@ -1,0 +1,290 @@
+---
+// Карточка кейса 9:16: постер (или сгенерированная карточка), превью-ролик, бейдж с лучшей цифрой.
+import Icon from './Icon.astro';
+import { caseBadge, casePlatforms, categoryLabel, pickPoster, previewFor, type Case, type Locale } from '../lib/data';
+import { countInt } from '../lib/format';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  c: Case;
+  locale: Locale;
+  t: Dict;
+  size: 'lg' | 'sm';
+}
+const { c, locale: l, t, size } = Astro.props;
+const poster = pickPoster(c.slug, c.sources);
+const preview = previewFor(c.slug);
+const badge = caseBadge(c, l, t);
+const platforms = casePlatforms(c);
+const videos = c.totals?.videos ?? c.sources.length;
+const sizes = size === 'lg' ? '(min-width: 1024px) 320px, 72vw' : '(min-width: 1024px) 190px, 46vw';
+---
+
+<li class:list={['ccard', `ccard--${size}`]} data-case={c.slug} data-cat={c.category}>
+  <button type="button" class="ccard__btn" data-open-item={c.slug}>
+    <span class="sr-only">{t.cases.open}:</span>
+    <span class="ccard__media">
+      {
+        poster ? (
+          <img
+            class="ccard__poster"
+            src={poster.src}
+            srcset={poster.srcset}
+            sizes={poster.srcset ? sizes : undefined}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            width="360"
+            height="640"
+            referrerpolicy={poster.remote ? 'no-referrer' : undefined}
+          />
+        ) : (
+          <span class="ccard__gen" aria-hidden="true">
+            <span class="ccard__gen-mark">{c.brand}</span>
+            <span class="ccard__gen-pf">
+              {platforms.map((p) => (
+                <Icon name={p} />
+              ))}
+            </span>
+          </span>
+        )
+      }
+      {preview && <video class="ccard__preview" muted loop playsinline preload="none" data-src={preview} aria-hidden="true" tabindex="-1" />}
+      <span class="ccard__shade" aria-hidden="true"></span>
+    </span>
+
+    {badge && <span class="ccard__badge">{badge}</span>}
+    <span class="ccard__play" aria-hidden="true"><Icon name="play" /></span>
+
+    <span class="ccard__info">
+      <span class="ccard__brand">{c.brand}</span>
+      <span class="ccard__cat">{categoryLabel(c.category, l)}</span>
+      <span class="ccard__foot">
+        <span class="ccard__pfs">
+          {
+            platforms.map((p) => (
+              <Icon name={p} label={t.platformName[p as keyof typeof t.platformName]} />
+            ))
+          }
+        </span>
+        {videos > 1 && <span class="ccard__count">{countInt(videos, l, t.units.videos)}</span>}
+      </span>
+    </span>
+  </button>
+</li>
+
+<style>
+  .ccard {
+    position: relative;
+    list-style: none;
+  }
+  .ccard[hidden] {
+    display: none;
+  }
+  .ccard__btn {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    text-align: left;
+    background: var(--bg-3);
+    box-shadow:
+      0 0 0 1px var(--line-soft),
+      0 30px 60px -30px rgba(0, 0, 0, 0.9);
+    transition:
+      transform 0.45s var(--ease),
+      box-shadow 0.45s var(--ease);
+    isolation: isolate;
+  }
+  .ccard__btn:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 1px var(--line),
+      0 40px 70px -30px rgba(0, 0, 0, 0.95);
+  }
+  .ccard__btn:focus-visible {
+    outline-offset: 4px;
+    border-radius: var(--radius-md);
+  }
+  .ccard__media,
+  .ccard__poster,
+  .ccard__preview,
+  .ccard__shade,
+  .ccard__gen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .ccard__poster,
+  .ccard__preview {
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+  .ccard__btn:hover .ccard__poster,
+  .ccard__btn:hover .ccard__preview {
+    transform: scale(1.04);
+  }
+  .ccard__preview {
+    opacity: 0;
+    transition:
+      opacity 0.4s,
+      transform 1.2s var(--ease);
+  }
+  .ccard__preview.is-playing {
+    opacity: 1;
+  }
+  .ccard__shade {
+    background:
+      linear-gradient(180deg, rgba(7, 8, 11, 0.55) 0%, rgba(7, 8, 11, 0) 22%),
+      linear-gradient(0deg, rgba(7, 8, 11, 0.95) 0%, rgba(7, 8, 11, 0.6) 26%, rgba(7, 8, 11, 0) 52%);
+  }
+
+  /* сгенерированная карточка: хром + вордмарк + платформа */
+  .ccard__gen {
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 18px;
+    padding: 18px;
+    background:
+      radial-gradient(100% 60% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 60%),
+      var(--chrome);
+    text-align: center;
+  }
+  .ccard__gen-mark {
+    font-family: var(--f-wide);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(16px, 2vw, 22px);
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
+    overflow-wrap: anywhere;
+  }
+  .ccard__gen-pf {
+    display: flex;
+    gap: 10px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .ccard__badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    right: 12px;
+    width: fit-content;
+    max-width: calc(100% - 24px);
+    padding: 7px 12px;
+    border-radius: 14px;
+    background: rgba(7, 8, 11, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--accent);
+  }
+  .ccard__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 58px;
+    height: 58px;
+    margin: -29px 0 0 -29px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.16);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    color: #fff;
+    opacity: 0;
+    transform: scale(0.85);
+    transition:
+      opacity 0.3s,
+      transform 0.3s var(--ease);
+  }
+  .ccard__btn:hover .ccard__play,
+  .ccard__btn:focus-visible .ccard__play {
+    opacity: 1;
+    transform: none;
+  }
+  .ccard__info {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: grid;
+    gap: 4px;
+    padding: 16px;
+  }
+  .ccard__brand {
+    font-family: var(--f-wide);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 18px;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+  }
+  .ccard__cat {
+    color: var(--ink-2);
+    font-size: 13px;
+    line-height: 1.3;
+  }
+  .ccard__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-top: 8px;
+    color: var(--ink-2);
+    font-size: 13px;
+  }
+  .ccard__pfs {
+    display: flex;
+    gap: 8px;
+  }
+  .ccard__pfs :global(.ico) {
+    width: 16px;
+    height: 16px;
+  }
+  .ccard__count {
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .ccard--sm .ccard__brand {
+    font-size: 14px;
+  }
+  .ccard--sm .ccard__info {
+    padding: 12px;
+  }
+  .ccard--sm .ccard__badge {
+    top: 8px;
+    left: 8px;
+    font-size: 11.5px;
+    padding: 5px 9px;
+  }
+  .ccard--sm .ccard__foot {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+  .ccard--sm .ccard__play {
+    width: 46px;
+    height: 46px;
+    margin: -23px 0 0 -23px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ccard__btn,
+    .ccard__poster {
+      transition: none;
+    }
+  }
+</style>

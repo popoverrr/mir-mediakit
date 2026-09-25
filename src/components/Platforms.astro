@@ -1,0 +1,238 @@
+---
+// §5.4 — карточки каналов (кроме minor — Telegram-канал идёт мелкой ссылкой).
+import Icon from './Icon.astro';
+import { kit, tr, type Locale, type Channel } from '../lib/data';
+import { fmtCompact, fmtInt, unitFor } from '../lib/format';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { locale: l, t } = Astro.props;
+const main = kit.channels.filter((c) => !c.minor);
+const minor = kit.channels.filter((c) => c.minor);
+const tiktoks = kit.channels.filter((c) => c.platform === 'tiktok');
+const art = tiktoks.find((c) => c.id.includes('rinkiwi')) ?? tiktoks[0];
+const life = tiktoks.find((c) => c !== art);
+const lead = t.platforms.lead.replace('{art}', art?.handle ?? '').replace('{life}', life?.handle ?? '');
+const oldAlias = kit.profile.aliases.find((a) => /^rinkiwii$/i.test(a));
+
+const platformTitle: Record<string, string> = {
+  instagram: 'Instagram',
+  tiktok: 'TikTok',
+  youtube: 'YouTube',
+  telegram: 'Telegram',
+};
+
+function followers(c: Channel): number | null {
+  return (c.stats.followers ?? c.stats.subscribers ?? null) as number | null;
+}
+function secondary(c: Channel): { value: string; label: string }[] {
+  const s = c.stats;
+  const out: { value: string; label: string }[] = [];
+  if (s.likes) out.push({ value: fmtCompact(s.likes, l), label: t.platforms.likes });
+  if (s.shortsTotalViews) out.push({ value: fmtCompact(s.shortsTotalViews, l), label: t.platforms.shortsViews });
+  if (s.videos) out.push({ value: fmtInt(s.videos, l), label: t.platforms.videos });
+  if (s.posts) out.push({ value: fmtInt(s.posts, l), label: t.platforms.posts });
+  return out.slice(0, 2);
+}
+---
+
+<section class="platforms section" aria-labelledby="platforms-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="h2 platforms__title reveal" id="platforms-title">{t.platforms.title}</h2>
+      <p class="section-head__sub reveal" style="--i:1">{lead}</p>
+    </div>
+
+    <ul class="platforms__grid">
+      {
+        main.map((c, i) => {
+          const f = followers(c);
+          return (
+            <li class:list={['pcard', 'glass', 'reveal', `pcard--${c.platform}`]} style={`--i:${i}`}>
+              <div class="glass__inner pcard__inner">
+                <div class="pcard__top">
+                  <span class="pcard__icon">
+                    <Icon name={c.platform} />
+                  </span>
+                  <span class="label pcard__pf">{platformTitle[c.platform]}</span>
+                </div>
+                <p class="pcard__handle">@{c.handle}</p>
+                <p class="pcard__role">{tr(c.role, l)}</p>
+                {f != null && (
+                  <p class="pcard__main">
+                    <span class="num pcard__num">{fmtCompact(f, l)}</span>
+                    <span class="pcard__unit">{unitFor(f, l, t.platforms.followers, true)}</span>
+                  </p>
+                )}
+                <dl class="pcard__sec">
+                  {secondary(c).map((s) => (
+                    <div>
+                      <dt>{s.label}</dt>
+                      <dd>{s.value}</dd>
+                    </div>
+                  ))}
+                </dl>
+                {c.platform === 'instagram' && oldAlias && <p class="pcard__note">{t.platforms.formerly.replace('{alias}', oldAlias)}</p>}
+                <a class="btn btn--ghost pcard__btn" href={c.url} target="_blank" rel="noopener" aria-label={`${t.platforms.open}: ${platformTitle[c.platform]} @${c.handle}`}>
+                  {t.platforms.open}
+                  <Icon name="arrow-ur" />
+                </a>
+              </div>
+            </li>
+          );
+        })
+      }
+    </ul>
+
+    {
+      minor.length > 0 && (
+        <p class="platforms__minor reveal">
+          {minor.map((c) => {
+            const f = followers(c);
+            return (
+              <a href={c.url} target="_blank" rel="noopener">
+                <Icon name={c.platform} />
+                <span>
+                  {tr(c.role, l)} @{c.handle}
+                  {f != null && ` · ${fmtInt(f, l)} ${unitFor(f, l, t.platforms.followers, false)}`}
+                </span>
+                <Icon name="arrow-ur" />
+              </a>
+            );
+          })}
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .platforms {
+    background: linear-gradient(180deg, #0b0d12 0%, var(--bg) 100%);
+  }
+  .platforms__title {
+    font-size: clamp(56px, 16vw, 150px);
+  }
+  .platforms__grid {
+    display: grid;
+    gap: 14px;
+  }
+  .pcard__inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 22px;
+  }
+  .pcard__top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-2);
+  }
+  .pcard__icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--line-soft);
+    color: var(--ink);
+  }
+  .pcard__handle {
+    font-family: var(--f-wide);
+    font-weight: 700;
+    font-size: clamp(20px, 2vw, 24px);
+    letter-spacing: 0.01em;
+    margin-top: 8px;
+    overflow-wrap: anywhere;
+  }
+  .pcard__role {
+    color: var(--ink-2);
+    font-size: 15px;
+    min-height: 3em;
+  }
+  .platforms__grid > li {
+    min-width: 0;
+  }
+  .pcard__main {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 10px;
+    margin-top: 6px;
+  }
+  .pcard__num {
+    font-size: clamp(48px, 4.4vw, 64px);
+    color: var(--accent);
+  }
+  .pcard__unit {
+    font-weight: 600;
+    color: var(--ink-2);
+  }
+  .pcard__sec {
+    display: flex;
+    gap: 24px;
+    padding-top: 12px;
+    border-top: 1px solid var(--line-soft);
+  }
+  .pcard__sec div {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .pcard__sec dd {
+    font-family: var(--f-display);
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1;
+  }
+  .pcard__sec dt {
+    color: var(--muted);
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .pcard__note {
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .pcard__btn {
+    margin-top: auto;
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 0 18px;
+    font-size: 11px;
+  }
+  .platforms__minor {
+    margin-top: 22px;
+  }
+  .platforms__minor a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink-2);
+    font-size: 15px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 4px;
+  }
+  .platforms__minor a:hover {
+    color: var(--ink);
+  }
+
+  @media (min-width: 640px) {
+    .platforms__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (min-width: 1100px) {
+    .platforms__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .pcard__inner {
+      padding: 26px;
+      min-height: 100%;
+    }
+  }
+</style>

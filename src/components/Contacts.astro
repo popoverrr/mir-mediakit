@@ -1,0 +1,243 @@
+---
+// §5.11 — «Всегда на связи» (ref-11) + футер.
+import { Picture } from 'astro:assets';
+import Icon from './Icon.astro';
+import { kit, type Locale } from '../lib/data';
+import { art } from '../lib/photos';
+import type { Dict } from '../i18n/ru';
+
+interface Props {
+  locale: Locale;
+  t: Dict;
+}
+const { t } = Astro.props;
+const c = kit.contacts;
+const drawing = art('art-')[1] ?? art('art-')[0];
+
+const socialOf = (url: string) => {
+  const u = url.toLowerCase();
+  const platform = u.includes('instagram') ? 'instagram' : u.includes('tiktok') ? 'tiktok' : u.includes('youtube') ? 'youtube' : u.includes('t.me') ? 'telegram' : 'arrow-ur';
+  const handle = url.replace(/\/+$/, '').split('/').pop()?.replace(/^@/, '') ?? url;
+  return { platform, handle: `@${handle}` };
+};
+const phoneHref = c.phone ? `tel:${c.phone.replace(/[^\d+]/g, '')}` : null;
+const waHref = c.whatsapp ? `https://wa.me/${c.whatsapp.replace(/\D/g, '')}` : null;
+---
+
+<section class="contacts section section--steel" id="contacts" aria-labelledby="contacts-title">
+  {
+    drawing && (
+      <div class="contacts__art" aria-hidden="true">
+        <Picture src={drawing} alt="" formats={['avif', 'webp']} widths={[400, 600]} sizes="(min-width: 1024px) 40vw, 80vw" loading="lazy" />
+      </div>
+    )
+  }
+  <div class="container">
+    <h2 class="h2 contacts__title reveal" id="contacts-title">{t.contacts.title}</h2>
+    <p class="label contacts__lead reveal" style="--i:1">{t.contacts.lead}</p>
+
+    <ul class="contacts__list">
+      <li class="reveal" style="--i:2">
+        <a class="crow" href={c.telegramAds.url} target="_blank" rel="noopener">
+          <span class="crow__ico"><Icon name="telegram" /></span>
+          <span class="crow__txt">
+            <span class="crow__k">{t.contacts.telegram}</span>
+            <span class="crow__v">@{c.telegramAds.handle}</span>
+          </span>
+        </a>
+      </li>
+      {
+        c.email && (
+          <li class="reveal" style="--i:3">
+            <a class="crow" href={`mailto:${c.email}`}>
+              <span class="crow__ico">
+                <Icon name="mail" />
+              </span>
+              <span class="crow__txt">
+                <span class="crow__k">{t.contacts.email}</span>
+                <span class="crow__v">{c.email}</span>
+              </span>
+            </a>
+          </li>
+        )
+      }
+      {
+        phoneHref && (
+          <li class="reveal" style="--i:4">
+            <a class="crow" href={phoneHref}>
+              <span class="crow__ico">
+                <Icon name="phone" />
+              </span>
+              <span class="crow__txt">
+                <span class="crow__k">{t.contacts.phone}</span>
+                <span class="crow__v">{c.phone}</span>
+              </span>
+            </a>
+          </li>
+        )
+      }
+      {
+        waHref && (
+          <li class="reveal" style="--i:5">
+            <a class="crow" href={waHref} target="_blank" rel="noopener">
+              <span class="crow__ico">
+                <Icon name="whatsapp" />
+              </span>
+              <span class="crow__txt">
+                <span class="crow__k">{t.contacts.whatsapp}</span>
+                <span class="crow__v">{c.whatsapp}</span>
+              </span>
+            </a>
+          </li>
+        )
+      }
+    </ul>
+
+    <div class="contacts__cta reveal">
+      <a class="btn btn--lg contacts__btn" href={c.primaryCta.url} target="_blank" rel="noopener">
+        <Icon name="telegram" />
+        {t.contacts.cta}
+      </a>
+    </div>
+
+    <div class="contacts__socials reveal">
+      <p class="label muted">{t.contacts.socials}</p>
+      <ul>
+        {
+          c.socials.map((url) => {
+            const s = socialOf(url);
+            return (
+              <li>
+                <a href={url} target="_blank" rel="noopener" class="social">
+                  <Icon name={s.platform} />
+                  <span>{s.handle}</span>
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<style>
+  .contacts {
+    overflow: clip;
+    padding-bottom: calc(var(--section-y) * 0.8);
+  }
+  .contacts__art {
+    position: absolute;
+    right: -6%;
+    bottom: -4%;
+    width: min(80vw, 560px);
+    z-index: -1;
+    opacity: 0.35;
+    filter: grayscale(1) contrast(1.1);
+    mix-blend-mode: soft-light;
+    -webkit-mask-image: radial-gradient(closest-side, #000 50%, transparent 100%);
+    mask-image: radial-gradient(closest-side, #000 50%, transparent 100%);
+    pointer-events: none;
+  }
+  .contacts__art :global(img) {
+    width: 100%;
+    height: auto;
+  }
+  .contacts__title {
+    font-size: clamp(60px, 17vw, 190px);
+    max-width: 12ch;
+  }
+  .contacts__lead {
+    font-size: clamp(13px, 1.3vw, 16px);
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 48ch;
+    margin: 22px 0 clamp(32px, 4vw, 56px);
+  }
+  .contacts__list {
+    display: grid;
+    gap: 14px;
+  }
+  .crow {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: fit-content;
+    max-width: 100%;
+  }
+  .crow__ico {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: var(--ink);
+    color: var(--bg);
+    transition: transform 0.3s var(--ease);
+  }
+  .crow__ico :global(.ico) {
+    width: 26px;
+    height: 26px;
+  }
+  .crow:hover .crow__ico {
+    transform: rotate(-6deg) scale(1.05);
+  }
+  .crow__txt {
+    display: grid;
+    min-width: 0;
+  }
+  .crow__k {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .crow__v {
+    font-family: var(--f-wide);
+    font-weight: 500;
+    font-size: clamp(18px, 3.2vw, 40px);
+    line-height: 1.15;
+    overflow-wrap: anywhere;
+  }
+  .contacts__cta {
+    margin-top: clamp(32px, 4vw, 48px);
+  }
+  .contacts__btn {
+    white-space: normal;
+    text-align: center;
+  }
+  .contacts__socials {
+    margin-top: clamp(40px, 5vw, 64px);
+  }
+  .contacts__socials ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .social {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: rgba(255, 255, 255, 0.04);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-2);
+    transition:
+      background-color 0.2s,
+      color 0.2s;
+  }
+  .social:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--ink);
+  }
+  .social :global(.ico) {
+    width: 18px;
+    height: 18px;
+  }
+
+</style>

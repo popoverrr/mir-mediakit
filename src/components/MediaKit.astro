@@ -1,0 +1,49 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from './Nav.astro';
+import Hero from './Hero.astro';
+import Stats from './Stats.astro';
+import About from './About.astro';
+import Platforms from './Platforms.astro';
+import Partners from './Partners.astro';
+import Cases from './Cases.astro';
+import TopContent from './TopContent.astro';
+import Audience from './Audience.astro';
+import Formats from './Formats.astro';
+import Longterm from './Longterm.astro';
+import Contacts from './Contacts.astro';
+import Footer from './Footer.astro';
+import VideoModal from './VideoModal.astro';
+import ru from '../i18n/ru';
+import en from '../i18n/en';
+import type { Locale } from '../lib/data';
+
+interface Props {
+  locale: Locale;
+}
+const { locale } = Astro.props;
+const t = locale === 'en' ? en : ru;
+---
+
+<Layout locale={locale} t={t}>
+  <Nav locale={locale} t={t} />
+  <main id="main">
+    <Hero locale={locale} t={t} />
+    <Stats locale={locale} t={t} />
+    <About locale={locale} t={t} />
+    <Platforms locale={locale} t={t} />
+    <Partners locale={locale} t={t} />
+    <Cases locale={locale} t={t} />
+    <TopContent locale={locale} t={t} />
+    <Audience locale={locale} t={t} />
+    <Formats locale={locale} t={t} />
+    <Longterm locale={locale} t={t} />
+    <Contacts locale={locale} t={t} />
+  </main>
+  <Footer locale={locale} t={t} />
+  <VideoModal locale={locale} t={t} />
+</Layout>
+
+<script>
+  import '../scripts/main';
+</script>
