@@ -1,6 +1,8 @@
 # Превью медиакита на GitHub Pages: https://<логин>.github.io/<репозиторий>/
 # Сборка с base = /<репозиторий>/ (все пути к медиа и ассетам учитывают base).
 # Settings → Pages → Source: «GitHub Actions».
+# Pages на бесплатном плане работает только для публичного репозитория, поэтому в приватном
+# workflow пропускается (без ошибок); после смены видимости на Public — собирается на каждый push.
 name: Pages
 
 on:
@@ -19,6 +21,7 @@ concurrency:
 
 jobs:
   build:
+    if: ${{ !github.event.repository.private }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

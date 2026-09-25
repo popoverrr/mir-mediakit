@@ -145,4 +145,4 @@ Firefox с входом в Instagram на машине нет, `secrets/cookies.
 2. Framework Preset: **Astro** (Build: `npm run build`, Output: `dist`, Node 22).
 3. Deploy. Для своего домена: Settings → Domains, плюс переменная `MIR_SITE=https://<домен>` — от неё строятся canonical, hreflang и адреса OG-картинок, затем Redeploy.
 
-Превью на GitHub Pages собирает `.github/workflows/pages.yml` (base = `/<репозиторий>/`).
+Превью на GitHub Pages собирает `.github/workflows/pages.yml` (base = `/<репозиторий>/`; сборка с этим base проверена локально — 30/30 тестов). Репозиторий `popoverrr/mir-mediakit` создан **приватным**; чтобы включить превью, сделайте его публичным (Settings → General → Change visibility), затем Settings → Pages → Source: «GitHub Actions» и Actions → Pages → Run workflow. Сайт будет на `https://popoverrr.github.io/mir-mediakit/`.

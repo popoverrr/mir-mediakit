@@ -62,6 +62,6 @@ node scripts/lighthouse.mjs http://localhost:4321 ru mobile
 
 **Netlify**: Build command `npm run build`, Publish directory `dist`.
 
-**GitHub Pages** (превью): workflow `.github/workflows/pages.yml` собирает сайт с `MIR_BASE=/<репозиторий>/` и публикует на `https://<логин>.github.io/<репозиторий>/`.
+**GitHub Pages** (превью): workflow `.github/workflows/pages.yml` собирает сайт с `MIR_BASE=/<репозиторий>/` и публикует на `https://<логин>.github.io/<репозиторий>/`. На бесплатном плане Pages работает только у публичного репозитория: Settings → General → Change visibility → Public, затем Settings → Pages → Source: «GitHub Actions» и Actions → Pages → Run workflow. Пока репозиторий приватный, workflow пропускается.
 
 Отчёт о сборке, медиа и том, что ещё нужно от заказчика, — в `REPORT.md`. ТЗ — `TZ.md`, чек-лист для заказчика — `CHECKLIST.md`.
