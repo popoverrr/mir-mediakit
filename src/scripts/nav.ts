@@ -11,28 +11,89 @@ export function initNav(): void {
   const langLinks = document.querySelectorAll<HTMLAnchorElement>('[data-lang-link]');
 
   // стекло
-  const onScroll = () => nav?.classList.toggle('is-glass', window.scrollY > 24 || burger?.getAttribute('aria-expanded') === 'true');
+  const onScroll = () => nav?.classList.toggle('is-glass', window.scrollY > 24);
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  // бургер
-  const setMenu = (open: boolean) => {
-    if (!burger || !menu) return;
-    burger.setAttribute('aria-expanded', String(open));
-    menu.hidden = !open;
-    document.documentElement.style.overflow = open ? 'hidden' : '';
-    onScroll();
+  // бургер и полноэкранное меню
+  const root = document.documentElement;
+  const isOpen = () => burger?.getAttribute('aria-expanded') === 'true';
+  let lockedY = 0;
+  // scroll-lock без прыжка позиции на iOS: body фиксируется на текущем смещении и возвращается при закрытии
+  const lock = () => {
+    lockedY = window.scrollY;
+    root.classList.add('menu-open');
+    Object.assign(document.body.style, { position: 'fixed', top: `-${lockedY}px`, left: '0', right: '0', width: '100%' });
   };
-  burger?.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
-  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  const unlock = () => {
+    root.classList.remove('menu-open');
+    Object.assign(document.body.style, { position: '', top: '', left: '', right: '', width: '' });
+    const prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = 'auto';
+    window.scrollTo(0, lockedY);
+    root.style.scrollBehavior = prev;
+  };
+  const focusables = () =>
+    [burger, ...Array.from(menu?.querySelectorAll<HTMLElement>('a[href], button') ?? [])].filter(Boolean) as HTMLElement[];
+  const openMenu = () => {
+    if (!burger || !menu || isOpen()) return;
+    burger.setAttribute('aria-expanded', 'true');
+    burger.setAttribute('aria-label', burger.dataset.labelClose ?? '');
+    menu.hidden = false;
+    lock();
+    onScroll();
+    menu.querySelector<HTMLElement>('[data-menu-link]')?.focus({ preventScroll: true });
+  };
+  const closeMenu = (focusBurger = true) => {
+    if (!burger || !menu || !isOpen()) return;
+    burger.setAttribute('aria-expanded', 'false');
+    burger.removeAttribute('aria-label');
+    menu.hidden = true;
+    unlock();
+    onScroll();
+    if (focusBurger) burger.focus({ preventScroll: true });
+  };
+  burger?.addEventListener('click', () => (isOpen() ? closeMenu() : openMenu()));
+  // пункт меню: закрыть, затем плавно к якорю (scroll-padding учитывает высоту шапки)
+  menu?.querySelectorAll<HTMLAnchorElement>('[data-menu-link]').forEach((a) =>
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href')!.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      closeMenu(false);
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      history.replaceState(null, '', `#${id}`);
+      burger?.focus({ preventScroll: true });
+    }),
+  );
+  // тап мимо пунктов закрывает
+  menu?.addEventListener('click', (e) => {
+    if (!(e.target as HTMLElement).closest('a, button')) closeMenu();
+  });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && burger?.getAttribute('aria-expanded') === 'true') {
-      setMenu(false);
-      burger.focus();
+    if (!isOpen()) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu();
+      return;
+    }
+    // фокус не уходит за пределы меню (бургер + пункты)
+    if (e.key === 'Tab') {
+      const f = focusables();
+      const i = f.indexOf(document.activeElement as HTMLElement);
+      if (e.shiftKey && (i <= 0)) {
+        e.preventDefault();
+        f[f.length - 1].focus();
+      } else if (!e.shiftKey && (i === -1 || i === f.length - 1)) {
+        e.preventDefault();
+        f[0].focus();
+      }
     }
   });
   matchMedia('(min-width: 1024px)').addEventListener('change', (e) => {
-    if (e.matches) setMenu(false);
+    if (e.matches) closeMenu(false);
   });
 
   // липкая кнопка: после первого экрана, прячется у контактов

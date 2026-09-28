@@ -3,7 +3,7 @@
 // Пока данных нет (status: missing) — только реальные цифры каналов и Shorts + плашка «по запросу».
 import { Picture } from 'astro:assets';
 import Icon from './Icon.astro';
-import { kit, channel, hasAudience, type AudienceBlock, type Locale } from '../lib/data';
+import { kit, channel, hasAudience, type AudienceBlock, type Locale, contactUrl } from '../lib/data';
 import { fmtCompact, fmtInt } from '../lib/format';
 import { photo } from '../lib/photos';
 import type { Dict } from '../i18n/ru';
@@ -189,7 +189,7 @@ const shorts = [
               <p class="wide aud__req-title">{t.stats.requestTitle}</p>
               <p class="aud__req-text">{t.stats.requestText}</p>
             </div>
-            <a class="btn btn--lg" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener">
+            <a class="btn btn--lg" href={contactUrl} target="_blank" rel="noopener">
               <Icon name="telegram" />
               {t.stats.requestBtn}
             </a>

@@ -1,7 +1,8 @@
 ---
 // §5.5 — «Партнёры»: сцена с экраном логотипов (CSS, без стоковых фото).
 // Логотипы из assets/logos/<slug>.svg|png; если их меньше 70% — все бренды единым вордмарком.
-import { kit, partnerBrands, type Locale } from '../lib/data';
+import Flag from './Flag.astro';
+import { kit, tr, partnerBrands, type Locale } from '../lib/data';
 import { countInt, fmtPlus, unitFor } from '../lib/format';
 import type { Dict } from '../i18n/ru';
 
@@ -73,6 +74,22 @@ const rows = [brands.slice(0, half), brands.slice(half)];
 
     <div class="stage__floor" aria-hidden="true"></div>
   </div>
+
+  {
+    kit.geography?.countries?.length ? (
+      <div class="container geo">
+        <p class="label geo__title reveal">{tr(kit.geography.title, l)}</p>
+        <ul class="geo__list">
+          {kit.geography.countries.map((c, i) => (
+            <li class="chip geo__chip reveal" style={`--i:${i}`}>
+              <Flag code={c.code} />
+              <span>{c[l] ?? c.ru}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ) : null
+  }
 
   <div class="container">
     <p class="partners__caption reveal">
@@ -219,6 +236,58 @@ const rows = [brands.slice(0, half), brands.slice(half)];
   @keyframes mq {
     to {
       transform: translateX(-50%);
+    }
+  }
+
+  /* страны брендов: стеклянные чипсы, без акцента */
+  .geo {
+    display: grid;
+    justify-items: center;
+    gap: 16px;
+    margin: clamp(8px, 2vw, 20px) auto clamp(28px, 4vw, 48px);
+    text-align: center;
+  }
+  .geo__title {
+    color: var(--ink-2);
+  }
+  .geo__list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+    width: 100%;
+  }
+  .geo__chip {
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    min-height: 64px;
+    padding: 10px 6px;
+    border-radius: var(--radius-md);
+    color: var(--ink);
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+    cursor: default;
+  }
+  .geo__chip:hover {
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ink);
+  }
+  @media (min-width: 768px) {
+    .geo__list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: auto;
+      gap: 10px;
+    }
+    .geo__chip {
+      flex-direction: row;
+      min-height: 44px;
+      padding: 0 18px 0 14px;
+      border-radius: 999px;
+      gap: 10px;
+      font-size: 14px;
     }
   }
 

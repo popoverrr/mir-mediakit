@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { kit, tr, withBase, type Locale } from '../lib/data';
+import { kit, tr, withBase, contactUrl, type Locale } from '../lib/data';
 import type { Dict } from '../i18n/ru';
 
 interface Props {
@@ -15,7 +15,7 @@ const links = [
   { id: 'formats', label: t.nav.formats },
   { id: 'contacts', label: t.nav.contacts },
 ];
-const cta = kit.contacts.primaryCta;
+const cta = { label: kit.contacts.primaryCta.label, url: contactUrl };
 const langs = [
   { code: 'ru', href: withBase('/'), label: 'RU', name: 'Русский' },
   { code: 'en', href: withBase('/en/'), label: 'EN', name: 'English' },
@@ -52,33 +52,51 @@ const langs = [
         <Icon name="telegram" />
         <span>{tr(cta.label, locale)}</span>
       </a>
-      <button class="nav__burger" type="button" aria-expanded="false" aria-controls="nav-menu" data-burger>
+      <button class="nav__burger" type="button" aria-expanded="false" aria-controls="nav-menu" data-burger data-label-close={t.nav.close}>
         <span class="sr-only">{t.nav.menu}</span>
         <span class="nav__burger-lines" aria-hidden="true"><i></i><i></i></span>
       </button>
     </div>
   </div>
+</header>
 
-  <div class="menu" id="nav-menu" data-menu hidden>
-    <nav class="menu__links container" aria-label={t.nav.menu}>
+<!-- Мобильное меню — сосед шапки, а не её потомок: backdrop-filter шапки делал его контейнером для position: fixed -->
+<div class="menu" id="nav-menu" data-menu hidden>
+  <nav class="menu__links container" aria-label={t.nav.menu}>
+    {
+      links.map((l, i) => (
+        <a href={`#${l.id}`} style={`--i:${i}`} data-menu-link>
+          {l.label}
+        </a>
+      ))
+    }
+  </nav>
+  <div class="menu__foot container">
+    <div class="lang lang--menu" role="group" aria-label={t.nav.langLabel}>
       {
-        links.map((l, i) => (
-          <a href={`#${l.id}`} style={`--i:${i}`} data-menu-link>
-            {l.label}
+        langs.map((g) => (
+          <a
+            class="lang__a"
+            href={g.href}
+            hreflang={g.code}
+            lang={g.code}
+            data-lang-link
+            aria-current={g.code === locale ? 'true' : undefined}
+            aria-label={`${g.label} — ${g.name}`}
+          >
+            {g.label}
           </a>
         ))
       }
-    </nav>
-    <div class="menu__foot container">
-      <a class="btn btn--lg" href={cta.url} target="_blank" rel="noopener">
-        <Icon name="telegram" />
-        {tr(cta.label, locale)}
-      </a>
     </div>
+    <a class="btn btn--lg menu__cta" href={cta.url} target="_blank" rel="noopener">
+      <Icon name="telegram" />
+      {t.nav.mobileCta}
+    </a>
   </div>
-</header>
+</div>
 
-<a class="sticky-cta btn btn--lg" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener" data-sticky-cta tabindex="-1" aria-hidden="true">
+<a class="sticky-cta btn btn--lg" href={cta.url} target="_blank" rel="noopener" data-sticky-cta tabindex="-1" aria-hidden="true">
   <Icon name="telegram" />
   {t.nav.mobileCta}
 </a>
@@ -88,24 +106,39 @@ const langs = [
     position: fixed;
     inset: 0 0 auto;
     z-index: 50;
+    isolation: isolate;
+  }
+  /* стекло — на псевдоэлементе: у самой шапки нет backdrop-filter/transform */
+  .nav::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-bottom: 1px solid transparent;
     transition:
       background-color 0.35s,
       border-color 0.35s,
-      backdrop-filter 0.35s;
-    border-bottom: 1px solid transparent;
-  }
-  .nav.is-glass {
+      opacity 0.35s;
+    opacity: 0;
     background: rgba(9, 11, 15, 0.62);
-    border-bottom-color: var(--line-soft);
     -webkit-backdrop-filter: blur(18px) saturate(1.3);
     backdrop-filter: blur(18px) saturate(1.3);
+  }
+  .nav.is-glass::before {
+    opacity: 1;
+    border-bottom-color: var(--line-soft);
+  }
+  :global(html.menu-open) .nav::before {
+    opacity: 1;
+    background: #07080b;
+    border-bottom-color: var(--line-soft);
   }
   .nav__bar {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 16px;
-    height: 64px;
+    height: var(--nav-h);
   }
   .nav__logo {
     font-family: var(--f-display);
@@ -198,36 +231,57 @@ const langs = [
 
   .menu {
     position: fixed;
-    inset: 64px 0 0;
-    background: rgba(7, 8, 11, 0.96);
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
+    left: 0;
+    right: 0;
+    top: var(--nav-h);
+    height: calc(100vh - var(--nav-h));
+    height: calc(100dvh - var(--nav-h));
+    z-index: 49;
+    background: #07080b;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 24px 0 calc(24px + env(safe-area-inset-bottom));
+    gap: 24px;
+    padding: 12px 0 calc(20px + env(safe-area-inset-bottom));
     overflow-y: auto;
+    overscroll-behavior: contain;
   }
   .menu[hidden] {
     display: none;
   }
   .menu__links {
     display: grid;
-    gap: 4px;
   }
   .menu__links a {
+    display: flex;
+    align-items: center;
+    min-height: 64px;
     font-family: var(--f-display);
     font-weight: 700;
     text-transform: uppercase;
-    font-size: clamp(44px, 13vw, 72px);
+    font-size: clamp(38px, 11.5vw, 64px);
     line-height: 1;
-    padding: 6px 0;
     border-bottom: 1px solid var(--line-soft);
-    animation: menu-in 0.5s var(--ease) both;
-    animation-delay: calc(var(--i) * 50ms);
+    animation: menu-in 0.45s var(--ease) both;
+    animation-delay: calc(var(--i) * 45ms);
   }
-  .menu__foot .btn {
+  .menu__foot {
+    display: grid;
+    gap: 14px;
+  }
+  .lang--menu {
+    justify-self: start;
+  }
+  .lang--menu .lang__a {
+    min-width: 64px;
+    height: 44px;
+    font-size: 13px;
+  }
+  .menu__cta {
     width: 100%;
+  }
+  :global(html.menu-open) .sticky-cta {
+    display: none;
   }
   @keyframes menu-in {
     from {
@@ -257,9 +311,6 @@ const langs = [
   }
 
   @media (min-width: 1024px) {
-    .nav__bar {
-      height: 72px;
-    }
     .nav__links {
       display: flex;
     }

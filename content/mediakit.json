@@ -273,6 +273,44 @@
       }
     }
   ],
+  "geography": {
+    "title": {
+      "ru": "Работаю с брендами из",
+      "en": "Working with brands from"
+    },
+    "countries": [
+      {
+        "code": "KR",
+        "ru": "Корея",
+        "en": "Korea"
+      },
+      {
+        "code": "UZ",
+        "ru": "Узбекистан",
+        "en": "Uzbekistan"
+      },
+      {
+        "code": "KZ",
+        "ru": "Казахстан",
+        "en": "Kazakhstan"
+      },
+      {
+        "code": "US",
+        "ru": "США",
+        "en": "USA"
+      },
+      {
+        "code": "RU",
+        "ru": "Россия",
+        "en": "Russia"
+      },
+      {
+        "code": "EU",
+        "ru": "Европа",
+        "en": "Europe"
+      }
+    ]
+  },
   "cases": [
     {
       "slug": "fata",
@@ -1786,14 +1824,15 @@
           "caption": "I recently received a package of custom gifts from @gsjj_official — custom acrylic keychains…"
         }
       ],
-      "showInCases": true,
+      "showInCases": false,
       "coBrands": [],
       "logo": "assets/logos/gsjj.svg",
       "totals": {
         "videos": 1,
         "knownViews": null,
         "bestViews": null
-      }
+      },
+      "hiddenReason": "28.09.2026: ролик Instagram DND3in9t3lV не скачан (ограничение аудитории; Firefox с входом/cookies нет) — в кейсах скрыт, бренд остаётся в «Партнёрах»."
     },
     {
       "slug": "loccitane",
@@ -1886,14 +1925,15 @@
           "availability": "region_blocked_from_KZ"
         }
       ],
-      "showInCases": true,
+      "showInCases": false,
       "coBrands": [],
       "logo": "assets/logos/birbir.svg",
       "totals": {
         "videos": 1,
         "knownViews": null,
         "bestViews": null
-      }
+      },
+      "hiddenReason": "28.09.2026: ролик TikTok недоступен из KZ (cross_border_violation), скачать без VPN в UZ нельзя — в кейсах скрыт, бренд остаётся в «Партнёрах»."
     },
     {
       "slug": "sodamoda",
@@ -2499,17 +2539,28 @@
         "ru": "Обсудить рекламу",
         "en": "Discuss a campaign"
       },
-      "url": "https://t.me/miirakhads"
+      "url": "https://t.me/ibragimai"
     },
-    "telegramAds": {
-      "handle": "miirakhads",
-      "url": "https://t.me/miirakhads",
-      "label": {
-        "ru": "Реклама на профилях Мирахмада",
-        "en": "Advertising on Mirakhmad's profiles"
+    "manager": {
+      "role": {
+        "ru": "Менеджер по сотрудничеству",
+        "en": "Partnerships manager"
+      },
+      "telegram": {
+        "handle": "ibragimai",
+        "url": "https://t.me/ibragimai"
+      },
+      "phone": {
+        "display": "+7 700 320 33 33",
+        "tel": "+77003203333"
+      },
+      "note": {
+        "ru": "По всем вопросам сотрудничества — через менеджера.",
+        "en": "All partnership enquiries go through the manager."
       }
     },
-    "email": "miirakhh@gmail.com",
+    "telegramAds": null,
+    "email": null,
     "phone": null,
     "whatsapp": null,
     "socials": [

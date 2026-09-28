@@ -1,5 +1,5 @@
 ---
-// Карточка кейса 9:16: постер (или сгенерированная карточка), превью-ролик, бейдж с лучшей цифрой.
+// Карточка кейса 9:16: постер, превью-ролик, бейдж с лучшей цифрой. Без проигрываемого видео карточка не выводится (см. visibleCases).
 import Icon from './Icon.astro';
 import { caseBadge, casePlatforms, categoryLabel, pickPoster, previewFor, type Case, type Locale } from '../lib/data';
 import { countInt } from '../lib/format';
@@ -25,7 +25,7 @@ const sizes = size === 'lg' ? '(min-width: 1024px) 320px, 72vw' : '(min-width: 1
     <span class="sr-only">{t.cases.open}:</span>
     <span class="ccard__media">
       {
-        poster ? (
+        poster && (
           <img
             class="ccard__poster"
             src={poster.src}
@@ -38,15 +38,6 @@ const sizes = size === 'lg' ? '(min-width: 1024px) 320px, 72vw' : '(min-width: 1
             height="640"
             referrerpolicy={poster.remote ? 'no-referrer' : undefined}
           />
-        ) : (
-          <span class="ccard__gen" aria-hidden="true">
-            <span class="ccard__gen-mark">{c.brand}</span>
-            <span class="ccard__gen-pf">
-              {platforms.map((p) => (
-                <Icon name={p} />
-              ))}
-            </span>
-          </span>
         )
       }
       {preview && <video class="ccard__preview" muted loop playsinline preload="none" data-src={preview} aria-hidden="true" tabindex="-1" />}
@@ -111,8 +102,7 @@ const sizes = size === 'lg' ? '(min-width: 1024px) 320px, 72vw' : '(min-width: 1
   .ccard__media,
   .ccard__poster,
   .ccard__preview,
-  .ccard__shade,
-  .ccard__gen {
+  .ccard__shade {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -142,33 +132,6 @@ const sizes = size === 'lg' ? '(min-width: 1024px) 320px, 72vw' : '(min-width: 1
       linear-gradient(0deg, rgba(7, 8, 11, 0.95) 0%, rgba(7, 8, 11, 0.6) 26%, rgba(7, 8, 11, 0) 52%);
   }
 
-  /* сгенерированная карточка: хром + вордмарк + платформа */
-  .ccard__gen {
-    display: grid;
-    place-items: center;
-    align-content: center;
-    gap: 18px;
-    padding: 18px;
-    background:
-      radial-gradient(100% 60% at 50% 0%, rgba(255, 255, 255, 0.35), transparent 60%),
-      var(--chrome);
-    text-align: center;
-  }
-  .ccard__gen-mark {
-    font-family: var(--f-wide);
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    font-size: clamp(16px, 2vw, 22px);
-    color: #fff;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
-    overflow-wrap: anywhere;
-  }
-  .ccard__gen-pf {
-    display: flex;
-    gap: 10px;
-    color: rgba(255, 255, 255, 0.85);
-  }
 
   .ccard__badge {
     position: absolute;

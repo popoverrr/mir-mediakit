@@ -16,7 +16,7 @@ const en: Dict = {
     close: 'Close menu',
     langLabel: 'Language',
     toOther: 'Русская версия',
-    mobileCta: 'Message on Telegram',
+    mobileCta: 'Contact manager',
   },
 
   hero: {
@@ -133,7 +133,7 @@ const en: Dict = {
     shortsOver1M: 'videos over 1M',
     shortsOver500K: 'videos over 500K',
     requestTitle: 'Detailed audience statistics — on request',
-    requestText: 'Gender, age, countries and cities of the audience — I’ll send fresh screenshots from Instagram and TikTok.',
+    requestText: 'Gender, age, countries and cities of the audience — the manager will send fresh screenshots from Instagram and TikTok.',
     requestBtn: 'Request on Telegram',
     gender: 'Gender',
     female: 'Women',
@@ -164,13 +164,14 @@ const en: Dict = {
 
   contacts: {
     title: 'Always in touch',
-    lead: 'Ads, collaborations and ambassadorships — message me on Telegram or by email.',
-    telegram: 'Telegram for ads',
+    lead: 'Ads, collaborations and ambassadorships.',
+    telegram: 'Telegram',
     email: 'Email',
     phone: 'Phone',
     whatsapp: 'WhatsApp',
-    socials: 'Platforms',
-    cta: 'Discuss a campaign on Telegram',
+    socials: 'Mir’s platforms',
+    write: 'Message on Telegram',
+    call: 'Call',
   },
 
   footer: {

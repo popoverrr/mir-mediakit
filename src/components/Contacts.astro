@@ -2,7 +2,7 @@
 // §5.11 — «Всегда на связи» (ref-11) + футер.
 import { Picture } from 'astro:assets';
 import Icon from './Icon.astro';
-import { kit, type Locale } from '../lib/data';
+import { kit, tr, type Locale } from '../lib/data';
 import { art } from '../lib/photos';
 import type { Dict } from '../i18n/ru';
 
@@ -10,8 +10,11 @@ interface Props {
   locale: Locale;
   t: Dict;
 }
-const { t } = Astro.props;
+const { locale: l, t } = Astro.props;
 const c = kit.contacts;
+const m = c.manager;
+const tg = m?.telegram ?? c.telegramAds ?? null;
+const mPhone = m?.phone ?? null;
 const drawing = art('art-')[1] ?? art('art-')[0];
 
 const socialOf = (url: string) => {
@@ -36,68 +39,106 @@ const waHref = c.whatsapp ? `https://wa.me/${c.whatsapp.replace(/\D/g, '')}` : n
     <h2 class="h2 contacts__title reveal" id="contacts-title">{t.contacts.title}</h2>
     <p class="label contacts__lead reveal" style="--i:1">{t.contacts.lead}</p>
 
-    <ul class="contacts__list">
-      <li class="reveal" style="--i:2">
-        <a class="crow" href={c.telegramAds.url} target="_blank" rel="noopener">
-          <span class="crow__ico"><Icon name="telegram" /></span>
-          <span class="crow__txt">
-            <span class="crow__k">{t.contacts.telegram}</span>
-            <span class="crow__v">@{c.telegramAds.handle}</span>
-          </span>
-        </a>
-      </li>
-      {
-        c.email && (
-          <li class="reveal" style="--i:3">
-            <a class="crow" href={`mailto:${c.email}`}>
-              <span class="crow__ico">
-                <Icon name="mail" />
-              </span>
-              <span class="crow__txt">
-                <span class="crow__k">{t.contacts.email}</span>
-                <span class="crow__v">{c.email}</span>
-              </span>
-            </a>
-          </li>
-        )
-      }
-      {
-        phoneHref && (
-          <li class="reveal" style="--i:4">
-            <a class="crow" href={phoneHref}>
-              <span class="crow__ico">
+    <div class="mgr glass reveal" style="--i:2">
+      <div class="glass__inner mgr__in">
+        {m?.role && <p class="label mgr__role">{tr(m.role, l)}</p>}
+        <ul class="contacts__list">
+          {
+            tg && (
+              <li>
+                <a class="crow" href={tg.url} target="_blank" rel="noopener">
+                  <span class="crow__ico">
+                    <Icon name="telegram" />
+                  </span>
+                  <span class="crow__txt">
+                    <span class="crow__k">{t.contacts.telegram}</span>
+                    <span class="crow__v">@{tg.handle}</span>
+                  </span>
+                </a>
+              </li>
+            )
+          }
+          {
+            mPhone && (
+              <li>
+                <a class="crow" href={`tel:${mPhone.tel}`}>
+                  <span class="crow__ico">
+                    <Icon name="phone" />
+                  </span>
+                  <span class="crow__txt">
+                    <span class="crow__k">{t.contacts.phone}</span>
+                    <span class="crow__v crow__v--phone">{mPhone.display}</span>
+                  </span>
+                </a>
+              </li>
+            )
+          }
+          {
+            c.email && (
+              <li>
+                <a class="crow" href={`mailto:${c.email}`}>
+                  <span class="crow__ico">
+                    <Icon name="mail" />
+                  </span>
+                  <span class="crow__txt">
+                    <span class="crow__k">{t.contacts.email}</span>
+                    <span class="crow__v">{c.email}</span>
+                  </span>
+                </a>
+              </li>
+            )
+          }
+          {
+            phoneHref && (
+              <li>
+                <a class="crow" href={phoneHref}>
+                  <span class="crow__ico">
+                    <Icon name="phone" />
+                  </span>
+                  <span class="crow__txt">
+                    <span class="crow__k">{t.contacts.phone}</span>
+                    <span class="crow__v">{c.phone}</span>
+                  </span>
+                </a>
+              </li>
+            )
+          }
+          {
+            waHref && (
+              <li>
+                <a class="crow" href={waHref} target="_blank" rel="noopener">
+                  <span class="crow__ico">
+                    <Icon name="whatsapp" />
+                  </span>
+                  <span class="crow__txt">
+                    <span class="crow__k">{t.contacts.whatsapp}</span>
+                    <span class="crow__v">{c.whatsapp}</span>
+                  </span>
+                </a>
+              </li>
+            )
+          }
+        </ul>
+        {m?.note && <p class="mgr__note">{tr(m.note, l)}</p>}
+        <div class="mgr__btns">
+          {
+            tg && (
+              <a class="btn btn--lg" href={tg.url} target="_blank" rel="noopener">
+                <Icon name="telegram" />
+                {t.contacts.write}
+              </a>
+            )
+          }
+          {
+            mPhone && (
+              <a class="btn btn--ghost btn--lg" href={`tel:${mPhone.tel}`}>
                 <Icon name="phone" />
-              </span>
-              <span class="crow__txt">
-                <span class="crow__k">{t.contacts.phone}</span>
-                <span class="crow__v">{c.phone}</span>
-              </span>
-            </a>
-          </li>
-        )
-      }
-      {
-        waHref && (
-          <li class="reveal" style="--i:5">
-            <a class="crow" href={waHref} target="_blank" rel="noopener">
-              <span class="crow__ico">
-                <Icon name="whatsapp" />
-              </span>
-              <span class="crow__txt">
-                <span class="crow__k">{t.contacts.whatsapp}</span>
-                <span class="crow__v">{c.whatsapp}</span>
-              </span>
-            </a>
-          </li>
-        )
-      }
-    </ul>
-
-    <div class="contacts__cta reveal">
-      <a class="btn btn--lg contacts__btn" href={c.primaryCta.url} target="_blank" rel="noopener">
-        <Icon name="telegram" />
-        {t.contacts.cta}
-      </a>
+                {t.contacts.call}
+              </a>
+            )
+          }
+        </div>
+      </div>
     </div>
 
     <div class="contacts__socials reveal">
@@ -199,12 +240,38 @@ const waHref = c.whatsapp ? `https://wa.me/${c.whatsapp.replace(/\D/g, '')}` : n
     line-height: 1.15;
     overflow-wrap: anywhere;
   }
-  .contacts__cta {
-    margin-top: clamp(32px, 4vw, 48px);
+  .mgr {
+    max-width: 760px;
   }
-  .contacts__btn {
-    white-space: normal;
-    text-align: center;
+  .mgr__in {
+    display: grid;
+    gap: 22px;
+    padding: 26px 22px;
+  }
+  .mgr__role {
+    color: var(--ink-2);
+  }
+  .mgr__note {
+    color: var(--ink-2);
+    font-size: 16px;
+  }
+  .mgr__btns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .crow__v--phone {
+    white-space: nowrap;
+  }
+  @media (max-width: 479px) {
+    .mgr__btns .btn {
+      flex: 1 1 100%;
+    }
+  }
+  @media (min-width: 768px) {
+    .mgr__in {
+      padding: 36px 40px;
+    }
   }
   .contacts__socials {
     margin-top: clamp(40px, 5vw, 64px);

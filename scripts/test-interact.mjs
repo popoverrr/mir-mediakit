@@ -39,10 +39,11 @@ const browser = await chromium.launch();
   const cats = await page.$$eval('.ccard:not([hidden])', (els) => [...new Set(els.map((e) => e.dataset.cat))]);
   ok('фильтр «Уход и косметика»', visible > 0 && visible < total && cats.length === 1 && cats[0] === 'skincare', `${visible}/${total}`);
   ok('хэш #cases/skincare', (await page.evaluate(() => location.hash)) === '#cases/skincare');
-  await page.click('[data-filter="art"]');
-  const featuredHidden = await page.locator('[data-group="featured"]').evaluate((e) => e.hidden);
-  ok('пустая группа featured скрыта при фильтре «Арт»', featuredHidden);
-  if (shots) await page.locator('#cases').screenshot({ path: path.join(shots, 'desktop-cases-filter-art.png') });
+  await page.click('[data-filter="gifts"]');
+  const moreHidden = await page.locator('[data-group="more"]').evaluate((e) => e.hidden);
+  ok('пустая группа «Ещё кейсы» скрыта при фильтре «Цветы и подарки»', moreHidden);
+  ok('фильтра без кейсов нет (Арт-коллаборации)', (await page.locator('[data-filter="art"]').count()) === 0);
+  if (shots) await page.locator('#cases').screenshot({ path: path.join(shots, 'desktop-cases-filter-gifts.png') });
   await page.click('[data-filter="all"]');
   ok('«Все» возвращает все кейсы', (await page.locator('.ccard:not([hidden])').count()) === total);
 
@@ -89,17 +90,25 @@ const browser = await chromium.launch();
   await page.waitForTimeout(200);
   ok('Esc закрывает, плеер очищен', !(await page.locator('dialog[open]').count()) && (await page.locator('[data-player] *').count()) === 0);
 
-  // кейс без скачанного ролика → embed/ссылка
-  await page.click('[data-filter="art"]');
-  await page.locator('.ccard:not([hidden]) .ccard__btn').first().click();
-  await page.waitForSelector('dialog[open]');
-  const kind = await page.evaluate(() => {
-    const p = document.querySelector('[data-player]');
-    return p.querySelector('video') ? 'video' : p.querySelector('iframe') ? 'iframe:' + p.querySelector('iframe').src : p.querySelector('.vm__facade') ? 'link' : 'empty';
-  });
-  ok('GSJJ (IG без скачивания) → embed', kind.startsWith('iframe:https://www.instagram.com/reel/'), kind);
-  await page.click('[data-close]');
-  await page.click('[data-filter="all"]');
+  // каждая видимая карточка открывает проигрываемое видео (локальный mp4 или YouTube), заглушек нет
+  ok('в сетке нет сгенерированных заглушек', (await page.locator('.ccard__gen').count()) === 0);
+  const ids = await page.$$eval('.ccard', (els) => els.map((e) => e.dataset.case));
+  const bad = [];
+  for (const id of ids) {
+    await page.evaluate((cid) => document.querySelector(`.ccard[data-case="${cid}"] .ccard__btn`).click(), id);
+    await page.waitForSelector('dialog[open]');
+    const kind = await page.evaluate(() => {
+      const p = document.querySelector('[data-player]');
+      const v = p.querySelector('video');
+      const f = p.querySelector('iframe');
+      return v ? 'video' : f && f.src.includes('youtube') ? 'youtube' : f ? 'embed:' + f.src : 'none';
+    });
+    if (kind !== 'video' && kind !== 'youtube') bad.push(`${id}:${kind}`);
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(80);
+  }
+  ok(`все ${ids.length} карточек открывают mp4 или YouTube`, bad.length === 0 && ids.length > 0, bad.join(', '));
+  ok('GSJJ и Birbir не в сетке', !ids.includes('gsjj') && !ids.includes('birbir'));
 
   // знакомство
   await page.click('[data-open-item="intro"]');
@@ -123,14 +132,17 @@ const browser = await chromium.launch();
   await firstCard.hover();
   await page.waitForTimeout(1500);
   const playing = await page.$$eval('video.ccard__preview.is-playing', (v) => v.length);
-  ok('превью играет при наведении', playing >= 1, `${playing}`);
+  ok('превью играет при наведении, не больше двух', playing >= 1 && playing <= 2, `${playing}`);
   const muted = await page.$$eval('video.ccard__preview', (vs) => vs.every((v) => v.muted));
   ok('превью без звука', muted);
 
   // язык сохраняет якорь
   await page.goto(base + '/#formats', { waitUntil: 'networkidle' });
   await page.waitForTimeout(800);
-  const enHref = await page.locator('.lang a[hreflang="en"]').getAttribute('href');
+  const enHref = await page.locator('.nav .lang a[hreflang="en"]').getAttribute('href');
+  const ctas = await page.$$eval('a[href*="t.me/"]', (as) => [...new Set(as.map((a) => a.getAttribute('href')))]);
+  ok('все Telegram-CTA ведут на менеджера (кроме канала Мира)', ctas.every((h) => h === 'https://t.me/ibragimai' || h === 'https://t.me/miirakhmadd'), ctas.join(' '));
+  ok('в контактах есть tel: менеджера', (await page.locator('#contacts a[href="tel:+77003203333"]').count()) >= 1);
   ok('ссылка EN сохраняет якорь раздела', /#formats$/.test(enHref ?? ''), enHref ?? '');
 
   ok('нет ошибок JS (десктоп)', errors.length === 0, errors.join(' | '));
@@ -154,7 +166,7 @@ const browser = await chromium.launch();
   ok('пункт меню закрывает меню', !(await page.locator('[data-menu]').isVisible()));
   // липкая кнопка
   const stickyOn = await page.locator('[data-sticky-cta]').evaluate((e) => e.classList.contains('is-on'));
-  ok('липкая кнопка Telegram после первого экрана', stickyOn);
+  ok('липкая кнопка «Contact manager» после первого экрана', stickyOn && (await page.locator('[data-sticky-cta]').getAttribute('href')) === 'https://t.me/ibragimai');
   // превью по видимости
   await page.waitForTimeout(1500);
   const playing = await page.$$eval('video.ccard__preview.is-playing, .tcard video.is-playing', (v) => v.length);

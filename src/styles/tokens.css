@@ -36,6 +36,7 @@
   /* сетка */
   --container: 1320px;
   --gutter: 16px;
+  --nav-h: 64px;
   --radius-lg: 28px;
   --radius-md: 18px;
   --radius-sm: 12px;
@@ -51,5 +52,10 @@
 @media (min-width: 768px) {
   :root {
     --gutter: 24px;
+  }
+}
+@media (min-width: 1024px) {
+  :root {
+    --nav-h: 72px;
   }
 }

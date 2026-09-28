@@ -12,7 +12,11 @@ function start(v: HTMLVideoElement): void {
   playing.push(v);
   while (playing.length > MAX_PLAYING) stop(playing[0]);
   v.play()
-    .then(() => v.classList.add('is-playing'))
+    .then(() => {
+      // пока play() ждал, превью могли остановить (открыли модалку, увели курсор)
+      if (playing.includes(v)) v.classList.add('is-playing');
+      else v.pause();
+    })
     .catch(() => {
       /* автоплей запрещён — остаётся постер */
     });

@@ -32,6 +32,8 @@ npm run preview    # посмотреть собранный dist/
 - **Формат «мероприятия»** — добавить `"confirmed": true` к формату с `needsConfirmation`.
 - **Доп. интеграции** (SKIN1004, GESKE…) — `extraIntegrations[].include = true`, затем `npm run media` (скачает ролики).
 - **«Не рекламирую»** — заполнить `restrictions.items` и сменить `status`.
+- **Контакты для рекламы** — `contacts.manager` (роль, Telegram, телефон, подпись); все CTA сайта ведут на `contacts.manager.telegram.url`.
+- **Страны брендов** в «Партнёрах» — `geography.countries` (код ISO для SVG-флага из `flag-icons`, названия RU/EN).
 - **Телефон / WhatsApp** — `contacts.phone` / `contacts.whatsapp`.
 - **Логотипы брендов** — положить `assets/logos/<slug>.svg|png`; если логотипы есть у ≥ 70% брендов, вордмарки заменятся картинками.
 - **Скриншоты профилей** — `assets/screens/instagram.png`, `assets/screens/tiktok-rinkiwi.png` встанут в телефоны на обложке.
@@ -58,10 +60,18 @@ node scripts/lighthouse.mjs http://localhost:4321 ru mobile
 
 ## Деплой
 
-**Vercel** (основной вариант): New Project → импортировать репозиторий → Framework preset «Astro» (Build `npm run build`, Output `dist`). Переменные окружения не нужны; для своего домена можно задать `MIR_SITE=https://домен` — от него строятся canonical, hreflang и адреса OG-картинок.
+**Основной сайт — https://mir-mediakit.asia** (хостинг Plesk, корень домена `httpdocs`, Apache; `.htaccess` лежит в `public/` и попадает в сборку):
 
-**Netlify**: Build command `npm run build`, Publish directory `dist`.
+```bash
+npm run build                       # по умолчанию MIR_SITE=https://mir-mediakit.asia, base = /
+python scripts/pack_plesk.py        # deploy/mir-site-<дата>.zip — сайт без media/
+python scripts/pack_plesk.py --media   # + media/ частями до 28 МБ (если менялись ролики)
+```
 
-**GitHub Pages** (превью): workflow `.github/workflows/pages.yml` собирает сайт с `MIR_BASE=/<репозиторий>/` и публикует на `https://<логин>.github.io/<репозиторий>/`. На бесплатном плане Pages работает только у публичного репозитория: Settings → General → Change visibility → Public, затем Settings → Pages → Source: «GitHub Actions» и Actions → Pages → Run workflow. Пока репозиторий приватный, workflow пропускается.
+Plesk → File Manager → `httpdocs` → Upload архива → Extract с заменой файлов. HTML отдаётся с `Cache-Control: no-cache`, так что новая версия видна сразу; для проверки можно открыть `https://mir-mediakit.asia/?v=<время>`.
+
+**GitHub Pages** (превью): `.github/workflows/pages.yml` собирает сайт с `MIR_BASE=/<репозиторий>/` на каждый push в `main` и публикует на https://popoverrr.github.io/mir-mediakit/. В приватном репозитории workflow пропускается.
+
+**Vercel / Netlify** (запасной вариант): Build `npm run build`, Output `dist`; для другого домена задать `MIR_SITE=https://<домен>` — от него строятся canonical, hreflang и адреса OG-картинок.
 
 Отчёт о сборке, медиа и том, что ещё нужно от заказчика, — в `REPORT.md`. ТЗ — `TZ.md`, чек-лист для заказчика — `CHECKLIST.md`.

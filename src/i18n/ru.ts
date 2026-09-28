@@ -19,7 +19,7 @@ const ru = {
     close: 'Закрыть меню',
     langLabel: 'Язык',
     toOther: 'English version',
-    mobileCta: 'Написать в Telegram',
+    mobileCta: 'Написать менеджеру',
   },
 
   hero: {
@@ -136,7 +136,7 @@ const ru = {
     shortsOver1M: 'роликов больше 1 млн',
     shortsOver500K: 'роликов больше 500 тыс.',
     requestTitle: 'Подробная статистика аудитории — по запросу',
-    requestText: 'Пол, возраст, страны и города подписчиков — пришлю свежие скриншоты из Instagram и TikTok.',
+    requestText: 'Пол, возраст, страны и города подписчиков — менеджер пришлёт свежие скриншоты из Instagram и TikTok.',
     requestBtn: 'Запросить в Telegram',
     gender: 'Пол',
     female: 'Женщины',
@@ -167,13 +167,14 @@ const ru = {
 
   contacts: {
     title: 'Всегда на связи',
-    lead: 'Реклама, коллаборации и амбассадорство — напишите в Telegram или на почту.',
-    telegram: 'Telegram для рекламы',
+    lead: 'Реклама, коллаборации и амбассадорство.',
+    telegram: 'Telegram',
     email: 'Почта',
     phone: 'Телефон',
     whatsapp: 'WhatsApp',
-    socials: 'Площадки',
-    cta: 'Обсудить рекламу в Telegram',
+    socials: 'Площадки Мира',
+    write: 'Написать в Telegram',
+    call: 'Позвонить',
   },
 
   footer: {

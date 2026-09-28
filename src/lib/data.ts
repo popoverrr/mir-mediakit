@@ -151,15 +151,29 @@ export interface MediaKit {
   pricing: { currency: string | null };
   contacts: {
     primaryCta: { label: L10n; url: string };
-    telegramAds: { handle: string; url: string; label: L10n };
+    manager?: {
+      role?: L10n;
+      telegram?: { handle: string; url: string } | null;
+      phone?: { display: string; tel: string } | null;
+      note?: L10n;
+    } | null;
+    telegramAds?: { handle: string; url: string; label?: L10n } | null;
     email?: string | null;
     phone?: string | null;
     whatsapp?: string | null;
     socials: string[];
   };
+  geography?: {
+    title: L10n;
+    countries: { code: string; ru: string; en: string }[];
+  } | null;
 }
 
 export const kit = raw as unknown as MediaKit;
+
+/** куда ведут все CTA «написать»: менеджер → старый Telegram для рекламы → primaryCta */
+export const contactUrl: string =
+  kit.contacts.manager?.telegram?.url ?? kit.contacts.telegramAds?.url ?? kit.contacts.primaryCta.url;
 
 // ---------------------------------------------------------------- манифест медиа
 export interface ManifestItem {
@@ -326,8 +340,47 @@ export function allCases(): Case[] {
   return [...kit.cases, ...includedExtras()];
 }
 
+/**
+ * Карточка показывается, только если есть что проиграть: локальный mp4 из manifest
+ * или YouTube-источник с настоящей обложкой. Только Instagram/TikTok-embed без скачанного ролика — не показываем.
+ */
+export function playableReason(slug: string, sources: Source[]): string | null {
+  const m = manifest.items[slug];
+  if (publicExists(m?.video)) return null;
+  const yt = sources.find((s) => s.platform === 'youtube' && (publicExists(manifest.thumbs[s.id]) || s.thumb));
+  if (yt) return null;
+  return 'нет скачанного mp4 и нет YouTube-источника с обложкой (только embed Instagram/TikTok)';
+}
+
+let hiddenLogged = false;
 export function visibleCases(): Case[] {
-  const list = allCases().filter((c) => c.showInCases !== false && (c.sources?.length ?? 0) > 0);
+  const hidden: string[] = [];
+  const list = allCases().filter((c) => {
+    if (!c.sources?.length) {
+      hidden.push(`${c.slug}: нет роликов (бренд только в «Партнёрах»)`);
+      return false;
+    }
+    if (c.showInCases === false) {
+      const why = (c as Case & { hiddenReason?: string }).hiddenReason;
+      hidden.push(`${c.slug}: showInCases=false${why ? ` — ${why}` : ''}`);
+      return false;
+    }
+    const why = playableReason(c.slug, c.sources);
+    if (why) {
+      hidden.push(`${c.slug}: ${why}`);
+      return false;
+    }
+    if (!pickPoster(c.slug, c.sources)) {
+      hidden.push(`${c.slug}: нет постера`);
+      return false;
+    }
+    return true;
+  });
+  if (!hiddenLogged && hidden.length) {
+    hiddenLogged = true;
+    const sep = '\n  - ';
+    console.log(`[cases] скрыты из сетки кейсов (${hidden.length}):${sep}${hidden.join(sep)}`);
+  }
   return list.sort((a, b) => {
     const f = Number(!!b.featured) - Number(!!a.featured);
     if (f) return f;

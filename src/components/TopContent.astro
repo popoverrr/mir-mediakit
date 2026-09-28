@@ -1,7 +1,7 @@
 ---
 // §5.7 — вирусные ролики (органика): лента постеров, клик → та же модалка без блока бренда.
 import Icon from './Icon.astro';
-import { kit, tr, channel, pickPoster, previewFor, type Locale } from '../lib/data';
+import { kit, tr, channel, pickPoster, previewFor, playableReason, type Locale } from '../lib/data';
 import { fmtCompact, fmtInt, unitFor } from '../lib/format';
 import type { Dict } from '../i18n/ru';
 
@@ -10,7 +10,7 @@ interface Props {
   t: Dict;
 }
 const { locale: l, t } = Astro.props;
-const items = kit.topContent.filter((x) => x.kind !== 'intro' && x.slug !== 'intro');
+const items = kit.topContent.filter((x) => x.kind !== 'intro' && x.slug !== 'intro' && !playableReason(x.slug, x.sources));
 const yt = channel('youtube');
 const over1m = yt?.stats.shortsOver1M;
 ---

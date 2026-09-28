@@ -2,7 +2,7 @@
 // §5.9 — форматы / прайс: стеклянные карточки + фото Мира вперемешку (как ref-06…09).
 import { Picture } from 'astro:assets';
 import Icon from './Icon.astro';
-import { kit, tr, trList, visibleFormats, hasAnyPrice, fmtPrice, type Locale } from '../lib/data';
+import { kit, tr, trList, visibleFormats, hasAnyPrice, fmtPrice, type Locale, contactUrl } from '../lib/data';
 import { photo } from '../lib/photos';
 import type { Dict } from '../i18n/ru';
 
@@ -59,7 +59,7 @@ if (pi < photos.length) cells.push({ kind: 'photo', i: pi++ });
                 <div class="fcard__foot">
                   <p class:list={['num', 'fcard__price', !price && 'is-request']}>{price ?? t.formats.onRequest}</p>
                   {!price && (
-                    <a class="fcard__ask" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener">
+                    <a class="fcard__ask" href={contactUrl} target="_blank" rel="noopener">
                       {t.formats.ask}
                       <Icon name="arrow-ur" />
                     </a>

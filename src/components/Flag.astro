@@ -1,0 +1,40 @@
+---
+// SVG-флаг из пакета flag-icons (MIT). Эмодзи-флаги не используем: в Windows они рисуются буквами «KR», «UZ».
+// code — ISO 3166-1 alpha-2 (или EU); принимает и эмодзи-флаг (🇰🇿 → KZ).
+import kr from '../../node_modules/flag-icons/flags/4x3/kr.svg?url';
+import uz from '../../node_modules/flag-icons/flags/4x3/uz.svg?url';
+import kz from '../../node_modules/flag-icons/flags/4x3/kz.svg?url';
+import us from '../../node_modules/flag-icons/flags/4x3/us.svg?url';
+import ru from '../../node_modules/flag-icons/flags/4x3/ru.svg?url';
+import eu from '../../node_modules/flag-icons/flags/4x3/eu.svg?url';
+
+const FLAGS: Record<string, string> = { KR: kr, UZ: uz, KZ: kz, US: us, RU: ru, EU: eu };
+
+interface Props {
+  code: string;
+  class?: string;
+}
+const { code, class: cls = '' } = Astro.props;
+
+// эмодзи-флаг = две «региональные буквы» U+1F1E6…U+1F1FF
+const fromEmoji = (s: string) =>
+  [...s].map((ch) => ch.codePointAt(0)!).every((cp) => cp >= 0x1f1e6 && cp <= 0x1f1ff)
+    ? [...s].map((ch) => String.fromCharCode(ch.codePointAt(0)! - 0x1f1e6 + 65)).join('')
+    : s;
+const iso = fromEmoji(code).toUpperCase();
+const src = FLAGS[iso];
+---
+
+{src && <img class:list={['flag', cls]} src={src} alt="" width="20" height="15" decoding="async" />}
+
+<style>
+  .flag {
+    display: inline-block;
+    flex: none;
+    width: 20px;
+    height: 15px;
+    border-radius: 3px;
+    object-fit: cover;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+</style>

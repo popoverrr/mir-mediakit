@@ -2,7 +2,7 @@
 // §5.10 — долгосрочное сотрудничество (ref-10): карточка амбассадорства + доказательство + фото.
 import { Picture } from 'astro:assets';
 import Icon from './Icon.astro';
-import { kit, tr, trList, fmtPrice, type Locale } from '../lib/data';
+import { kit, tr, trList, fmtPrice, type Locale, contactUrl } from '../lib/data';
 import { plural } from '../lib/format';
 import { photo } from '../lib/photos';
 import type { Dict } from '../i18n/ru';
@@ -84,7 +84,7 @@ const loyal = (named.length ? named : kit.cases.filter((c) => (c.totals?.videos 
         ) : (
           <>
             <span class="num long__new long__new--req">{t.formats.onRequest}</span>
-            <a class="btn btn--lg" href={kit.contacts.telegramAds.url} target="_blank" rel="noopener">
+            <a class="btn btn--lg" href={contactUrl} target="_blank" rel="noopener">
               <Icon name="telegram" />
               {t.longterm.ask}
             </a>
