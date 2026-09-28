@@ -143,6 +143,16 @@ async function main() {
   let manifest = null;
   const tmp = mkdtempSync(path.join(tmpdir(), 'mir-deploy-'));
   await withRetry('чтение манифеста', async () => {
+    // сначала SIZE: на отсутствующий файл этот сервер рвёт канал данных вместо ответа 550
+    try {
+      await client.size(join('', MANIFEST));
+    } catch (e) {
+      if (String(e.message).includes('550')) {
+        manifest = null;
+        return;
+      }
+      throw e;
+    }
     try {
       await client.downloadTo(path.join(tmp, MANIFEST), join('', MANIFEST));
       manifest = JSON.parse(readFileSync(path.join(tmp, MANIFEST), 'utf8'));

@@ -60,15 +60,14 @@ node scripts/lighthouse.mjs http://localhost:4321 ru mobile
 
 ## Деплой
 
-**Основной сайт — https://mir-mediakit.asia** (хостинг Plesk, корень домена `httpdocs`, Apache; `.htaccess` лежит в `public/` и попадает в сборку):
+**Основной сайт — https://mir-mediakit.asia** (хостинг Plesk, Apache; `.htaccess` лежит в `public/` и попадает в сборку):
 
 ```bash
-npm run build                       # по умолчанию MIR_SITE=https://mir-mediakit.asia, base = /
-python scripts/pack_plesk.py        # deploy/mir-site-<дата>.zip — сайт без media/
-python scripts/pack_plesk.py --media   # + media/ частями до 28 МБ (если менялись ролики)
+npm run deploy        # сборка (MIR_SITE по умолчанию https://mir-mediakit.asia) + выкладка по FTPS
+npm run deploy:dry    # показать, какие файлы уйдут, ничего не заливая
 ```
 
-Plesk → File Manager → `httpdocs` → Upload архива → Extract с заменой файлов. HTML отдаётся с `Cache-Control: no-cache`, так что новая версия видна сразу; для проверки можно открыть `https://mir-mediakit.asia/?v=<время>`.
+Реквизиты FTP — `deploy/ftp.env` (вне git, образец `deploy/ftp.env.example`; пароль вписывает владелец). Скрипт `scripts/deploy-ftp.mjs` заливает только изменённое (манифест sha1 на сервере), чистит `_assets/` от прошлых сборок и проверяет сайт по HTTP. Без FTP: `python scripts/pack_plesk.py` → архив для Plesk File Manager (`httpdocs` → Upload → Extract).
 
 **GitHub Pages** (превью): `.github/workflows/pages.yml` собирает сайт с `MIR_BASE=/<репозиторий>/` на каждый push в `main` и публикует на https://popoverrr.github.io/mir-mediakit/. В приватном репозитории workflow пропускается.
 
