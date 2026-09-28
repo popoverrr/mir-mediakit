@@ -15,5 +15,6 @@ reference/
 # полные отчёты Lighthouse (цифры — в REPORT.md)
 docs/lighthouse/
 
-# архивы для выкладки на Plesk (scripts/pack_plesk.py)
-deploy/
+# архивы для Plesk и реквизиты FTP (deploy/ftp.env) — вне git; образец реквизитов в git
+deploy/*
+!deploy/ftp.env.example

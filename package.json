@@ -14,7 +14,9 @@
     "og": "node scripts/og.mjs",
     "shots": "node scripts/shots.mjs",
     "test": "node scripts/test-interact.mjs",
-    "lighthouse": "node scripts/lighthouse.mjs"
+    "lighthouse": "node scripts/lighthouse.mjs",
+    "deploy": "npm run build && node scripts/deploy-ftp.mjs",
+    "deploy:dry": "node scripts/deploy-ftp.mjs --dry-run"
   },
   "engines": {
     "node": ">=22.12.0"
@@ -29,6 +31,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
     "@resvg/resvg-js": "^2.6.2",
+    "basic-ftp": "^6.2.1",
     "lighthouse": "^13.5.0",
     "playwright": "^1.63.0",
     "satori": "^0.33.5",
