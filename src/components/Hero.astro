@@ -68,16 +68,27 @@ const ttStats = tt
       <p class="hero__roles">
         {roles.map((r) => <span class="hero__role">{r}</span>)}
       </p>
-      <p class="hero__cities">
-        {
-          cities.map((c, i) => (
-            <span class="hero__city">
-              {p.flags[i] && <Flag code={p.flags[i]} class="hero__flag" />}
-              {c}
-            </span>
-          ))
-        }
-      </p>
+      {
+        kit.geography?.countries?.length ? (
+          <ul class="hero__cities" aria-label={tr(kit.geography.title, l)}>
+            {kit.geography.countries.map((c) => (
+              <li class="hero__city">
+                <Flag code={c.code} class="hero__flag" />
+                {c[l] ?? c.ru}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="hero__cities">
+            {cities.map((c, i) => (
+              <span class="hero__city">
+                {p.flags[i] && <Flag code={p.flags[i]} class="hero__flag" />}
+                {c}
+              </span>
+            ))}
+          </p>
+        )
+      }
 
       <div class="hero__ctas">
         <a class="btn btn--lg" href="#cases">
@@ -234,8 +245,9 @@ const ttStats = tt
   .hero__cities {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px 20px;
+    gap: 8px 18px;
     margin-top: 10px;
+    max-width: 640px;
     color: var(--ink-2);
     font-size: 15px;
   }
